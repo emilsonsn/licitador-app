@@ -1,0 +1,27 @@
+<app-login-layout
+  title="Acessar sua conta"
+  primaryBtnText="Login"
+  secondaryBtnText="Registrar">
+  <form [formGroup]="loginForm">
+    <app-primary-input
+      formControlName="email"
+      inputName="email"
+      type="email"
+      label="Email"
+      placeholder="teste@email.com"
+    >
+      <i class="fa-regular fa-envelope"></i>
+    </app-primary-input>
+
+    <app-primary-input
+      formControlName="password"
+      inputName="password"
+      type="password"
+      label="Password"
+    >
+      <i class="fa-solid fa-lock"></i>
+    </app-primary-input>
+
+    <span>Forgot password?</span>
+  </form>
+</app-login-layout>
