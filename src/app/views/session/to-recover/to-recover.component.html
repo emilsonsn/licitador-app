@@ -7,6 +7,15 @@
   [options]="options"
   text_main="Venha fazer parte dessa equipe"
 >
-
-
+  <form [formGroup]="recoverForm">
+    <app-primary-input
+      formControlName="email"
+      inputName="email"
+      type="email"
+      label="Email"
+      placeholder="teste@email.com"
+    >
+      <i class="fa-solid fa-envelope"></i>
+    </app-primary-input>
+  </form>
 </app-login-layout>

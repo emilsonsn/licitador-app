@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {AnimationOptions} from "ngx-lottie";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-to-recover',
@@ -8,13 +9,20 @@ import {AnimationOptions} from "ngx-lottie";
   styleUrl: './to-recover.component.scss'
 })
 export class ToRecoverComponent {
+  recoverForm!: FormGroup
+
 
   constructor(private router: Router) {
+    this.recoverForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+    });
   }
 
 
   submit() {
-
+    if (this.recoverForm.valid) {
+      console.log(this.recoverForm.value);
+    }
   }
 
   navigate() {
