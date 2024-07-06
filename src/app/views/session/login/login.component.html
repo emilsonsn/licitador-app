@@ -16,11 +16,24 @@
     <app-primary-input
       formControlName="password"
       inputName="password"
-      type="password"
+      [type]="isPasswordVisible ? 'text' : 'password'"
       label="Password"
+      cursor="pointer"
+      placeholder="******"
     >
-      <i class="fa-solid fa-lock"></i>
+      @if(isPasswordVisible) {
+        <ng-container>
+          <i class="fa-solid fa-lock-open" (click)="togglePasswordVisibility()"></i>
+        </ng-container>
+      } @else {
+        <ng-container>
+          <i class="fa-solid fa-lock" (click)="togglePasswordVisibility()"></i>
+        </ng-container>
+      }
+
+
     </app-primary-input>
+
 
     <span>Forgot password?</span>
   </form>

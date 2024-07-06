@@ -1,5 +1,5 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {Component, forwardRef, Input} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 type InputTypes = 'text' | 'number' | 'password' | 'email' | 'tel';
 
@@ -20,10 +20,13 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() inputName: string = '';
   @Input() label: string = '';
+  @Input() cursor: string = '';
 
   value: string = '';
-  onChange: (value: any) => void = () => {};
-  onTouched: () => void = () => {};
+  onChange: (value: any) => void = () => {
+  };
+  onTouched: () => void = () => {
+  };
 
   onInput(event: any) {
     const value = (event.target as HTMLInputElement).value;

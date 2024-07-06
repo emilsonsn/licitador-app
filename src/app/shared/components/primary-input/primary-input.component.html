@@ -7,7 +7,7 @@
       [value]="value"
       (input)="onInput($event)"
     />
-    <div class="icon">
+    <div class="icon" [style.cursor]="cursor">
       <ng-content></ng-content>
     </div>
   </div>

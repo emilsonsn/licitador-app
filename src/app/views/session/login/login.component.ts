@@ -8,6 +8,12 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class LoginComponent {
   loginForm!: FormGroup
+  isPasswordVisible: boolean = false;
+
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+    console.log({isPasswordVisible: this.isPasswordVisible})
+  }
 
   constructor() {
     this.loginForm = new FormGroup({
