@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input} from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 type InputTypes = 'text' | 'number' | 'password' | 'email' | 'tel';
@@ -21,6 +21,11 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() inputName: string = '';
   @Input() label: string = '';
   @Input() cursor: string = '';
+  @Output() onClick = new EventEmitter();
+
+  click() {
+    this.onClick.emit();
+  }
 
   value: string = '';
   onChange: (value: any) => void = () => {

@@ -1,7 +1,10 @@
 <app-login-layout
   title="Acessar sua conta"
   primaryBtnText="Entrar"
-  secondaryBtnText="Registrar">
+  secondaryBtnText="Registrar"
+  (submit)="submit()"
+  (navigate)="navigate()"
+>
   <form [formGroup]="loginForm">
     <app-primary-input
       formControlName="email"
@@ -19,14 +22,15 @@
       label="Password"
       cursor="pointer"
       placeholder="******"
+      (onClick)="togglePasswordVisibility()"
     >
       @if (isPasswordVisible) {
         <ng-container>
-          <i class="fa-solid fa-lock-open" (click)="togglePasswordVisibility()"></i>
+          <i class="fa-solid fa-lock-open"></i>
         </ng-container>
       } @else {
         <ng-container>
-          <i class="fa-solid fa-lock" (click)="togglePasswordVisibility()"></i>
+          <i class="fa-solid fa-lock"></i>
         </ng-container>
       }
     </app-primary-input>
