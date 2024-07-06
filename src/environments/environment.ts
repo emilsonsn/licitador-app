@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  home: '/painel',
   appName: 'Licitador App',
   api: '',
   url: '',
