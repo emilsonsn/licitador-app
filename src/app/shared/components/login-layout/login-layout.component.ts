@@ -7,7 +7,7 @@ import {AnimationOptions} from 'ngx-lottie';
   styleUrl: './login-layout.component.scss'
 })
 export class LoginLayoutComponent {
-  @Input() title: string = "";
+  @Input() titlePrimary: string = "";
   @Input() primaryBtnText: string = "";
   @Input() secondaryBtnText: string = "";
   @Input() options: AnimationOptions = {};
