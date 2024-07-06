@@ -1,6 +1,6 @@
 <app-login-layout
   title="Acessar sua conta"
-  primaryBtnText="Login"
+  primaryBtnText="Entrar"
   secondaryBtnText="Registrar">
   <form [formGroup]="loginForm">
     <app-primary-input
@@ -12,7 +12,6 @@
     >
       <i class="fa-regular fa-envelope"></i>
     </app-primary-input>
-
     <app-primary-input
       formControlName="password"
       inputName="password"
@@ -21,7 +20,7 @@
       cursor="pointer"
       placeholder="******"
     >
-      @if(isPasswordVisible) {
+      @if (isPasswordVisible) {
         <ng-container>
           <i class="fa-solid fa-lock-open" (click)="togglePasswordVisibility()"></i>
         </ng-container>
@@ -30,11 +29,7 @@
           <i class="fa-solid fa-lock" (click)="togglePasswordVisibility()"></i>
         </ng-container>
       }
-
-
     </app-primary-input>
-
-
-    <span>Forgot password?</span>
+    <span>Esqueceu sua senha?</span>
   </form>
 </app-login-layout>

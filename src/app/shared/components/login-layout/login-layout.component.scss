@@ -89,6 +89,13 @@ main {
       }
     }
   }
+
+
+  @media only screen and (max-width: 860px) {
+    .main-section {
+      display: none;
+    }
+  }
 }
 
 
