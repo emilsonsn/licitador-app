@@ -1,11 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "@app/views/session/login/login.component";
+import {ToRecoverComponent} from "@app/views/session/to-recover/to-recover.component";
+import {RegisterComponent} from "@app/views/session/register/register.component";
 
 const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "to-recover",
+    component: ToRecoverComponent,
+  },
+  {
+    path: "register",
+    component: RegisterComponent
   },
   {
     path: '',
@@ -16,7 +26,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class SessionRoutingModule {
 }

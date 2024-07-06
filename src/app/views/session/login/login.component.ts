@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {AnimationOptions} from "ngx-lottie";
 
 @Component({
   selector: 'app-login',
@@ -33,4 +34,13 @@ export class LoginComponent {
   navigate() {
     this.router.navigate(['/register']).then();
   }
+
+  toRecover() {
+    this.router.navigate(['/to-recover']).then();
+  }
+
+  options: AnimationOptions = {
+    path: '/assets/images/animation_login.json',
+  };
+
 }

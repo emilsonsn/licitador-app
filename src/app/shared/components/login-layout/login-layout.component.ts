@@ -10,8 +10,10 @@ export class LoginLayoutComponent {
   @Input() title: string = "";
   @Input() primaryBtnText: string = "";
   @Input() secondaryBtnText: string = "";
+  @Input() options: AnimationOptions = {};
   @Output("submit") onSubmit = new EventEmitter();
   @Output("navigate") onNavigate = new EventEmitter();
+  @Input() text_main: string = "";
 
   navigate() {
     this.onNavigate.emit();
@@ -20,9 +22,5 @@ export class LoginLayoutComponent {
   submit() {
     this.onSubmit.emit();
   }
-
-  options: AnimationOptions = {
-    path: '/assets/images/animation_login.json',
-  };
 
 }

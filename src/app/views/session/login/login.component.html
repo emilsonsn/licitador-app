@@ -4,6 +4,8 @@
   secondaryBtnText="Registrar"
   (submit)="submit()"
   (navigate)="navigate()"
+  [options]="options"
+  text_main="A NOVA LEI NA PRÁTICA"
 >
   <form [formGroup]="loginForm">
     <app-primary-input
@@ -34,6 +36,6 @@
         </ng-container>
       }
     </app-primary-input>
-    <span>Esqueceu sua senha?</span>
+    <span (click)="toRecover()">Esqueceu sua senha?</span>
   </form>
 </app-login-layout>
