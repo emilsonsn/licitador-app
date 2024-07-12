@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
-import {LocalStorageService} from "@services/Auth/local-storage.service";
+import {LocalStorageService} from "@services/Help/local-storage.service";
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {mergeMap, Observable, of, tap} from "rxjs";
 

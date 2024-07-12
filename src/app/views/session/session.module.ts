@@ -8,7 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ToRecoverComponent} from "@app/views/session/to-recover/to-recover.component";
 import {RegisterComponent} from "@app/views/session/register/register.component";
 import {AuthService} from "@services/Auth/auth.service";
-import {LocalStorageService} from "@services/Auth/local-storage.service";
+import {LocalStorageService} from "@services/Help/local-storage.service";
 
 
 @NgModule({

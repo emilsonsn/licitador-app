@@ -4,10 +4,12 @@ import {LoginLayoutComponent} from "@shared/components/login-layout/login-layout
 import {PrimaryInputComponent} from "@shared/components/primary-input/primary-input.component";
 import {NG_VALUE_ACCESSOR, ReactiveFormsModule} from "@angular/forms";
 import {LottieComponent} from "ngx-lottie";
+import {LayoutPrivateComponent} from "@shared/components/layout-private/layout-private.component";
 
 const components = [
   LoginLayoutComponent,
-  PrimaryInputComponent
+  PrimaryInputComponent,
+  LayoutPrivateComponent
 ]
 
 @NgModule({

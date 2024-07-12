@@ -4,11 +4,10 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class LocalStorageService {
-
-  private readonly storage: Storage;
+  private readonly storage: Storage | null;
 
   constructor() {
-    this.storage = window.localStorage;
+    this.storage = typeof window !== 'undefined' && window.localStorage ? window.localStorage : null;
   }
 
   get(key: string): any {
@@ -26,4 +25,11 @@ export class LocalStorageService {
     return false;
   }
 
+  remove(key: string) {
+    if (this.storage) {
+      this.storage.removeItem(key);
+      return true;
+    }
+    return false;
+  }
 }

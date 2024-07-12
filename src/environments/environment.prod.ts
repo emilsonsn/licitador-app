@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  home: '/painel',
+  home: '/login',
   appName: 'Licitador App',
   api: 'http://127.0.0.1:8000/api',
   url: '',
