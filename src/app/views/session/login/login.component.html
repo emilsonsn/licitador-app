@@ -8,7 +8,7 @@
   text_main="A NOVA LEI NA PRÁTICA"
   [disablePrimaryBtn]="!loginForm.valid"
 >
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" (keyup.enter)="submit()">
     <app-primary-input
       [errorInput]="error"
       formControlName="email"
