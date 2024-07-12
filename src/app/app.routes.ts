@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {environment} from "@env/environment";
+import { environment } from "@env/environment";
 
 export const routes: Routes = [
   {

@@ -10,17 +10,20 @@ export class LoginLayoutComponent {
   @Input() titlePrimary: string = "";
   @Input() primaryBtnText: string = "";
   @Input() secondaryBtnText: string = "";
+  @Input() disablePrimaryBtn: boolean = false;
+  @Input() disableSecondaryBtn: boolean = false;
+  @Input() is_secondaryBtn: boolean = true;
   @Input() options: AnimationOptions = {};
-  @Output("submit") onSubmit = new EventEmitter();
-  @Output("navigate") onNavigate = new EventEmitter();
+  @Output("primaryBtn") primaryBtn = new EventEmitter();
+  @Output("secondaryBtn") secondaryBtn = new EventEmitter();
   @Input() text_main: string = "";
 
   navigate() {
-    this.onNavigate.emit();
+    this.secondaryBtn.emit();
   }
 
   submit() {
-    this.onSubmit.emit();
+    this.primaryBtn.emit();
   }
 
 }

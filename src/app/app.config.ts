@@ -4,6 +4,9 @@ import player from 'lottie-web';
 import {routes} from './app.routes';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideLottieOptions} from "ngx-lottie";
+import {provideHttpClient, withFetch} from "@angular/common/http";
+import {provideToastr} from "ngx-toastr";
+import {provideAnimations} from "@angular/platform-browser/animations";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,5 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideLottieOptions({
       player: () => player,
     }),
+    provideHttpClient(withFetch()),
+    provideToastr(),
+    provideAnimations()
   ]
 };

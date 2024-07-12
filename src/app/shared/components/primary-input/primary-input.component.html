@@ -1,6 +1,6 @@
 <div class="input-wrapper">
   <label [for]="inputName">{{ label }}</label>
-  <div class="input-content">
+  <div class="input-content" [ngClass]="errorInput ? 'input-content-error' : ''">
     <input
       [type]="type"
       [placeholder]="placeholder"
@@ -11,4 +11,10 @@
       <ng-content></ng-content>
     </div>
   </div>
+  @if (error) {
+    <div class="message-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      {{ messageError }}
+    </div>
+  }
 </div>

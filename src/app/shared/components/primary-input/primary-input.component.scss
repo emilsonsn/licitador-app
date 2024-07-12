@@ -34,7 +34,25 @@
       background-color: $gray-secondary-bg;
       padding: 17px 0 17px 20px;
       width: 100%;
+      outline: 1px solid transparent;
       font-size: 20px;
+    }
+  }
+
+  .message-error {
+    width: 100%;
+    background: #f9bdbd;
+    color: #ac1a1a;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .input-content-error {
+    input {
+      outline: 1px solid red;
     }
   }
 }

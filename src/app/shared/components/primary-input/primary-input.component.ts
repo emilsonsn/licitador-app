@@ -21,6 +21,9 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() inputName: string = '';
   @Input() label: string = '';
   @Input() cursor: string = '';
+  @Input() messageError: string = '';
+  @Input() error: boolean = false;
+  @Input() errorInput: boolean = false;
   @Output() onClick = new EventEmitter();
 
   click() {

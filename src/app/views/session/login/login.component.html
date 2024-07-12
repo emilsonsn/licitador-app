@@ -1,23 +1,28 @@
 <app-login-layout
-  titlePrimary="Acessar sua conta"
+  titlePrimary="Acesse sua conta"
   primaryBtnText="Entrar"
   secondaryBtnText="Registrar"
-  (submit)="submit()"
-  (navigate)="navigate()"
+  [is_secondaryBtn]="false"
+  (primaryBtn)="submit()"
   [options]="options"
   text_main="A NOVA LEI NA PRÁTICA"
+  [disablePrimaryBtn]="!loginForm.valid"
 >
   <form [formGroup]="loginForm">
     <app-primary-input
+      [errorInput]="error"
       formControlName="email"
       inputName="email"
       type="email"
       label="Email"
       placeholder="teste@email.com"
+      messageError="Erro. Tente novamente."
+      [error]="error"
     >
       <i class="fa-solid fa-envelope"></i>
     </app-primary-input>
     <app-primary-input
+      [errorInput]="error"
       formControlName="password"
       inputName="password"
       [type]="isPasswordVisible ? 'text' : 'password'"

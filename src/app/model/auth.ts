@@ -1,4 +1,4 @@
-export interface Auth {
+export interface AuthLogin {
   email: string
   password: string
 }
