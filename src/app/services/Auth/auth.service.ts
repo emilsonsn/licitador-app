@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthLogin} from "@model/auth";
-import { environment } from '@env/environment';
-import {InterceptorSkipHeader} from "@services/Auth/auth-interceptor.service";
-import {BehaviorSubject, Observable, tap} from "rxjs";
+import {environment} from '@env/environment';
+import {BehaviorSubject, Observable, of, tap} from "rxjs";
 import {LocalStorageService} from "@services/Help/local-storage.service";
 import {TokenResponse} from "@model/TokenResponse";
 import {Router} from "@angular/router";
+import {InterceptorSkipHeader} from "@services/Auth/auth.interceptor";
 
 @Injectable({
   providedIn: 'root'
@@ -42,16 +42,15 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this._http.get<any>(`${environment.api}/logout`,{
-      headers: new HttpHeaders()
-        .set(InterceptorSkipHeader, '')
-        .set('Custom-Header', 'true')
-    }).pipe(
-      tap(value => {
+    console.log('logout');
+    this._http.post<any>(`${environment.api}/logout`, {}).subscribe(
+      () => {
         this._storage.remove('token');
         this.authStatus.next(false);
-      })
+      }
     );
+
+    return of(null);
   }
 
   private hasToken(): boolean {

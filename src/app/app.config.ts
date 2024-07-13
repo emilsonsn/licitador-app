@@ -4,9 +4,10 @@ import player from 'lottie-web';
 import {routes} from './app.routes';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideLottieOptions} from "ngx-lottie";
-import {provideHttpClient, withFetch} from "@angular/common/http";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {provideToastr} from "ngx-toastr";
 import {provideAnimations} from "@angular/platform-browser/animations";
+import {authInterceptor} from "@services/Auth/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideLottieOptions({
       player: () => player,
     }),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptors([
+      authInterceptor
+    ])),
     provideToastr(),
     provideAnimations()
   ]
