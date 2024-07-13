@@ -9,6 +9,8 @@
   &:hover {
     width: 250px;
 
+
+
     .sidebar-label {
       display: block !important;
     }
@@ -22,28 +24,29 @@
 
     .sidebar-item {
       width: 100%;
-      padding: 10px;
+      padding: 15px 10px;
       text-align: center;
       text-decoration: none;
-      color: $secondary-color;
+      color: $primary-color-item;
       display: flex;
       border-radius: 8px;
       align-items: center;
+      gap: 1rem;
       transition: background-color 0.3s;
+      cursor: pointer;
 
       &:hover {
         background-color: $primary-color-item;
         color: $secondary-color-item;
-        box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.37);;
+        box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.37);
       }
 
       i {
-        font-size: 24px;
+        font-size: 20px;
       }
 
       .sidebar-label {
         display: none;
-        margin-left: 10px;
       }
     }
 
