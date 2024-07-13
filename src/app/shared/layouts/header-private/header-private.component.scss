@@ -4,10 +4,10 @@ header {
   padding: 1rem;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
   gap: 1rem;
 
-  button{
+  button {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,7 +19,7 @@ header {
     cursor: pointer;
     font-size: 16px;
     background-color: $sidebar-bg;
-    color: $primary-color-item;
+    color: white;
     box-shadow: 0 0 10px 0 rgba(133, 61, 227, 0.56);
 
     &:hover {
@@ -30,46 +30,78 @@ header {
 
   }
 
-  .dropdown {
-    position: relative;
-    display: inline-block;
+  .commercial-home {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 
-    .dropdown-btn {
-      min-width: 210px;
+    .comercial-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .dropdown-content {
-      position: absolute;
-      display: none;
-      background-color: $sidebar-bg;
-      min-width: 210px;
-      z-index: 1;
-      margin-top: 20px;
-      border-radius: 8px;
-      padding: 0.5rem;
-      box-shadow: 0 0 10px 0 rgba(133, 61, 227, 0.56);
+    button {
+      font-weight: normal;
+      background: #FF4545;
+      color: #F2EFE6;
+      box-shadow: 0 0 10px 0 rgba(255, 129, 129, 0.36);
 
-      .dropdown-item {
-        cursor: pointer;
-        color: $primary-color-item;
-        padding: 15px 16px;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        border-radius: 8px;
-
-        &:hover {
-          background-color: $primary-color-item;
-          color: $secondary-color-item;
-          box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.37);
-        }
-
+      &:hover {
+        opacity: 0.8;
       }
-    }
 
-    .show-dropdown {
-      display: block;
+    }
+  }
+
+  .container-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+
+      .dropdown-btn {
+        min-width: 210px;
+      }
+
+      .dropdown-content {
+        position: absolute;
+        display: none;
+        background-color: $sidebar-bg;
+        min-width: 210px;
+        z-index: 1;
+        margin-top: 20px;
+        border-radius: 8px;
+        padding: 0.5rem;
+        box-shadow: 0 0 10px 0 rgba(133, 61, 227, 0.56);
+
+        .dropdown-item {
+          cursor: pointer;
+          color: white;
+          padding: 15px 16px;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          border-radius: 8px;
+
+          &:hover {
+            background-color: $primary-color-item;
+            color: $secondary-color-item;
+            box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.37);
+          }
+
+        }
+      }
+
+      .show-dropdown {
+        display: block;
+      }
     }
   }
 

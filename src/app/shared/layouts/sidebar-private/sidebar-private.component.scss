@@ -9,7 +9,11 @@
   &:hover {
     width: 250px;
 
-
+    .sidebar-content{
+      .sidebar-item {
+        justify-content: start;
+      }
+    }
 
     .sidebar-label {
       display: block !important;
@@ -26,14 +30,21 @@
       width: 100%;
       padding: 15px 10px;
       text-align: center;
+      justify-content: center;
       text-decoration: none;
-      color: $primary-color-item;
+      color: white;
       display: flex;
       border-radius: 8px;
       align-items: center;
       gap: 1rem;
       transition: background-color 0.3s;
       cursor: pointer;
+
+      &.active {
+        background-color: $primary-color-item;
+        color: $secondary-color-item;
+        box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.37);
+      }
 
       &:hover {
         background-color: $primary-color-item;

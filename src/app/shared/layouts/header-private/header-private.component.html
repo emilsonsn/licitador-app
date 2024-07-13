@@ -1,22 +1,42 @@
 <header>
-  <div class="dropdown">
-    <button class="dropdown-btn" (click)="toggleDropdown($event)">
-      Tarcio Diniz
-      @if (show_dropdown) {
-        <i class="fa-solid fa-angle-up"></i>
-      } @else {
-        <i class="fa-solid fa-chevron-down"></i>
-      }
-    </button>
+  <div class="commercial-home">
+    <div class="comercial-left">
+      <ng-lottie
+        width="50px"
+        containerClass="moving-box"
+        [options]="options"
+      />
 
-    <div class="dropdown-content" [ngClass]="show_dropdown ? 'show-dropdown' : ''">
-      <div class="dropdown-item">
-        <i class="fa-solid fa-user"></i>
-        Perfil
+      <div>
+        <h2>Adquira já a plataforma mais completa do mercado de Licitações</h2>
+        <p>Não perca tempo! Assine agora e aproveite todos os nossos benefícios.</p>
       </div>
-      <div class="dropdown-item" (click)="logout()">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        Sair
+    </div>
+
+    <button>
+      Assine agora
+    </button>
+  </div>
+  <div class="container-buttons">
+    <div class="dropdown">
+      <button class="dropdown-btn" (click)="toggleDropdown($event)">
+        Administrador
+        @if (show_dropdown) {
+          <i class="fa-solid fa-angle-up"></i>
+        } @else {
+          <i class="fa-solid fa-chevron-down"></i>
+        }
+      </button>
+
+      <div class="dropdown-content" [ngClass]="show_dropdown ? 'show-dropdown' : ''">
+        <div class="dropdown-item">
+          <i class="fa-solid fa-user"></i>
+          Perfil
+        </div>
+        <div class="dropdown-item" (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Sair
+        </div>
       </div>
     </div>
   </div>

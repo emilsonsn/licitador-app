@@ -4,6 +4,7 @@ import {LayoutPrivateComponent} from "@shared/layouts/layout-private/layout-priv
 import {RouterOutlet} from "@angular/router";
 import {SidebarPrivateComponent} from "@shared/layouts/sidebar-private/sidebar-private.component";
 import {HeaderPrivateComponent} from "@shared/layouts/header-private/header-private.component";
+import {LottieComponent} from "ngx-lottie";
 
 const components = [
   LayoutPrivateComponent,
@@ -15,7 +16,8 @@ const components = [
   declarations: components,
   imports: [
     CommonModule,
-    RouterOutlet
+    RouterOutlet,
+    LottieComponent
   ],
   exports: components
 })

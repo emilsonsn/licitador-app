@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "@services/Auth/auth.service";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AnimationOptions} from "ngx-lottie";
 
 @Component({
   selector: 'app-header-private',
@@ -40,5 +41,9 @@ export class HeaderPrivateComponent implements OnInit, OnDestroy {
   logout() {
     this._AuthService.logout();
   }
+
+  options: AnimationOptions = {
+    path: '/assets/images/Animation_megaphone.json',
+  };
 
 }

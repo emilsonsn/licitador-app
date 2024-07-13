@@ -1,6 +1,9 @@
 <nav class="sidebar">
   <div class="sidebar-content">
-    <div *ngFor="let item of items" class="sidebar-item" (click)="navigate(item.link)">
+    <div *ngFor="let item of items"
+         class="sidebar-item"
+         [class.active]="isActive(item.link)"
+         (click)="navigate(item.link)">
       <i class="{{ item.icon }}"></i>
       <span class="sidebar-label">{{ item.label }}</span>
     </div>
