@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "@app/views/private/home/home.component";
-import {LayoutPrivateComponent} from "@shared/components/layout-private/layout-private.component";
+import {LayoutPrivateComponent} from "@shared/layouts/layout-private/layout-private.component";
 
 const routes: Routes = [
   {

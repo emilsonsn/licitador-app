@@ -17,7 +17,7 @@ import {ComponentsModule} from "@shared/components/components.module";
     PipesModule,
     LayoutsModule,
     DirectivesModule,
-    ComponentsModule
+    ComponentsModule,
   ]
 })
 export class SharedModule {

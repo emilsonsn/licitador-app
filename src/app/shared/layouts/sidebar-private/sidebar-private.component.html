@@ -1,0 +1,9 @@
+<nav class="sidebar">
+  <div class="sidebar-content">
+    <a *ngFor="let item of items" [href]="item.link"
+       class="sidebar-item">
+      <i class="{{ item.icon }}"></i>
+      <span class="sidebar-label">{{ item.label }}</span>
+    </a>
+  </div>
+</nav>
