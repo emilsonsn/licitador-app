@@ -7,6 +7,7 @@ import {LocalStorageService} from "@services/Help/local-storage.service";
 import {TokenResponse} from "@model/TokenResponse";
 import {Router} from "@angular/router";
 import {InterceptorSkipHeader} from "@services/Auth/auth.interceptor";
+import {User} from "@model/User";
 
 @Injectable({
   providedIn: 'root'
@@ -36,16 +37,17 @@ export class AuthService {
     }).pipe(
       tap(value => {
         this._storage.set('token', value.access_token);
+        this._storage.set('user', JSON.stringify(value.user));
         this.authStatus.next(true);
       })
     );
   }
 
   logout(): Observable<any> {
-    console.log('logout');
     this._http.post<any>(`${environment.api}/logout`, {}).subscribe(
       () => {
         this._storage.remove('token');
+        this._storage.remove('user');
         this.authStatus.next(false);
       }
     );
@@ -56,6 +58,11 @@ export class AuthService {
   private hasToken(): boolean {
     const token = this._storage.get('token');
     return !!token;
+  }
+
+  getUser(): User | null {
+    const user = this._storage.get('user');
+    return user ? JSON.parse(user) as User : null;
   }
 
 }

@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "@services/Auth/auth.service";
 import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AnimationOptions} from "ngx-lottie";
+import {User} from "@model/User";
 
 @Component({
   selector: 'app-header-private',
@@ -11,11 +11,13 @@ import {AnimationOptions} from "ngx-lottie";
 })
 export class HeaderPrivateComponent implements OnInit, OnDestroy {
   show_dropdown = false;
+  user: User | null = null;
 
   constructor(
     private readonly _AuthService: AuthService,
     private readonly _router: Router
   ) {
+    this.user = this._AuthService.getUser();
   }
 
   toggleDropdown(event: Event) {

@@ -20,7 +20,7 @@
   <div class="container-buttons">
     <div class="dropdown">
       <button class="dropdown-btn" (click)="toggleDropdown($event)">
-        Administrador
+        {{ user?.name }}
         @if (show_dropdown) {
           <i class="fa-solid fa-angle-up"></i>
         } @else {
