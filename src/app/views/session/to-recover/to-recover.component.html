@@ -1,21 +1,30 @@
 <app-login-layout
   titlePrimary="Recupere sua senha"
-  primaryBtnText="Continuar"
+  [primaryBtnText]="primaryBtnText"
   secondaryBtnText="Entrar"
+  [disablePrimaryBtn]="disablePrimaryBtn"
   (primaryBtn)="submit()"
   (secondaryBtn)="navigate()"
   [options]="options"
   text_main="Venha fazer parte dessa equipe"
 >
   <form [formGroup]="recoverForm">
-    <app-primary-input
-      formControlName="email"
-      inputName="email"
-      type="email"
-      label="Email"
-      placeholder="teste@email.com"
-    >
-      <i class="fa-solid fa-envelope"></i>
-    </app-primary-input>
+    @if (showInput) {
+      <app-primary-input
+        formControlName="email"
+        inputName="email"
+        type="email"
+        label="Email"
+        placeholder="teste@email.com"
+      >
+        <i class="fa-solid fa-envelope"></i>
+      </app-primary-input>
+    } @else {
+      <p class="text-recover">
+        Um email com as instruções para redefinir a senha será enviado para
+        <strong>{{ recoverForm.get("email")?.value }}</strong>. Por favor, verifique sua
+        caixa de entrada.
+      </p>
+    }
   </form>
 </app-login-layout>

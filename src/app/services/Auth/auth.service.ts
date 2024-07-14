@@ -55,6 +55,10 @@ export class AuthService {
     return of(null);
   }
 
+  recoverPassword(email: string): Observable<any> {
+    return this._http.post<any>(`${environment.api}/recoverPassword`, {email});
+  }
+
   private hasToken(): boolean {
     const token = this._storage.get('token');
     return !!token;
