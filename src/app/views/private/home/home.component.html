@@ -12,7 +12,7 @@
     Ferramentas
   </h4>
   <div class="content">
-    <div class="content-bnt" *ngFor="let tool of tools">
+    <div class="content-bnt" *ngFor="let tool of tools" (click)="navigate(tool.link)">
       <h2>{{ tool.title }}</h2>
     </div>
   </div>
