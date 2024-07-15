@@ -91,3 +91,16 @@
   background: #ffc9c9;
   color: rgb(128, 16, 16);
 }
+
+.td-action {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.button-block {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+}

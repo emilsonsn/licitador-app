@@ -54,10 +54,20 @@
               </div>
             }
           </td>
-          <td [ngStyle]="{'text-align': 'center'}">
-            <div class="div-td">
-              Teste
-            </div>
+          <td [ngStyle]="{'text-align': 'center'}" class="td-action">
+            <p>
+              <mat-slide-toggle
+                [checked]="!user.is_active"
+                (change)="blockUser(user.id)"
+              >
+                <span *ngIf="!user.is_active">
+                  Desbloquear
+                </span>
+                <span *ngIf="user.is_active">
+                  Bloquear
+                </span>
+              </mat-slide-toggle>
+            </p>
           </td>
         </tr>
       }

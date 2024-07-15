@@ -64,6 +64,16 @@ export class UsersTableComponent {
     this.search();
   }
 
+  public blockUser(id?: number): void {
+    if (id) {
+      this._userService.blockUser(id)
+        .subscribe({
+          next: () => {
+            this.search();
+          }
+        });
+    }
+  }
 
   private _initOrStopLoading(): void {
     this.loading = !this.loading;

@@ -22,4 +22,8 @@ export class UserService {
 
     return this._http.get(`${environment.api}/user/search?${paginate}${filterParams}`);
   }
+
+  public blockUser(id: number): Observable<any> {
+    return this._http.post<any>(`${environment.api}/user/block/${id}`, {});
+  }
 }
