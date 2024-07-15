@@ -7,6 +7,7 @@ import {provideLottieOptions} from "ngx-lottie";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {provideToastr} from "ngx-toastr";
 import {provideAnimations} from "@angular/platform-browser/animations";
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {authInterceptor} from "@services/Auth/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
@@ -20,6 +21,6 @@ export const appConfig: ApplicationConfig = {
       authInterceptor
     ])),
     provideToastr(),
-    provideAnimations()
+    provideAnimations(), provideAnimationsAsync()
   ]
 };

@@ -16,7 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, ne
       const token = _storage.get('token');
 
       if (isAuthenticated && token) {
-        return setJwtOrSkip(request, next, token, _router);
+        return setJwtOrSkip(request, next, token, _router, _storage);
       }
 
       const customHeaderValue = request.headers.get('Custom-Header');
@@ -36,7 +36,7 @@ export const authInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, ne
   );
 };
 
-function setJwtOrSkip(request: HttpRequest<any>, next: HttpHandlerFn, jwt: string, _router: Router): Observable<HttpEvent<any>> {
+function setJwtOrSkip(request: HttpRequest<any>, next: HttpHandlerFn, jwt: string, _router: Router, _storage: LocalStorageService): Observable<HttpEvent<any>> {
   if (!request.headers.has(InterceptorSkipHeader)) {
     request = request.clone({
       setHeaders: {
@@ -53,6 +53,9 @@ function setJwtOrSkip(request: HttpRequest<any>, next: HttpHandlerFn, jwt: strin
         if (err instanceof HttpErrorResponse) {
           if (err.status !== 401) {
             return;
+          } else if (err.status === 401) {
+            _storage.remove('token');
+            _storage.remove('user');
           }
           const customHeaderValue = request.headers.get('Custom-Header');
 

@@ -21,9 +21,7 @@ export class AuthService {
     private readonly _router: Router
   ) {
     this.authStatus.subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-        this._router.navigate(['/painel']).then();
-      } else {
+      if (!isAuthenticated) {
         this._router.navigate(['/login']).then();
       }
     });
@@ -39,6 +37,7 @@ export class AuthService {
         this._storage.set('token', value.access_token);
         this._storage.set('user', JSON.stringify(value.user));
         this.authStatus.next(true);
+        this._router.navigate(['/painel/home']).then();
       })
     );
   }

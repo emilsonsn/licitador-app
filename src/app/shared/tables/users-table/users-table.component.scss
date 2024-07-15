@@ -1,0 +1,93 @@
+@import "variables";
+
+.container {
+  box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.table-scroll {
+  display: block;
+  empty-cells: show;
+
+  /* Decoration */
+  border-spacing: 0;
+
+}
+
+.table-scroll thead {
+  background: $primary-color;
+  color: #fff;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.table-scroll tbody {
+  /* Position */
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow-y: auto;
+  /* Decoration */
+  //border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.table-scroll tr {
+  width: 100%;
+  display: flex;
+}
+
+.table-scroll td, .table-scroll th {
+  flex-basis: 100%;
+  flex-grow: 2;
+  display: block;
+  padding: 1rem;
+  text-align: left;
+}
+
+/* Other options */
+
+.table-scroll.small-first-col td:first-child,
+.table-scroll.small-first-col th:first-child {
+  flex-basis: 20%;
+  flex-grow: 1;
+}
+
+.table-scroll tbody tr:nth-child(2n) {
+  background: $table-tr-nth-child;
+}
+
+.body-half-screen {
+  max-height: 60vh;
+}
+
+.small-col {
+  flex-basis: 10%;
+}
+
+.div-td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.active {
+  background: #c9ffc9;
+  color: rgb(16, 128, 25);
+}
+
+.not_active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: #ffc9c9;
+  color: rgb(128, 16, 16);
+}

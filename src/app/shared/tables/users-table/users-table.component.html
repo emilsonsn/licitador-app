@@ -1,0 +1,68 @@
+<div class="container">
+  <table class="table-scroll small-first-col">
+    <thead>
+    <tr>
+      <th *ngFor="let col of columns" [class.hasorder]="col.order" [ngStyle]="{'text-align': col.align}"
+          [class.active-order]="pageControl.orderField === col.slug">
+        <div class="{{pageControl.orderField === col.slug ? 'th '+col.align : ''}}">
+          {{ col.title }}
+          <!--     <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
+                 {{ pageControl.order === 'DESC' ? 'arrow_downward' : 'arrow_upward' }}
+               </i>-->
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody class="body-half-screen">
+      @if (loading) {
+        <tr>
+          <td *ngFor="let col of columns">
+            <ngx-skeleton-loader appearance="line"/>
+          </td>
+        </tr>
+      } @else if (!users.length) {
+        <td [ngStyle]="{'text-align': 'center'}" [attr.colspan]="columns.length + 1">
+          <div>Nenhum resultado encontrado</div>
+        </td>
+      } @else {
+        <tr *ngFor="let user of users">
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ user.id }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ user.name }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ user.email }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            @if (user.is_active) {
+              <div class="div-td active">
+                <i class="fa-solid fa-circle-check"></i>
+                Ativo
+              </div>
+            } @else {
+              <div class="not_active">
+                <i class="fa-solid fa-circle-xmark"></i>
+                Inativo
+              </div>
+            }
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              Teste
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <mat-paginator [length]="pageControl.itemCount" [pageSizeOptions]="[10, 25, 50, 100]"
+                 [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
+</div>
