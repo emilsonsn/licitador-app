@@ -9,6 +9,9 @@ import {HelpComponent} from "@app/views/private/help/help.component";
 import {DashboardComponent} from "@app/views/private/dashboard/dashboard.component";
 import {UsersComponent} from "@app/views/private/users/users.component";
 import {TendersComponent} from "@app/views/private/tenders/tenders.component";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatIconButton} from "@angular/material/button";
+import {MatInput} from "@angular/material/input";
 
 
 @NgModule({
@@ -23,7 +26,11 @@ import {TendersComponent} from "@app/views/private/tenders/tenders.component";
     CommonModule,
     PrivateRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormField,
+    MatIconButton,
+    MatInput,
+    MatLabel
   ]
 })
 export class PrivateModule { }

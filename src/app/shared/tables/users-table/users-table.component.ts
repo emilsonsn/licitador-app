@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Order, PageControl} from "@model/application";
 import {User} from "@model/User";
 import {finalize} from "rxjs";
@@ -9,10 +9,13 @@ import {UserService} from "@services/User/user.service";
   templateUrl: './users-table.component.html',
   styleUrl: './users-table.component.scss'
 })
-export class UsersTableComponent {
+export class UsersTableComponent implements OnChanges{
 
   @Input()
   loading: boolean = false;
+
+  @Input()
+  searchTerm?: string = '';
 
   users: User[] = [];
 
@@ -64,6 +67,14 @@ export class UsersTableComponent {
     this.search();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    const {searchTerm, loading, type} = changes;
+
+    if (searchTerm?.previousValue && searchTerm?.currentValue !== searchTerm?.previousValue) {
+      this.search();
+    }
+  }
+
   public blockUser(id?: number): void {
     if (id) {
       this._userService.blockUser(id)
@@ -88,7 +99,7 @@ export class UsersTableComponent {
       .pipe(finalize(() => this._initOrStopLoading()))
       .subscribe(res => {
         this.users = res.data.data;
-
+        this.pageControl.search_term = this.searchTerm || '';
         this.pageControl.page = res.current_page;
         this.pageControl.itemCount = res.total;
         this.pageControl.pageCount = res.last_page;

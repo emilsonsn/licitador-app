@@ -1,4 +1,17 @@
-<div class="container-users">
-  <h2><i class="fa-solid fa-user"></i>Usuários</h2>
-  <app-users-table></app-users-table>
+<div class="container-users" [formGroup]="form">
+  <div class="container-header">
+    <h2><i class="fa-solid fa-user"></i>Usuários</h2>
+    <app-primary-input
+      formControlName="searchTerm"
+      inputName="email"
+      type="text"
+      placeholder="Buscar..."
+      messageError="Erro. Tente novamente."
+    >
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </app-primary-input>
+  </div>
+  <app-users-table
+    [searchTerm]="searchTerm"
+  ></app-users-table>
 </div>
