@@ -19,7 +19,6 @@ export class UsersComponent {
     this.form.valueChanges
       .pipe(debounceTime(500))
       .subscribe(value => {
-        console.log("teste", value.searchTerm);
         this.searchTerm = value.searchTerm;
       });
   }

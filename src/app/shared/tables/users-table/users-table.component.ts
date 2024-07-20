@@ -71,8 +71,18 @@ export class UsersTableComponent implements OnChanges{
     const {searchTerm, loading, type} = changes;
 
     if (searchTerm?.previousValue && searchTerm?.currentValue !== searchTerm?.previousValue) {
-      this.search();
+      this._onSearch();
+    } else if (type?.previousValue && type?.currentValue !== type?.previousValue) {
+      this._onSearch();
+    } else if (!loading?.currentValue) {
+      this._onSearch();
     }
+  }
+
+  private _onSearch() {
+    this.pageControl.search_term = this.searchTerm || '';
+    this.pageControl.page = 1;
+    this.search();
   }
 
   public blockUser(id?: number): void {
