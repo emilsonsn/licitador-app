@@ -5,4 +5,5 @@ export const environment = {
   api: 'http://127.0.0.1:8000/api',
   url: '',
   version: require('../../package.json').version,
+  phoneNumber: '5551999999999',
 };

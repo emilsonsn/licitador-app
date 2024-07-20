@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {environment} from "@env/environment";
 
 @Component({
   selector: 'app-help',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './help.component.scss'
 })
 export class HelpComponent {
+  link: string = `https://wa.me/${environment.phoneNumber}`;
+  phoneNumber: string = environment.phoneNumber;
 
 }

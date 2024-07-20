@@ -12,6 +12,7 @@ import {TendersComponent} from "@app/views/private/tenders/tenders.component";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
+import {QrCodeModule} from "ng-qrcode";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {MatInput} from "@angular/material/input";
     MatFormField,
     MatIconButton,
     MatInput,
-    MatLabel
+    MatLabel,
+    QrCodeModule
   ]
 })
 export class PrivateModule { }

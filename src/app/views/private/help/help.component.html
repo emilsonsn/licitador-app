@@ -1,1 +1,31 @@
-<p>helps works!</p>
+<main class="help-container">
+  <div class="container-header">
+    <h2><i class="fa-solid fa-user"></i>Central de Ajuda</h2>
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-container">
+        <img src="assets/images/logo.png" alt="logo">
+        <div class="qr-code">
+          <p class="qr-code-title"><strong><i class="fa-brands fa-whatsapp"></i> Whtasapp</strong></p>
+          <div class="qr-code-img">
+            <qr-code
+              size="250"
+              [value]="link"
+              errorCorrectionLevel="M"
+            />
+          </div>
+          <p class="qr-code-subtitle">Scan QR CODE</p>
+        </div>
+        <p class="qr-code-number">{{ phoneNumber }}</p>
+      </div>
+      <ol class="card-information">
+        <strong>Siga as informações</strong>
+        <li>Leia o QR code</li>
+        <li>Abra o Chat Whtasapp</li>
+        <li>Envie-nos uma mensagem</li>
+        <a class="card-link" [href]="link" target="_blank">Ou Click Aqui!</a>
+      </ol>
+    </div>
+  </div>
+</main>
