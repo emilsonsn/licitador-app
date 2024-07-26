@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    <div>#{{data?.id}}</div>
+    <div>Atualizada em {{dayjs(data?.updated_at).format("DD/MM/YYYY HH:mm")}}</div>
+  </div>
+  <div class="card-main">
+    <div class="card-buttons">
+      <button>Ativar monitoramento de chat</button>
+      <button>Gerenciar esta licitação</button>
+    </div>
+    <div class="card-information">
+      <p><strong>Objetivo: </strong>{{data?.Objective}}</p>
+      <div class="card-information-container">
+        <div class="left">
+          <p><strong>Datas: </strong>{{data?.Datas}}</p>
+          <p><strong>Edital: </strong>{{data?.Edital}}</p>
+          <p><strong>Órgão: </strong>{{data?.Orgao}}</p>
+          <p><strong>Cidade: </strong>{{data?.Cidade}}</p>
+        </div>
+        <div class="right">
+          <p><strong>Situação: {{data?.Status}}</strong></p>
+          <p><strong>N° Conlicitação: {{data?.N_Conlicitacao}}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="card-buttons">
+      <button>Baixar Edital</button>
+      <button>Itens</button>
+    </div>
+    <app-primary-input
+      label="Anotações"
+      inputName="text"
+      type="text"
+      placeholder="Digite sua mensagem..."
+    >
+      <mat-icon>send</mat-icon>
+    </app-primary-input>
+  </div>
+</div>

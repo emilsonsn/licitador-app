@@ -4,10 +4,13 @@ import {LoginLayoutComponent} from "@shared/components/login-layout/login-layout
 import {PrimaryInputComponent} from "@shared/components/primary-input/primary-input.component";
 import {NG_VALUE_ACCESSOR, ReactiveFormsModule} from "@angular/forms";
 import {LottieComponent} from "ngx-lottie";
+import {TenderCardComponent} from "@shared/components/tender-card/tender-card.component";
+import {MatIcon} from "@angular/material/icon";
 
 const components = [
   LoginLayoutComponent,
   PrimaryInputComponent,
+  TenderCardComponent
 ]
 
 @NgModule({
@@ -16,7 +19,8 @@ const components = [
     CommonModule,
     ReactiveFormsModule,
     NgOptimizedImage,
-    LottieComponent
+    LottieComponent,
+    MatIcon
   ],
   providers: [
     {

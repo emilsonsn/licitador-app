@@ -1,1 +1,5 @@
-<p>tenders works!</p>
+<main>
+  @for (tender of tenders; track tenders) {
+    <app-tender-card [data]="tender"></app-tender-card>
+  }
+</main>
