@@ -1,5 +1,186 @@
 <main>
-  @for (tender of tenders; track tenders) {
-    <app-tender-card [data]="tender"></app-tender-card>
-  }
+  <section class="filter-section">
+    <div class="filter-container">
+      <div class="filter-buttons-header">
+        <p (click)="clearFilters()"><i class="fa-solid fa-broom"></i> Limpar</p>
+        <p (click)="reloadFilters()"><i class="fa-solid fa-arrows-rotate"></i> Recarregar</p>
+      </div>
+      <div class="filter-form-inputs">
+        <app-primary-input
+          placeholder="Pesquise por Objeto"
+          label="Objeto"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Busca Exata
+        </label>
+        <app-primary-input
+          [type]="'multiselect'"
+          [placeholder]="'Selecione os Estados'"
+          [inputName]="'state'"
+          [label]="'Estado'"
+          [options]="statesOptions"
+          (selectionChange)="onStatesChange($event)"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </app-primary-input>
+        <div class="filter-buttons-state">
+          <p (click)="selectAllStates()">Filtrar por Região</p>
+          <p (click)="selectAllStates()">Todos os Estados</p>
+        </div>
+        <app-primary-input
+          [type]="'multiselect'"
+          [placeholder]="'Selecione as Cidades'"
+          [inputName]="'city'"
+          [label]="'Cidades'"
+          [options]="citiesOptions"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </app-primary-input>
+        <mat-divider></mat-divider>
+        <app-primary-input
+          placeholder="Pesquise por Nº Edital"
+          label="Nº Edital"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <app-primary-input
+          [type]="'multiselect'"
+          [placeholder]="'Selecione as Modalidades'"
+          [inputName]="'modalities'"
+          [label]="'Modalidades'"
+          [options]="[
+            { value: '1', label: 'Opção 1' },
+            { value: '2', label: 'Opção 2' },
+            { value: '3', label: 'Opção 3' }
+          ]"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </app-primary-input>
+        <mat-divider></mat-divider>
+        Data Inclusão
+        Data Prazo
+        <mat-divider></mat-divider>
+        Licitações
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Vigentes
+        </label>
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Com Edital
+        </label>
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Com Monitoramento de Chat
+        </label>
+        <mat-divider></mat-divider>
+        <app-primary-input
+          placeholder="Pesquise por Nº Conlicitação"
+          label="Nº Conlicitação"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <app-primary-input
+          placeholder="Pesquise por Código do Órgão"
+          label="Código do Órgão"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <app-primary-input
+          [type]="'multiselect'"
+          [placeholder]="'Selecione as Esferas'"
+          [inputName]="'ball'"
+          [label]="'Esfera'"
+          [options]="[
+            { value: '1', label: 'Opção 1' },
+            { value: '2', label: 'Opção 2' },
+            { value: '3', label: 'Opção 3' }
+          ]"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </app-primary-input>
+        <app-primary-input
+          placeholder="Pesquise por Nº Processo"
+          label="Nº Processo"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <mat-divider></mat-divider>
+        <app-primary-input
+          [type]="'multiselect'"
+          [placeholder]="'Selecione a Situação'"
+          [inputName]="'situation'"
+          [label]="'Situação'"
+          [options]="[
+            { value: '1', label: 'Opção 1' },
+            { value: '2', label: 'Opção 2' },
+            { value: '3', label: 'Opção 3' }
+          ]"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </app-primary-input>
+        <mat-divider></mat-divider>
+        <app-primary-input
+          placeholder="Pesquise por Órgão"
+          label="Órgão"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <app-primary-input
+          placeholder="Pesquise por Itens"
+          label="Itens"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <app-primary-input
+          placeholder="Pesquise por Observação"
+          label="Observação"
+        >
+          <i class="fa-solid fa-inbox"></i>
+        </app-primary-input>
+        <mat-divider></mat-divider>
+        Concorrência
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Nacionais
+        </label>
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Internacionais
+        </label>
+        <mat-divider></mat-divider>
+        Atividades
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Magnético, pvc, crachá e outros
+        </label>
+        <label class="custom-checkbox">
+          <input type="checkbox" />
+          <span class="checkbox-mark"></span>
+          Materiais de escritório, expediente, papéis, formulários
+        </label>
+      </div>
+      <div class="filter-bnt-header">
+        <button class="btn-primary">Pesquisar</button>
+      </div>
+    </div>
+  </section>
+  <section class="cards-section">
+    <div class="cards-container">
+      @for (tender of tenders; track tenders) {
+        <app-tender-card style="width: 100%" [data]="tender"></app-tender-card>
+      }
+      <p>Carregando...</p>
+    </div>
+  </section>
 </main>

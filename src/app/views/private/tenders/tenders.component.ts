@@ -1,12 +1,15 @@
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {Tender} from "@model/tender";
+import Estados from '../../../../assets/json/Estados.json';
+import Cidades from '../../../../assets/json/Cidades.json';
 
 @Component({
   selector: 'app-tenders',
   templateUrl: './tenders.component.html',
-  styleUrl: './tenders.component.scss'
+  styleUrls: ['./tenders.component.scss']
 })
-export class TendersComponent {
+export class TendersComponent implements OnInit {
   public tenders: Tender[] = [
     {
       id: 1,
@@ -81,5 +84,61 @@ export class TendersComponent {
       updated_at: new Date('2024-07-25T14:00:00Z'),
     }
   ];
+  public statesOptions: { value: string, label: string }[] = [];
+  public citiesOptions: { value: string, label: string }[] = [];
+  private allCities: any[] = [];
+  private selectedStates: Set<string> = new Set();
 
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.loadStates();
+    this.loadCities();
+  }
+
+  loadStates() {
+    this.statesOptions = Estados.map(state => ({
+      value: state.ID,
+      label: state.Nome
+    }));
+  }
+
+  loadCities() {
+    this.allCities = Cidades;
+    this.filterCities(); // Initial filter to load all cities
+  }
+
+  onStatesChange(selectedStates: { value: string, label: string }[]) {
+    this.selectedStates = new Set(selectedStates.map(state => state.value));
+    this.filterCities();
+  }
+
+  selectAllStates() {
+    this.selectedStates.clear();
+    this.filterCities();
+  }
+
+  filterCities() {
+    if (this.selectedStates.size === 0) {
+      this.citiesOptions = this.allCities.map(city => ({
+        value: city.ID,
+        label: city.Nome
+      }));
+    } else {
+      const filteredCities = this.allCities.filter(city => this.selectedStates.has(city.Estado));
+      this.citiesOptions = filteredCities.map(city => ({
+        value: city.ID,
+        label: city.Nome
+      }));
+    }
+  }
+
+  clearFilters() {
+    this.selectedStates.clear();
+    this.filterCities();
+  }
+
+  reloadFilters() {
+    this.loadCities(); // Reload city data and apply filters
+  }
 }

@@ -6,8 +6,8 @@ main {
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 0 1rem 1rem;
   gap: 1rem;
+  padding: 100px 1rem 1rem;
 
   h4 {
     font-size: 1.5rem;
@@ -75,7 +75,6 @@ main {
     flex-grow: 1;
     flex-wrap: wrap;
     display: flex;
-    align-items: center;
 
     .content-bnt {
       width: 150px;
@@ -83,7 +82,7 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: $sidebar-bg;
+      background-color: $primary-color;
       color: white;
       box-shadow: 0 0 10px 0 rgba(172, 114, 252, 0.52);
       border-radius: 8px;

@@ -8,6 +8,8 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.37);
   overflow: hidden;
   padding-bottom: 0.5rem; // Reduzido para se adequar à nova altura
+  width: 100%;
+  background: white;
 
   .card-header {
     background: $primary-color;

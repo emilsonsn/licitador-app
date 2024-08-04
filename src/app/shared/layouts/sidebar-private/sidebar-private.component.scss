@@ -4,6 +4,7 @@
   width: 80px;
   height: 100%;
   background-color: $sidebar-bg;
+  border-right: 2px solid $primary-color;
   transition: width 0.3s;
 
   &:hover {
@@ -16,7 +17,10 @@
     }
 
     .sidebar-label {
-      display: block !important;
+      display: flex !important;
+      overflow: visible; /* Para garantir que o texto completo seja exibido quando o sidebar está expandido */
+      white-space: nowrap; /* Para evitar quebra de linha */
+      text-overflow: clip; /* Remove a sobreposição de reticências no texto enquanto expandindo */
     }
   }
 
@@ -33,7 +37,7 @@
       text-align: center;
       justify-content: center;
       text-decoration: none;
-      color: white;
+      color: $primary-color;
       display: flex;
       border-radius: 8px;
       align-items: center;

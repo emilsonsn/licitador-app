@@ -1,20 +1,95 @@
 <div class="input-wrapper">
   <label [for]="inputName">{{ label }}</label>
   <div class="input-content" [ngClass]="errorInput ? 'input-content-error' : ''">
-    <input
-      [type]="type"
-      [placeholder]="placeholder"
-      [value]="value"
-      (input)="onInput($event)"
-    />
+    <ng-container [ngSwitch]="type">
+      <!-- Text Input -->
+      <input
+        *ngSwitchCase="'text'"
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+      />
+      <!-- Number Input -->
+      <input
+        *ngSwitchCase="'number'"
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+      />
+      <!-- Password Input -->
+      <input
+        *ngSwitchCase="'password'"
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+      />
+      <!-- Email Input -->
+      <input
+        *ngSwitchCase="'email'"
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+      />
+      <!-- Tel Input -->
+      <input
+        *ngSwitchCase="'tel'"
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+      />
+      <!-- Single Select -->
+      <select
+        *ngSwitchCase="'select'"
+        [value]="value"
+        (change)="onSelectChange($event)"
+      >
+        <option *ngFor="let option of options" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <!-- Multi-Select -->
+      <div *ngSwitchCase="'multiselect'" class="multiselect-wrapper">
+        <input
+          type="text"
+          [placeholder]="placeholder"
+          [value]="value"
+          readonly
+          (click)="isDropdownOpen = !isDropdownOpen"
+          [ngClass]="{'multiselect-input': true, 'input-content-error': errorInput}"
+        />
+        <div class="multiselect-dropdown" *ngIf="isDropdownOpen">
+          <input
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="searchText"
+            class="search-input"
+          />
+          <label
+            *ngFor="let option of filteredOptions"
+            [ngClass]="{'selected': selectedOptions.has(option.value)}"
+          >
+            <input
+              type="checkbox"
+              [checked]="selectedOptions.has(option.value)"
+              (change)="onMultiselectToggle(option.value)"
+            />
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+
+    </ng-container>
     <div class="icon" [style.cursor]="cursor" (click)="click()">
       <ng-content></ng-content>
     </div>
   </div>
-  @if (error) {
-    <div class="message-error">
-      <i class="fa-solid fa-circle-exclamation"></i>
-      {{ messageError }}
-    </div>
-  }
+  <div *ngIf="error" class="message-error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    {{ messageError }}
+  </div>
 </div>

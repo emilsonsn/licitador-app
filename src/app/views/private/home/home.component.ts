@@ -11,7 +11,7 @@ export class HomeComponent {
     {
       title: 'Encontrar licitações',
       description: 'Acesse as licitações',
-      link: '/painel/tenders'
+      link: '/painel/home/tenders'
     }
   ]
 

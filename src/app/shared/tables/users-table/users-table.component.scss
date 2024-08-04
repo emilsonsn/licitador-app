@@ -5,15 +5,17 @@
   border-radius: 8px;
   overflow: hidden;
   background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .table-scroll {
-  display: block;
-  empty-cells: show;
-
-  /* Decoration */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   border-spacing: 0;
-
 }
 
 .table-scroll thead {
@@ -25,34 +27,27 @@
 }
 
 .table-scroll tbody {
-  /* Position */
   display: block;
   position: relative;
   width: 100%;
+  flex: 1;
   overflow-y: auto;
-  /* Decoration */
-  //border-top: 1px solid rgba(0, 0, 0, 0.2);
+  height: 0; /* Important: This height setting ensures tbody uses flex-grow */
 }
 
 .table-scroll tr {
-  width: 100%;
   display: flex;
 }
 
 .table-scroll td, .table-scroll th {
-  flex-basis: 100%;
-  flex-grow: 2;
-  display: block;
+  flex: 1; /* Ensures all columns take up equal space */
   padding: 1rem;
   text-align: left;
 }
 
-/* Other options */
-
 .table-scroll.small-first-col td:first-child,
 .table-scroll.small-first-col th:first-child {
-  flex-basis: 20%;
-  flex-grow: 1;
+  flex: 0 0 20%; /* Adjust as needed */
 }
 
 .table-scroll tbody tr:nth-child(2n) {
@@ -60,11 +55,11 @@
 }
 
 .body-half-screen {
-  max-height: 60vh;
+  max-height: 55dvh;
 }
 
 .small-col {
-  flex-basis: 10%;
+  flex: 0 0 10%; /* Adjust as needed */
 }
 
 .div-td {

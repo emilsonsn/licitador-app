@@ -29,7 +29,7 @@ const routes: Routes = [
         component: HelpComponent
       },
       {
-        path: 'tenders',
+        path: 'home/tenders',
         component: TendersComponent
       },
       {

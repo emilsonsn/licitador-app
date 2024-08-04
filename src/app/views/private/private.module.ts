@@ -13,6 +13,7 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {QrCodeModule} from "ng-qrcode";
+import {MatDivider} from "@angular/material/divider";
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {QrCodeModule} from "ng-qrcode";
     MatIconButton,
     MatInput,
     MatLabel,
-    QrCodeModule
+    QrCodeModule,
+    MatDivider
   ]
 })
 export class PrivateModule { }

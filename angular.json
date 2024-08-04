@@ -30,9 +30,13 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/select2/dist/css/select2.min.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/select2/dist/js/select2.min.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/scss"]
             },            "server": "src/main.server.ts",
