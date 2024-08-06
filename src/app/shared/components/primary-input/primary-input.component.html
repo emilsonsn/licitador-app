@@ -42,6 +42,14 @@
         [value]="value"
         (input)="onInput($event)"
       />
+      <!-- Date Input -->
+      <input
+        *ngSwitchCase="'date'"
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+      />
       <!-- Single Select -->
       <select
         *ngSwitchCase="'select'"
@@ -57,7 +65,7 @@
         <input
           type="text"
           [placeholder]="placeholder"
-          [value]="value"
+          [value]="displayText"
           readonly
           (click)="isDropdownOpen = !isDropdownOpen"
           [ngClass]="{'multiselect-input': true, 'input-content-error': errorInput}"
@@ -82,7 +90,6 @@
           </label>
         </div>
       </div>
-
     </ng-container>
     <div class="icon" [style.cursor]="cursor" (click)="click()">
       <ng-content></ng-content>

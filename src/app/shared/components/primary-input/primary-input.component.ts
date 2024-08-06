@@ -1,7 +1,7 @@
-import {Component, EventEmitter, forwardRef, Input, Output, HostListener, ElementRef} from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output, HostListener, ElementRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
-type InputTypes = 'text' | 'number' | 'password' | 'email' | 'tel' | 'select' | 'multiselect';
+type InputTypes = 'text' | 'number' | 'password' | 'email' | 'tel' | 'select' | 'multiselect' | 'date';
 
 @Component({
   selector: 'app-primary-input',
@@ -24,7 +24,9 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() messageError: string = '';
   @Input() error: boolean = false;
   @Input() errorInput: boolean = false;
+  @Input() value: string = '';
   @Input() options: { value: string, label: string }[] = [];
+  @Input() returnArrayType: 'value' | 'label' = 'label'; // Definido para retornar valores ou labels
   @Output() onClick = new EventEmitter();
   @Output() selectionChange = new EventEmitter<{ value: string, label: string }[]>();
 
@@ -32,8 +34,8 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   selectedOptions: Set<string> = new Set();
   searchText: string = '';
 
-  value: string = '';
-  control = new FormControl(this.value);
+  displayText: string = ''; // Usado para mostrar os labels selecionados
+  control = new FormControl(this.displayText);
 
   click() {
     this.onClick.emit();
@@ -44,7 +46,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
 
   onInput(event: any) {
     const value = (event.target as HTMLInputElement).value;
-    this.value = value;
+    this.displayText = value;
     this.control.setValue(value);
     this.onChange(value);
     this.onTouched();
@@ -52,7 +54,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
 
   onSelectChange(event: any) {
     const value = (event.target as HTMLSelectElement).value;
-    this.value = value;
+    this.displayText = value;
     this.control.setValue(value);
     this.onChange(value);
     this.onTouched();
@@ -64,7 +66,16 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     } else {
       this.selectedOptions.add(option);
     }
+    this.updateDisplayText();
     this.updateValue();
+  }
+
+  updateDisplayText() {
+    const selectedOptionsArray = Array.from(this.selectedOptions).map(value => {
+      return this.options.find(option => option.value === value);
+    }).filter(option => option !== undefined) as { value: string, label: string }[];
+
+    this.displayText = selectedOptionsArray.map(option => option.label).join(', ');
   }
 
   updateValue() {
@@ -72,13 +83,16 @@ export class PrimaryInputComponent implements ControlValueAccessor {
       return this.options.find(option => option.value === value);
     }).filter(option => option !== undefined) as { value: string, label: string }[];
 
-    this.value = selectedOptionsArray.map(option => option.label).join(', ');
-    this.control.setValue(this.value);
-    this.onChange(this.value);
+    if (this.returnArrayType === 'value') {
+      this.control.setValue(selectedOptionsArray.map(option => option.value).join(', '));
+    } else {
+      this.control.setValue(this.displayText);
+    }
+
+    this.onChange(this.control.value);
     this.onTouched();
     this.selectionChange.emit(selectedOptionsArray);
   }
-
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -90,9 +104,10 @@ export class PrimaryInputComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     if (value !== null && value !== undefined) {
-      this.value = value;
-      this.control.setValue(value);
-      this.selectedOptions = new Set(value.split(', '));
+      const valuesArray = value.split(', ');
+      this.selectedOptions = new Set(valuesArray);
+      this.updateDisplayText();
+      this.control.setValue(this.displayText);
     }
   }
 

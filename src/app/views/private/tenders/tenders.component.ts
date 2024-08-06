@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Tender} from "@model/tender";
 import Estados from '../../../../assets/json/Estados.json';
 import Cidades from '../../../../assets/json/Cidades.json';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-tenders',
@@ -89,7 +90,33 @@ export class TendersComponent implements OnInit {
   private allCities: any[] = [];
   private selectedStates: Set<string> = new Set();
 
-  constructor(private http: HttpClient) {}
+  public tenderForm!: FormGroup;
+
+  constructor(private http: HttpClient, private fb: FormBuilder) {
+    this.tenderForm = this.fb.group({
+      object: [''],
+      uf: [],
+      city: [],
+      publication_date_start: [''],
+      update_date_start: [''],
+      update_date_end: [''],
+      modality_ids: [],
+      organ_cnpj: [''],
+      organ_name: [''],
+      process: [''],
+      observations: [''],
+
+      favorite: [false],
+      status: [[]],
+
+
+      /*
+            proposal_closing_date_start: [''],
+            proposal_closing_date_end: [''],
+            publication_date_end: [''],
+            */
+    });
+  }
 
   ngOnInit() {
     this.loadStates();
@@ -140,5 +167,9 @@ export class TendersComponent implements OnInit {
 
   reloadFilters() {
     this.loadCities(); // Reload city data and apply filters
+  }
+
+  onSubmit() {
+    console.log(this.tenderForm.value);
   }
 }
