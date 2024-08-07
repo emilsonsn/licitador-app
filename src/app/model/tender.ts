@@ -21,7 +21,7 @@ export interface Tender {
   proposal_closing_date: string;
   publication_date: string;
   update_date: string;
-  favorites: any[];
+  favorites: any;
 }
 
 

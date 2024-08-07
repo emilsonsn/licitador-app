@@ -18,6 +18,21 @@
     align-items: center;
     padding: 0.5rem; // Reduzido para se adequar à nova altura
     color: white;
+
+    .card-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem; // Reduzido para se adequar à nova altura
+
+      .active-status-card {
+        color: #DBC505;
+      }
+
+      i {
+        cursor: pointer;
+      }
+    }
+
   }
 
   .card-main {

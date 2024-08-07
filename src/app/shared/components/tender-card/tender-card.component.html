@@ -1,6 +1,13 @@
 <div class="card">
   <div class="card-header">
-    <div>#{{data?.id}}</div>
+    <div class="card-header-left">
+      <p>#{{data?.id}}</p>
+      @if (data?.favorites.length > 0){
+        <i class="fa-solid fa-star active-status-card" (click)="favorite(data)"></i>
+      } @else {
+        <i class="fa-regular fa-star" (click)="favorite(data)"></i>
+      }
+    </div>
     <div>Atualizada em {{dayjs(data?.update_date).format("DD/MM/YYYY")}}</div>
   </div>
   <div class="card-main">
