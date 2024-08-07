@@ -107,13 +107,17 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   }
 
   writeValue(value: any): void {
-    if (value !== null && value !== undefined) {
+    if (typeof value === 'string' && value !== '') {
       const valuesArray = value.split(', ');
       this.selectedOptions = new Set(valuesArray);
-      this.updateDisplayText();
-      this.control.setValue(this.displayText);
+    } else {
+      this.selectedOptions = new Set();
     }
+
+    this.updateDisplayText();
+    this.control.setValue(this.displayText);
   }
+
 
   normalizeText(text: string): string {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');

@@ -8,6 +8,7 @@
       <div class="filter-form-inputs">
         <!--Buscar por objeto-->
         <app-primary-input
+          [value]="this.tenderForm.get('object')?.value"
           formControlName="object"
           placeholder="Pesquise por Objeto"
           label="Objeto"
@@ -93,6 +94,7 @@
         <mat-divider></mat-divider>
 
         <app-primary-input
+          [value]="this.tenderForm.get('publication_date_start')?.value"
           label="Data Inclusão"
           type="date"
           formControlName="publication_date_start"
@@ -101,6 +103,7 @@
         </app-primary-input>
 
         <app-primary-input
+          [value]="this.tenderForm.get('update_date_start')?.value"
           label="Data de última atualização:"
           type="date"
           formControlName="update_date_start"
@@ -109,6 +112,7 @@
         </app-primary-input>
 
         <app-primary-input
+          [value]="this.tenderForm.get('update_date_end')?.value"
           label="Data Prazo"
           type="date"
           formControlName="update_date_end"
@@ -136,6 +140,7 @@
         </label>
         <mat-divider></mat-divider>-->
         <app-primary-input
+          [value]="this.tenderForm.get('organ_cnpj')?.value"
           formControlName="organ_cnpj"
           placeholder="Pesquise por CNPJ do Órgão"
           label="CNPJ do Órgão"
@@ -144,6 +149,7 @@
         </app-primary-input>
 
         <app-primary-input
+          [value]="this.tenderForm.get('organ_name')?.value"
           formControlName="organ_name"
           placeholder="Pesquise por nome do Órgão"
           label="Nome do Órgão"
@@ -151,7 +157,7 @@
           <i class="fa-solid fa-inbox"></i>
         </app-primary-input>
 
-        <app-primary-input
+     <!--   <app-primary-input
           [type]="'multiselect'"
           [placeholder]="'Selecione as Esferas'"
           [inputName]="'ball'"
@@ -163,10 +169,11 @@
           ]"
         >
           <i class="fa-solid fa-chevron-down"></i>
-        </app-primary-input>
+        </app-primary-input>-->
 
 
         <app-primary-input
+          [value]="this.tenderForm.get('process')?.value"
           formControlName="process"
           placeholder="Pesquise por Nº Processo"
           label="Nº Processo"
@@ -196,6 +203,7 @@
 
 
         <app-primary-input
+          [value]="this.tenderForm.get('observations')?.value"
           formControlName="observations"
           placeholder="Pesquise por Observação"
           label="Observação"

@@ -113,15 +113,6 @@ export class TendersComponent implements OnInit {
     }
   }
 
-  clearFilters() {
-    this.selectedStates.clear();
-    this.filterCities();
-  }
-
-  reloadFilters() {
-    this.loadCities();
-  }
-
   onSubmit() {
     const formValues = this.tenderForm.value;
     this.pageControl.page = 1;
@@ -185,4 +176,51 @@ export class TendersComponent implements OnInit {
   loadMoreTenders() {
     this.loadTenders();
   }
+
+  clearFilters() {
+    // Limpar os valores dos filtros no formulário
+    this.tenderForm.reset();
+
+    // Limpar a lista de cidades
+    this.selectedStates.clear();
+    this.filterCities();
+
+    // Limpar a lista de tenders e reiniciar a página para recarregar os tenders
+    this.tenders = [];
+    this.pageControl.page = 1;
+    this.loadTenders();
+  }
+
+  // Função para recarregar os tenders com filtros aplicados
+  reloadFilters() {
+    // Reiniciar a página para garantir que a lista de tenders seja substituída
+    this.pageControl.page = 1;
+
+    // Corrigir valores nulos, undefined ou vazios nos filtros
+    const formValues = this.tenderForm.value;
+    const cleanedFilters = Object.keys(formValues).reduce((acc, key) => {
+      const value = formValues[key];
+      acc[key] = (value === null || value === undefined || value === '') ? '' : value;
+      return acc;
+    }, {} as any);
+
+    // Limpar a lista de tenders e recarregar com os filtros aplicados
+    this.tenders = [];
+    this.tenderService.getTenders(this.pageControl, cleanedFilters).subscribe(
+      {
+        next: (res) => {
+          if (res && res.data) {
+            this.tenders = res.data.data || [];
+          } else {
+            this.tenders = [];
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching tenders', error);
+          this.tenders = [];
+        }
+      }
+    );
+  }
+
 }
