@@ -6,6 +6,7 @@ import Cidades from '../../../../assets/json/Cidades.json';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TenderService} from '@services/tender/tender.service';
 import {Order, PageControl} from '@model/application';
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-tenders',
@@ -70,7 +71,9 @@ export class TendersComponent implements OnInit {
         console.log('ClientHeight:', clientHeight);
         console.log(scrollTop + clientHeight >= scrollHeight - 10);*/
 
-    if (this.isLoading && (scrollTop + clientHeight >= scrollHeight - 10)) {
+    // console.log(this.isLoading)
+
+    if (!this.isLoading && (scrollTop + clientHeight >= scrollHeight - 10)) {
       console.log('Trigger load more');
       this.loadMoreTenders();
     }
@@ -92,11 +95,6 @@ export class TendersComponent implements OnInit {
 
   onStatesChange(selectedStates: { value: string, label: string }[]) {
     this.selectedStates = new Set(selectedStates.map(state => state.value));
-    this.filterCities();
-  }
-
-  selectAllStates() {
-    this.selectedStates.clear();
     this.filterCities();
   }
 
@@ -155,11 +153,19 @@ export class TendersComponent implements OnInit {
 
   loadTenders() {
     this.isLoading = true;
-    this.tenderService.getTenders(this.pageControl, {}).subscribe(
+    this.tenderService.getTenders(this.pageControl, {})
+      .pipe(take(1))
+      .subscribe(
       {
         next: (res) => {
           if (res && res.data) {
-            this.tenders = [...this.tenders, ...res.data.data];
+            // Filtrar duplicatas com base no ID do tender
+            const newTenders = res.data.data || [];
+            const existingTenderIds = new Set(this.tenders.map(tender => tender.id));
+            const uniqueTenders = newTenders.filter((tender: { id: number; }) => !existingTenderIds.has(tender.id));
+
+            // Adicionar tenders únicos à lista existente
+            this.tenders = [...this.tenders, ...uniqueTenders];
             if (!!this.pageControl.page) {
               this.pageControl.page += 1;
             }
@@ -171,6 +177,9 @@ export class TendersComponent implements OnInit {
         }
       }
     );
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
   }
 
   loadMoreTenders() {
