@@ -1,5 +1,5 @@
-import { Component, EventEmitter, forwardRef, Input, Output, HostListener, ElementRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import {Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, Output} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 type InputTypes = 'text' | 'number' | 'password' | 'email' | 'tel' | 'select' | 'multiselect' | 'date';
 
@@ -26,7 +26,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() errorInput: boolean = false;
   @Input() value: string = '';
   @Input() options: { value: string, label: string }[] = [];
-  @Input() returnArrayType: 'value' | 'label' = 'label'; // Definido para retornar valores ou labels
+  @Input() returnArrayType: 'value' | 'label' | 'sigla' = 'label'; // Definido para retornar valores ou labels
   @Output() onClick = new EventEmitter();
   @Output() selectionChange = new EventEmitter<{ value: string, label: string }[]>();
 
@@ -41,8 +41,10 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     this.onClick.emit();
   }
 
-  onChange: (value: any) => void = () => {};
-  onTouched: () => void = () => {};
+  onChange: (value: any) => void = () => {
+  };
+  onTouched: () => void = () => {
+  };
 
   onInput(event: any) {
     const value = (event.target as HTMLInputElement).value;
@@ -81,9 +83,11 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   updateValue() {
     const selectedOptionsArray = Array.from(this.selectedOptions).map(value => {
       return this.options.find(option => option.value === value);
-    }).filter(option => option !== undefined) as { value: string, label: string }[];
+    }).filter(option => option !== undefined) as { value: string, label: string, sigla: string }[];
 
-    if (this.returnArrayType === 'value') {
+    if (this.returnArrayType === 'sigla') {
+      this.control.setValue(selectedOptionsArray.map(option => option.sigla).join(', '));
+    } else if (this.returnArrayType === 'value') {
       this.control.setValue(selectedOptionsArray.map(option => option.value).join(', '));
     } else {
       this.control.setValue(this.displayText);
@@ -133,5 +137,6 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     }
   }
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) {
+  }
 }

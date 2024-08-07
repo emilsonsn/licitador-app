@@ -30,6 +30,7 @@
           [placeholder]="'Selecione os Estados'"
           [inputName]="'state'"
           [label]="'Estado'"
+          [returnArrayType]="'sigla'"
           [options]="statesOptions"
           (selectionChange)="onStatesChange($event)"
         >
@@ -194,8 +195,6 @@
         -->
 
 
-
-
         <app-primary-input
           formControlName="observations"
           placeholder="Pesquise por Observação"
@@ -234,12 +233,13 @@
       </div>
     </form>
   </section>
-  <section class="cards-section">
+  <section class="cards-section" (scroll)="onScroll($event)">
     <div class="cards-container">
-      @for (tender of tenders; track tenders) {
+      <div *ngFor="let tender of tenders; let i = index">
         <app-tender-card style="width: 100%" [data]="tender"></app-tender-card>
-      }
-      <p>Carregando...</p>
+      </div>
+      <p *ngIf="isLoading">Carregando...</p>
     </div>
   </section>
+
 </main>

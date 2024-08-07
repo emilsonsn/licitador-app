@@ -56,11 +56,19 @@
       border: 1px solid $primary-color;
       border-radius: 8px;
       justify-content: center;
+      gap: 0.5rem;
 
       .card-information-container {
         display: flex;
         justify-content: space-between;
         align-items: start;
+
+        div {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+        }
       }
     }
 

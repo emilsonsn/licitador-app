@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Tender} from "@model/tender";
+import {Tender} from '@model/tender';
 import Estados from '../../../../assets/json/Estados.json';
 import Cidades from '../../../../assets/json/Cidades.json';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {TenderService} from '@services/tender/tender.service';
+import {Order, PageControl} from '@model/application';
 
 @Component({
   selector: 'app-tenders',
@@ -11,88 +13,27 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./tenders.component.scss']
 })
 export class TendersComponent implements OnInit {
-  public tenders: Tender[] = [
-    {
-      id: 1,
-      Objective: 'Construção de Escola',
-      Datas: '2024-08-01',
-      Edital: 'Edital Nº 001/2024',
-      Orgao: 'Secretaria de Educação',
-      Cidade: 'São Paulo',
-      Status: 'Aberto',
-      N_Conlicitacao: 'CON-2024-001',
-      created_at: new Date('2024-07-01T10:00:00Z'),
-      updated_at: new Date('2024-07-10T15:30:00Z'),
-    },
-    {
-      id: 2,
-      Objective: 'Reforma de Hospital',
-      Datas: '2024-09-15',
-      Edital: 'Edital Nº 002/2024',
-      Orgao: 'Secretaria de Saúde',
-      Cidade: 'Rio de Janeiro',
-      Status: 'Fechado',
-      N_Conlicitacao: 'CON-2024-002',
-      created_at: new Date('2024-07-05T09:00:00Z'),
-      updated_at: new Date('2024-07-20T11:00:00Z'),
-    },
-    {
-      id: 3,
-      Objective: 'Manutenção de Rodovias',
-      Datas: '2024-08-20',
-      Edital: 'Edital Nº 003/2024',
-      Orgao: 'Departamento de Estradas',
-      Cidade: 'Belo Horizonte',
-      Status: 'Aberto',
-      N_Conlicitacao: 'CON-2024-003',
-      created_at: new Date('2024-07-08T14:00:00Z'),
-      updated_at: new Date('2024-07-15T12:00:00Z'),
-    },
-    {
-      id: 4,
-      Objective: 'Aquisição de Equipamentos',
-      Datas: '2024-10-10',
-      Edital: 'Edital Nº 004/2024',
-      Orgao: 'Secretaria de Tecnologia',
-      Cidade: 'Porto Alegre',
-      Status: 'Em Análise',
-      N_Conlicitacao: 'CON-2024-004',
-      created_at: new Date('2024-07-12T16:00:00Z'),
-      updated_at: new Date('2024-07-22T13:00:00Z'),
-    },
-    {
-      id: 5,
-      Objective: 'Serviços de Limpeza Urbana',
-      Datas: '2024-11-05',
-      Edital: 'Edital Nº 005/2024',
-      Orgao: 'Prefeitura Municipal',
-      Cidade: 'Curitiba',
-      Status: 'Aberto',
-      N_Conlicitacao: 'CON-2024-005',
-      created_at: new Date('2024-07-18T08:00:00Z'),
-      updated_at: new Date('2024-07-25T10:00:00Z'),
-    },
-    {
-      id: 6,
-      Objective: 'Fornecimento de Material Escolar',
-      Datas: '2024-12-01',
-      Edital: 'Edital Nº 006/2024',
-      Orgao: 'Secretaria de Educação',
-      Cidade: 'Salvador',
-      Status: 'Fechado',
-      N_Conlicitacao: 'CON-2024-006',
-      created_at: new Date('2024-07-20T11:00:00Z'),
-      updated_at: new Date('2024-07-25T14:00:00Z'),
-    }
-  ];
+  public tenders: Tender[] = [];
   public statesOptions: { value: string, label: string }[] = [];
   public citiesOptions: { value: string, label: string }[] = [];
   private allCities: any[] = [];
   private selectedStates: Set<string> = new Set();
-
   public tenderForm!: FormGroup;
+  pageControl: PageControl = {
+    take: 10,
+    page: 1,
+    itemCount: 0,
+    pageCount: 0,
+    orderField: '',
+    order: Order.ASC,
+  };
+  isLoading = false;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private readonly tenderService: TenderService
+  ) {
     this.tenderForm = this.fb.group({
       object: [''],
       uf: [],
@@ -105,17 +46,11 @@ export class TendersComponent implements OnInit {
       organ_name: [''],
       process: [''],
       observations: [''],
-
       favorite: [false],
       status: [[]],
-
-
-      /*
-            proposal_closing_date_start: [''],
-            proposal_closing_date_end: [''],
-            publication_date_end: [''],
-            */
     });
+
+    this.loadTenders(); // Initial load
   }
 
   ngOnInit() {
@@ -123,10 +58,30 @@ export class TendersComponent implements OnInit {
     this.loadCities();
   }
 
+  @HostListener('scroll', ['$event'])
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement;
+    const scrollTop = target.scrollTop;
+    const scrollHeight = target.scrollHeight;
+    const clientHeight = target.clientHeight;
+
+    /*    console.log('ScrollTop:', scrollTop);
+        console.log('ScrollHeight:', scrollHeight);
+        console.log('ClientHeight:', clientHeight);
+        console.log(scrollTop + clientHeight >= scrollHeight - 10);*/
+
+    if (this.isLoading && (scrollTop + clientHeight >= scrollHeight - 10)) {
+      console.log('Trigger load more');
+      this.loadMoreTenders();
+    }
+  }
+
+
   loadStates() {
     this.statesOptions = Estados.map(state => ({
       value: state.ID,
-      label: state.Nome
+      label: state.Nome,
+      sigla: state.Sigla
     }));
   }
 
@@ -166,10 +121,59 @@ export class TendersComponent implements OnInit {
   }
 
   reloadFilters() {
-    this.loadCities(); // Reload city data and apply filters
+    this.loadCities();
   }
 
   onSubmit() {
-    console.log(this.tenderForm.value);
+    const formValues = this.tenderForm.value;
+    this.pageControl.page = 1;
+    // Corrigir valores nulos, undefined ou vazios
+    const cleanedFilters = Object.keys(formValues).reduce((acc, key) => {
+      const value = formValues[key];
+      // Se o valor é nulo, undefined ou uma string vazia, substitua por uma string vazia
+      acc[key] = (value === null || value === undefined || value === '') ? '' : value;
+      return acc;
+    }, {} as any);
+
+    this.tenderService.getTenders(this.pageControl, cleanedFilters).subscribe(
+      {
+        next: (res) => {
+          if (res && res.data) {
+            this.tenders = res.data.data || [];
+          } else {
+            this.tenders = [];
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching tenders', error);
+          this.tenders = [];
+        }
+      }
+    );
+  }
+
+
+  loadTenders() {
+    this.isLoading = true;
+    this.tenderService.getTenders(this.pageControl, {}).subscribe(
+      {
+        next: (res) => {
+          if (res && res.data) {
+            this.tenders = [...this.tenders, ...res.data.data];
+            if (!!this.pageControl.page) {
+              this.pageControl.page += 1;
+            }
+          }
+        },
+        error: (error) => {
+          console.error('Error loading tenders', error);
+          this.isLoading = false;
+        }
+      }
+    );
+  }
+
+  loadMoreTenders() {
+    this.loadTenders();
   }
 }

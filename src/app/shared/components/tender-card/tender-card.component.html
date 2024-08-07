@@ -1,29 +1,33 @@
 <div class="card">
   <div class="card-header">
     <div>#{{data?.id}}</div>
-    <div>Atualizada em {{dayjs(data?.updated_at).format("DD/MM/YYYY HH:mm")}}</div>
+    <div>Atualizada em {{dayjs(data?.update_date).format("DD/MM/YYYY")}}</div>
   </div>
   <div class="card-main">
-    <div class="card-buttons">
+    <!--<div class="card-buttons">
       <button>Ativar monitoramento de chat</button>
       <button>Gerenciar esta licitação</button>
-    </div>
+    </div>-->
     <div class="card-information">
-      <p><strong>Objetivo: </strong>{{data?.Objective}}</p>
+      <p><strong>Edital: </strong>{{data?.process}}</p>
+      <p><strong>Descrição: </strong>{{data?.description}}</p>
       <div class="card-information-container">
         <div class="left">
-          <p><strong>Datas: </strong>{{data?.Datas}}</p>
-          <p><strong>Edital: </strong>{{data?.Edital}}</p>
-          <p><strong>Órgão: </strong>{{data?.Orgao}}</p>
-          <p><strong>Cidade: </strong>{{data?.Cidade}}</p>
+          <p><strong>Data da publicação: </strong>{{dayjs(data?.publication_date).format("DD/MM/YYYY")}}</p>
+          <p><strong>Órgão: </strong>{{data?.organ_name}}</p>
+          <p><strong>Cidade: </strong>{{data?.city}} - {{data?.uf}}</p>
         </div>
         <div class="right">
-          <p><strong>Situação: {{data?.Status}}</strong></p>
-          <p><strong>N° Conlicitação: {{data?.N_Conlicitacao}}</strong></p>
+          <p><strong>Situação: </strong>{{data?.status}}</p>
+          <p><strong>Modalidade: </strong>{{data?.modality}}</p>
         </div>
       </div>
+      <div>
+
+        <p><strong>Objetivo: </strong>{{data?.object}}</p>
+      </div>
     </div>
-    <div class="card-buttons">
+    <!--<div class="card-buttons">
       <button>Baixar Edital</button>
       <button>Itens</button>
     </div>
@@ -34,6 +38,6 @@
       placeholder="Digite sua mensagem..."
     >
       <mat-icon>send</mat-icon>
-    </app-primary-input>
+    </app-primary-input>-->
   </div>
 </div>
