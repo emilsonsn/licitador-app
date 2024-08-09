@@ -33,7 +33,8 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   isDropdownOpen: boolean = false;
   selectedOptions: Set<string> = new Set();
   searchText: string = '';
-
+  selectedValue: any;
+  selectedOptionLabel = '';
   displayText: string = ''; // Usado para mostrar os labels selecionados
   control = new FormControl(this.displayText);
 
@@ -52,6 +53,10 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     this.control.setValue(value);
     this.onChange(value);
     this.onTouched();
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   onSelectChange(event: any) {
@@ -78,6 +83,13 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     }).filter(option => option !== undefined) as { value: string, label: string }[];
 
     this.displayText = selectedOptionsArray.map(option => option.label).join(', ');
+  }
+
+  onOptionSelect(value: any) {
+    this.selectedValue = value;
+    this.selectedOptionLabel = this.options.find(option => option.value === value)?.label || '';
+    this.isDropdownOpen = false;
+    this.onSelectChange(value); // Caso você tenha uma função para lidar com a mudança
   }
 
   updateValue() {
