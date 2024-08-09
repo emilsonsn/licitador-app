@@ -1,1 +1,103 @@
-<p>dashboard works!</p>
+<main>
+  <section>
+    <div class="container left">
+      <div class="title">
+        <h2>Dashboard</h2>
+        <p>Visão geral das principais métricas</p>
+      </div>
+      <div class="mini-cards">
+        <div class="container purple">
+          <div class="mini-cards-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="mini-cards-info">
+            <div class="mini-cards-info-title">
+              <h3>Total de Usuários</h3>
+              <p>Assinantes ou não da plataforma</p>
+            </div>
+            <p class="mini-cards-info-resume">{{ totalUsers }} Usuários</p>
+          </div>
+        </div>
+        <div class="container yellow">
+          <div class="mini-cards-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="mini-cards-info">
+            <div class="mini-cards-info-title">
+              <h3>Usuários deste mês</h3>
+              <p>Assinantes da plataforma</p>
+            </div>
+            <p class="mini-cards-info-resume">{{ totalMonthUsers }} Usuários</p>
+          </div>
+        </div>
+        <div class="container green">
+          <div class="mini-cards-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="mini-cards-info">
+            <div class="mini-cards-info-title">
+              <h3>Total de Usuários</h3>
+              <p>Assinantes da plataforma</p>
+            </div>
+            <p class="mini-cards-info-resume">{{ totalActiveUsers }} Assinantes</p>
+          </div>
+        </div>
+        <div class="container purple">
+          <div class="mini-cards-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="mini-cards-info">
+            <div class="mini-cards-info-title">
+              <h3>Inactive Users</h3>
+              <p>Assinantes ou não da plataforma</p>
+            </div>
+            <p class="mini-cards-info-resume">{{ totalInactiveUsers }} Usuários</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container right">
+      <h3>User Growth</h3>
+      <div class="chart-container">
+        <canvas id="userGrowthChart"></canvas>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container left">
+      <div class="title">
+        <h2>Dashboard</h2>
+        <p>Overview of key metrics</p>
+      </div>
+      <div class="mini-cards">
+        <div class="container yellow">
+          <div class="mini-cards-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="mini-cards-info">
+            <div class="mini-cards-info-title">
+              <h3>Total Tenders</h3>
+              <p>Assinantes da plataforma</p>
+            </div>
+            <p class="mini-cards-info-resume">{{ totalTenders }} Usuários</p>
+          </div>
+        </div>
+        <div class="container green">
+          <div class="mini-cards-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="mini-cards-info">
+            <div class="mini-cards-info-title">
+              <h3>Tenders This Month</h3>
+              <p>Assinantes da plataforma</p>
+            </div>
+            <p class="mini-cards-info-resume">{{ totalMonthTenders }} Assinantes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container right">
+      <h3>User Growth</h3>
+    </div>
+  </section>
+</main>
