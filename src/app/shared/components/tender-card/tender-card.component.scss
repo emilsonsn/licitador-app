@@ -73,7 +73,8 @@
       .card-information {
         display: flex;
         flex-direction: column;
-        padding: 0.5rem; // Reduzido para se adequar à nova altura
+        // Reduzido para se adequar à nova altura
+        padding: 0.5rem 0.5rem 1rem;
         justify-content: center;
         gap: 0.5rem;
 

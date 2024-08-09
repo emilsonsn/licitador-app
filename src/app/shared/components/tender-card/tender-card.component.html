@@ -8,7 +8,17 @@
         <i class="fa-regular fa-star" (click)="favorite(data)"></i>
       }
     </div>
-    <div>Atualizada em {{ dayjs(data?.update_date).format("DD/MM/YYYY") }}</div>
+    <div>
+      <!--Atualizada em {{ dayjs(data?.update_date).format("DD/MM/YYYY") }}-->
+      <p><strong>
+        <a [href]="formatUrl(data?.origin_url)" target="_blank"
+           rel="noopener noreferrer"
+           style="text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 0.5rem; color: #551A8B"
+        >
+          <span>Ir para PNCP</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a></strong>
+      </p></div>
   </div>
   <div class="card-main">
     <!--<div class="card-buttons">
@@ -35,7 +45,7 @@
           <span
             style="
             background: #ebce47;
-            padding: 0 0.5rem;
+            padding: 0.3rem 0.5rem;
             border-radius: 0.5rem;
             ">
             R$ {{ data?.value }}
@@ -49,13 +59,13 @@
                 <p><strong>Processo: </strong><span style="color: gray">{{ data?.process }}</span></p>
               </div>
               <div class="right">
-                <p *ngIf="data?.origin_url"><strong>Site: </strong>
+                <!--<p *ngIf="data?.origin_url"><strong>Site: </strong>
                   <a [href]="formatUrl(data?.origin_url)" target="_blank"
                      rel="noopener noreferrer">
                     {{ truncate(data?.origin_url, 40) }}
                   </a>
                   <span *ngIf="!data?.origin_url">-</span>
-                </p>
+                </p>-->
               </div>
             </div>
           </div>
