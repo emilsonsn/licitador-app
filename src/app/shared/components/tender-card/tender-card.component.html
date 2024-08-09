@@ -1,50 +1,87 @@
 <div class="card">
   <div class="card-header">
     <div class="card-header-left">
-      <p>#{{data?.id}}</p>
-      @if (data?.favorites.length > 0){
+      <p>#{{ data?.id }}</p>
+      @if (data?.favorites.length > 0) {
         <i class="fa-solid fa-star active-status-card" (click)="favorite(data)"></i>
       } @else {
         <i class="fa-regular fa-star" (click)="favorite(data)"></i>
       }
     </div>
-    <div>Atualizada em {{dayjs(data?.update_date).format("DD/MM/YYYY")}}</div>
+    <div>Atualizada em {{ dayjs(data?.update_date).format("DD/MM/YYYY") }}</div>
   </div>
   <div class="card-main">
     <!--<div class="card-buttons">
       <button>Ativar monitoramento de chat</button>
       <button>Gerenciar esta licitação</button>
     </div>-->
-    <div class="card-information">
-      <p><strong>Edital: </strong>{{data?.process}}</p>
-      <p><strong>Descrição: </strong>{{data?.description}}</p>
-      <div class="card-information-container">
-        <div class="left">
-          <p><strong>Data da publicação: </strong>{{dayjs(data?.publication_date).format("DD/MM/YYYY")}}</p>
-          <p><strong>Órgão: </strong>{{data?.organ_name}}</p>
-          <p><strong>Cidade: </strong>{{data?.city}} - {{data?.uf}}</p>
+    <div class="card-information-board">
+      <div class="card-information">
+        <p><strong>Objeto: </strong>{{ data?.object }}</p>
+        <div class="card-information-container">
+          <div class="left">
+            <p><strong>Data da Abertura Proposta : </strong>{{ dayjs(data?.publication_date).format("DD/MM/YYYY") }}</p>
+            <p><strong>Edital: </strong><span style="color: gray">{{ data?.process }}</span></p>
+            <p><strong>Órgão: </strong>{{ data?.organ_name }}</p>
+          </div>
+          <div class="right">
+            <p><strong>Situação: </strong>{{ data?.status }}</p>
+            <p><strong>Modalidade: </strong>{{ data?.modality }}</p>
+          </div>
         </div>
-        <div class="right">
-          <p><strong>Situação: </strong>{{data?.status}}</p>
-          <p><strong>Modalidade: </strong>{{data?.modality}}</p>
-        </div>
+        <p><strong>Cidade: </strong>{{ data?.city }} - {{ data?.uf }}</p>
+        <p>
+          <strong>Valor Estimado: </strong>
+          <span
+            style="
+            background: #ebce47;
+            padding: 0 0.5rem;
+            border-radius: 0.5rem;
+            ">
+            R$ {{ data?.value }}
+          </span>
+        </p>
+        @if (viewedPlus) {
+          <div>
+            <p><strong>Obs: </strong>{{ data?.description }}</p>
+            <div class="card-information-container">
+              <div class="left">
+                <p><strong>Processo: </strong><span style="color: gray">{{ data?.process }}</span></p>
+              </div>
+              <div class="right">
+                <p *ngIf="data?.origin_url"><strong>Site: </strong>
+                  <a [href]="formatUrl(data?.origin_url)" target="_blank"
+                     rel="noopener noreferrer">
+                    {{ truncate(data?.origin_url, 40) }}
+                  </a>
+                  <span *ngIf="!data?.origin_url">-</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        }
       </div>
-      <div>
-
-        <p><strong>Objetivo: </strong>{{data?.object}}</p>
+      <div class="card-information-board-button">
+        <p (click)="viewMore()">
+          @if (!viewedPlus) {
+            <span>Ver mais informações da licitação</span>
+          } @else {
+            <span>Ver menos informações da licitação</span>
+          }
+        </p>
       </div>
     </div>
-    <!--<div class="card-buttons">
+    <div class="card-buttons">
       <button>Baixar Edital</button>
-      <button>Itens</button>
+      <!--<button>Itens</button>-->
     </div>
-    <app-primary-input
-      label="Anotações"
-      inputName="text"
-      type="text"
-      placeholder="Digite sua mensagem..."
-    >
-      <mat-icon>send</mat-icon>
-    </app-primary-input>-->
+    <!-- <app-primary-input
+       label="Anotações"
+       inputName="text"
+       type="text"
+       placeholder="Digite sua mensagem..."
+     >
+       <mat-icon>send</mat-icon>
+     </app-primary-input>-->
   </div>
 </div>

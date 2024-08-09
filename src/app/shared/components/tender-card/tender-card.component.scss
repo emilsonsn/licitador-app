@@ -12,12 +12,12 @@
   background: white;
 
   .card-header {
-    background: $primary-color;
+    background: $header-tender-card-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem; // Reduzido para se adequar à nova altura
-    color: white;
+    color: #2d007a;
 
     .card-header-left {
       display: flex;
@@ -25,7 +25,7 @@
       gap: 0.5rem; // Reduzido para se adequar à nova altura
 
       .active-status-card {
-        color: #DBC505;
+        color: #FD6868;
       }
 
       i {
@@ -64,28 +64,46 @@
 
     }
 
-    .card-information {
+    .card-information-board {
       display: flex;
       flex-direction: column;
-      padding: 0.5rem; // Reduzido para se adequar à nova altura
       border: 1px solid $primary-color;
       border-radius: 8px;
-      justify-content: center;
-      gap: 0.5rem;
 
-      .card-information-container {
+      .card-information {
         display: flex;
-        justify-content: space-between;
-        align-items: start;
+        flex-direction: column;
+        padding: 0.5rem; // Reduzido para se adequar à nova altura
+        justify-content: center;
+        gap: 0.5rem;
 
-        div {
+        .card-information-container {
           display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
+          justify-content: space-between;
+          align-items: start;
 
+          div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+        }
+      }
+
+      .card-information-board-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        border-top: 1px solid $primary-color;
+
+        p {
+          cursor: pointer;
+          text-decoration: underline;
         }
       }
     }
+
 
   }
 }

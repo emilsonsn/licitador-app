@@ -165,6 +165,9 @@ main {
   .cards-section {
     flex-grow: 1;
     padding: 1rem;
+    padding-top: 104px;
+    justify-content: start;
+    align-items: start;
     overflow: auto; /* Permite rolar */
     height: 100vh; /* Define a altura para 100% da altura da viewport */
     box-sizing: border-box; /* Inclui padding na altura total */
@@ -174,8 +177,8 @@ main {
       max-height: 80vh;
       position: relative;
       display: flex;
+      top: 0;
       flex-direction: column;
-      top: 30px;
       gap: 1rem;
 
       p {

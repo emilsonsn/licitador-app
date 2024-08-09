@@ -13,8 +13,35 @@ export class TenderCardComponent {
   data: Tender | null = null;
   protected readonly dayjs = dayjs;
   protected readonly length = length;
+  viewedPlus: boolean = false;
 
   constructor(private readonly tenderService: TenderService) {
+  }
+
+  truncate(str: string | null | undefined, maxChars: number): string {
+    if (!str) {
+      return '';
+    }
+    if (str.length <= maxChars) {
+      return str;
+    }
+    return str.slice(0, maxChars) + '...';
+  }
+
+
+  formatUrl(url: string | null | undefined): string {
+    if (typeof url === 'string') {
+      // Adiciona 'https://' se a URL não começar com 'http://' ou 'https://'
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return `https://${url}`;
+      }
+      return url;
+    }
+    return '';
+  }
+
+  viewMore() {
+    this.viewedPlus = !this.viewedPlus;
   }
 
   favorite(data: Tender | null) {
