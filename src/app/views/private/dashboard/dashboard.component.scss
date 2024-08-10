@@ -75,7 +75,7 @@ main {
             box-sizing: border-box;
 
             .mini-cards-info-resume {
-              font-size: 1rem;
+              font-size: 1.5rem;
               text-decoration: underline;
               color: #668dec;
             }
@@ -129,6 +129,20 @@ main {
           }
         }
 
+        .red {
+          background: #ffe2e6;
+
+          .mini-cards-icon {
+            background: #fa5a7c;
+          }
+        }
+
+      }
+
+      .chart-container {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
       }
     }
   }

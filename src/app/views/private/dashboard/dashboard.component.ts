@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   totalTenders: number = 0;
   totalMonthTenders: number = 0;
   userGraphData: any;
+  data: number[] = [];
 
   constructor(private dashboardService: DashboardService) {
   }
@@ -39,8 +40,42 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  generateMonths(count: number): string[] {
+    const months = [];
+    const date = new Date();
+    for (let i = 0; i < count; i++) {
+      months.unshift(date.toLocaleString('default', { month: 'short' }));
+      date.setMonth(date.getMonth() - 1);
+    }
+    return months;
+  }
+
+  countEntriesPerMonth(data: any[], months: number) {
+    const counts: { [key: string]: number } = {};
+
+    const dataArray: number[] = [];
+
+    for (let i = 0; i < months; i++) {
+      dataArray.push(0);
+    }
+
+    data.forEach(item => {
+      const date = new Date(item.created_at);
+      const key = `${date.getFullYear()}-${date.getMonth()}`;
+
+      counts[key] = (counts[key] || 0) + 1;
+    });
+
+    for (const key in counts) {
+      dataArray[Number(key.split('-')[1]) - 1] = counts[key];
+    }
+
+    return dataArray;
+  }
+
+
   loadUserGraphData(): void {
-    this.dashboardService.getUserGraph({period: 'monthly'}).subscribe(response => {
+    this.dashboardService.getUserGraph({period: 'all'}).subscribe(response => {
       if (response.status) {
         this.userGraphData = response.data;
         this.renderChart();
@@ -57,23 +92,20 @@ export class DashboardComponent implements OnInit {
     new Chart(ctx.getContext('2d')!, {
       type: 'line',
       data: {
-        labels: this.userGraphData.map((entry: any) => new Date(entry.created_at).toLocaleDateString()),
+        labels: this.generateMonths(7),
         datasets: [{
-          label: 'User Growth',
-          data: this.userGraphData.map((entry: any) => entry.count),
+          data: this.countEntriesPerMonth(this.userGraphData, 7),
+          fill: false,
           borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          fill: true
+          tension: 0.1
         }]
       },
       options: {
         responsive: true,
-        scales: {
-          x: {
-            beginAtZero: true
-          },
-          y: {
-            beginAtZero: true
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
           }
         }
       }
