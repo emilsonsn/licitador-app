@@ -14,7 +14,7 @@ export class HomeComponent {
       link: '/painel/home/tenders'
     },
     {
-      title: 'Liciações favoritas',
+      title: 'licitações favoritas',
       description: 'Acesse as licitações',
       link: '/painel/home/tenders/favorites'
     }
