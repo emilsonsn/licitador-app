@@ -6,6 +6,7 @@ import {DashboardComponent} from "@app/views/private/dashboard/dashboard.compone
 import {UsersComponent} from "@app/views/private/users/users.component";
 import {HelpComponent} from "@app/views/private/help/help.component";
 import {TendersComponent} from "@app/views/private/tenders/tenders.component";
+import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'home/tenders',
         component: TendersComponent
+      },
+      {
+        path: 'home/tenders/favorites',
+        component: TendersFavoritesComponent
       },
       {
         path: '',

@@ -1,0 +1,11 @@
+<main>
+  <section class="cards-section" (scroll)="onScroll($event)">
+    <div class="cards-container">
+      <div *ngFor="let tender of tenders; let i = index">
+        <app-tender-card style="width: 100%" [data]="tender"></app-tender-card>
+      </div>
+      <p *ngIf="isLoading">Carregando...</p>
+    </div>
+  </section>
+
+</main>

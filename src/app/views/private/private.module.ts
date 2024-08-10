@@ -14,6 +14,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {QrCodeModule} from "ng-qrcode";
 import {MatDivider} from "@angular/material/divider";
+import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {MatDivider} from "@angular/material/divider";
     UsersComponent,
     DashboardComponent,
     HelpComponent,
-    TendersComponent
+    TendersComponent,
+    TendersFavoritesComponent
   ],
   imports: [
     CommonModule,
