@@ -17,7 +17,14 @@ export class HeaderPrivateComponent implements OnInit, OnDestroy {
     private readonly _AuthService: AuthService,
     private readonly _router: Router
   ) {
-    this.user = this._AuthService.getUser();
+
+    this._AuthService.getUser().subscribe(value => {
+      if (value) {
+        this.user = value?.data;
+      } else {
+        this.user = null;
+      }
+    });
   }
 
   toggleDropdown(event: Event) {

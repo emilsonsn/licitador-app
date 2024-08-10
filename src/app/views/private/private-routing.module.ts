@@ -7,6 +7,7 @@ import {UsersComponent} from "@app/views/private/users/users.component";
 import {HelpComponent} from "@app/views/private/help/help.component";
 import {TendersComponent} from "@app/views/private/tenders/tenders.component";
 import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
+import {adminGuard} from "@app/guards/admin.guard";
 
 const routes: Routes = [
   {
@@ -19,11 +20,13 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [adminGuard]
       },
       {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [adminGuard]
       },
       {
         path: 'help',

@@ -5,4 +5,5 @@ export interface User extends BaseEntity {
   email: string;
   email_verified_at: Date | null;
   is_active: number;
+  is_admin: boolean;
 }

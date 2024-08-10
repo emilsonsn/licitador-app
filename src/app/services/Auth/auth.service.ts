@@ -35,7 +35,6 @@ export class AuthService {
     }).pipe(
       tap(value => {
         this._storage.set('token', value.access_token);
-        this._storage.set('user', JSON.stringify(value.user));
         this.authStatus.next(true);
         this._router.navigate(['/painel/home']).then();
       })
@@ -46,7 +45,6 @@ export class AuthService {
     this._http.post<any>(`${environment.api}/logout`, {}).subscribe(
       () => {
         this._storage.remove('token');
-        this._storage.remove('user');
         this.authStatus.next(false);
       }
     );
@@ -63,9 +61,8 @@ export class AuthService {
     return !!token;
   }
 
-  getUser(): User | null {
-    const user = this._storage.get('user');
-    return user ? JSON.parse(user) as User : null;
+  getUser(): Observable<any> {
+    return this._http.get<any>(`${environment.api}/user/getUser`);
   }
 
 }

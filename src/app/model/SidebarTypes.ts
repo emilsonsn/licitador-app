@@ -5,4 +5,5 @@ export interface SidebarTypes{
   label: string;
   icon: string;
   link: string;
+  private?: boolean;
 }
