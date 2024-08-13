@@ -24,4 +24,8 @@ export class TenderService {
   public favorite(id: number): Observable<any> {
     return this._http.post(`${environment.api}/tender/favorite/${id}`, {});
   }
+
+  public edital(id: number): Observable<any> {
+    return this._http.get(`${environment.api}/tender/get-edital/${id}`);
+  }
 }

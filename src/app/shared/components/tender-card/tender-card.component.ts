@@ -40,6 +40,16 @@ export class TenderCardComponent {
     return '';
   }
 
+  getEdital(id: any){
+    this.tenderService.edital(id).subscribe(res => {
+      if(res?.data?.length){
+        res.data.forEach((url: string) => {
+          window.open(url, '_blank');
+        });
+      }
+    });
+  }
+
   viewMore() {
     this.viewedPlus = !this.viewedPlus;
   }
