@@ -33,9 +33,8 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   isDropdownOpen: boolean = false;
   selectedOptions: Set<string> = new Set();
   searchText: string = '';
-  selectedValue: any;
-  selectedOptionLabel = '';
-  displayText: string = ''; // Usado para mostrar os labels selecionados
+  displayText: string = '';
+  selectedOption: string = '';
   control = new FormControl(this.displayText);
 
   click() {
@@ -47,20 +46,23 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   onTouched: () => void = () => {
   };
 
+  onSelectOption(value: string) {
+    this.selectedOption = value;
+    const selectedOption = this.options.find(option => option.value === value);
+    this.displayText = selectedOption ? selectedOption.label : '';
+    this.control.setValue(this.displayText);
+    this.onChange(this.displayText);
+    this.onTouched();
+
+    // Emitir um array com a opção selecionada ou um array vazio
+    this.selectionChange.emit(selectedOption ? [{ value: selectedOption.value, label: selectedOption.label }] : []);
+
+    this.isDropdownOpen = false;
+  }
+
+
   onInput(event: any) {
     const value = (event.target as HTMLInputElement).value;
-    this.displayText = value;
-    this.control.setValue(value);
-    this.onChange(value);
-    this.onTouched();
-  }
-
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
-  onSelectChange(event: any) {
-    const value = (event.target as HTMLSelectElement)?.value;
     this.displayText = value;
     this.control.setValue(value);
     this.onChange(value);
@@ -83,14 +85,6 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     }).filter(option => option !== undefined) as { value: string, label: string }[];
 
     this.displayText = selectedOptionsArray.map(option => option.label).join(', ');
-  }
-
-  onOptionSelect(value: any) {
-    console.log('d')
-    this.selectedValue = value;
-    this.selectedOptionLabel = this.options.find(option => option?.value === value)?.label || '';
-    this.isDropdownOpen = false;
-    this.onSelectChange(value); // Caso você tenha uma função para lidar com a mudança
   }
 
   updateValue() {

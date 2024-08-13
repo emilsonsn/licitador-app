@@ -89,6 +89,10 @@
             display: none;
           }
 
+          input[type="radio"] {
+            display: none;
+          }
+
           &:hover {
             background: #f0f0f0;
           }

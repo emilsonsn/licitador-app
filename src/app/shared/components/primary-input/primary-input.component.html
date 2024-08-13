@@ -51,18 +51,16 @@
         (input)="onInput($event)"
       />
       <!-- Single Select -->
-      <!-- Dropdown Personalizado -->
       <div *ngSwitchCase="'select'" class="multiselect-wrapper">
         <input
           type="text"
           [placeholder]="placeholder"
-          [value]="selectedOptionLabel"
+          [value]="displayText"
           readonly
-          (click)="toggleDropdown()"
-          [ngClass]="{'input-content-error': errorInput}"
+          (click)="isDropdownOpen = !isDropdownOpen"
+          [ngClass]="{'select-input': true, 'input-content-error': errorInput}"
         />
         <div class="multiselect-dropdown" *ngIf="isDropdownOpen">
-
           <input
             type="text"
             placeholder="Buscar..."
@@ -71,12 +69,12 @@
           />
           <label
             *ngFor="let option of filteredOptions"
-            [ngClass]="{'selected': option.value === selectedValue}"
+            [ngClass]="{'selected': selectedOption === option.value}"
           >
             <input
-              type="checkbox"
-              [checked]="option.value === selectedValue"
-              (change)="onOptionSelect(option.value)"
+              type="radio"
+              [checked]="selectedOption === option.value"
+              (change)="onSelectOption(option.value)"
             />
             {{ option.label }}
           </label>

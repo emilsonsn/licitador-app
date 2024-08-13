@@ -37,8 +37,8 @@ export class TendersComponent implements OnInit {
   ) {
     this.tenderForm = this.fb.group({
       object: [''],
-      uf: [],
-      city: [],
+      uf: [''],
+      city: [''],
       publication_date_start: [''],
       update_date_start: [''],
       update_date_end: [''],
