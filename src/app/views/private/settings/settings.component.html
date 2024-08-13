@@ -1,0 +1,55 @@
+<main>
+  <section>
+    <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+      <app-primary-input
+        [value]="settingsForm.get('title')?.value"
+        formControlName="title"
+        type="text"
+        placeholder="Titulo"
+        label="Titulo"
+      >
+        <i class="fa-solid fa-inbox"></i>
+      </app-primary-input>
+
+      <app-primary-input
+        [value]="settingsForm.get('subtitle')?.value === 'null' ? '' : settingsForm.get('subtitle')?.value"
+        formControlName="subtitle"
+        type="text"
+        placeholder="Subtitulo"
+        label="Subtitulo"
+      >
+        <i class="fa-solid fa-inbox"></i>
+      </app-primary-input>
+
+      <div
+        class="image-upload-container"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)"
+      >
+        <input
+          type="file"
+          id="banner"
+          (change)="onFileChange($event)"
+          accept="image/*"
+          hidden
+        />
+        <label for="banner" class="image-upload-label">
+          <div class="image-preview" *ngIf="previewUrl">
+            <img [src]="previewUrl" alt="Image Preview"/>
+            <button class="btn-clear" (click)="clearImage()">
+              <i class="fa-solid fa-trash"></i>
+              ️
+            </button>
+          </div>
+          <div class="drag-text" *ngIf="!previewUrl">
+            Arraste e solte sua imagem aqui ou clique para selecionar
+          </div>
+        </label>
+      </div>
+
+      <div class="filter-bnt-header">
+        <button class="btn-primary" type="submit">Atualizar</button>
+      </div>
+    </form>
+  </section>
+</main>

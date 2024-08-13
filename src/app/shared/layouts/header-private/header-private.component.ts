@@ -3,6 +3,8 @@ import {AuthService} from "@services/Auth/auth.service";
 import {Router} from "@angular/router";
 import {AnimationOptions} from "ngx-lottie";
 import {User} from "@model/User";
+import {SettingsService} from "@services/settings/settings.service";
+import {environment} from "@env/environment";
 
 @Component({
   selector: 'app-header-private',
@@ -13,9 +15,14 @@ export class HeaderPrivateComponent implements OnInit, OnDestroy {
   show_dropdown = false;
   user: User | null = null;
 
+  title: string = ''
+  subtitle: string = ''
+  banner: any = null
+
   constructor(
     private readonly _AuthService: AuthService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private settingsService: SettingsService
   ) {
 
     this._AuthService.getUser().subscribe(value => {
@@ -25,6 +32,20 @@ export class HeaderPrivateComponent implements OnInit, OnDestroy {
         this.user = null;
       }
     });
+
+    this.settingsService.getSettings().subscribe(response => {
+      if (response.status) {
+        this.title = response.data.title
+        this.subtitle = response.data.subtitle
+        this.banner = `${environment.api.replace('/api', '')}/storage/` + response.data.banner
+
+
+      } else {
+        // Handle error
+        console.error(response.error);
+      }
+    });
+
   }
 
   toggleDropdown(event: Event) {

@@ -8,6 +8,7 @@ import {HelpComponent} from "@app/views/private/help/help.component";
 import {TendersComponent} from "@app/views/private/tenders/tenders.component";
 import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
 import {adminGuard} from "@app/guards/admin.guard";
+import {SettingsComponent} from "@app/views/private/settings/settings.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
       {
         path: 'help',
         component: HelpComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [adminGuard]
       },
       {
         path: 'home/tenders',

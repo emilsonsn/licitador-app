@@ -38,6 +38,13 @@ export class SidebarPrivateComponent implements OnInit {
       icon: 'fa-solid fa-circle-info',
       link: 'painel/help',
     },
+    {
+      type: 'link',
+      label: 'Configuração',
+      icon: 'fa-solid fa-gear',
+      link: 'painel/settings',
+      private: true
+    },
   ];
 
   public user: User | null = null;

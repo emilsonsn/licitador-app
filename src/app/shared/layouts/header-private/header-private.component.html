@@ -1,4 +1,4 @@
-<header>
+<header [ngStyle]="{ 'background-image': 'url(' + banner + ')' }">
   <div class="commercial-home">
     <div class="comercial-left">
       <ng-lottie
@@ -8,14 +8,14 @@
       />
 
       <div>
-        <h2>Adquira já a plataforma mais completa do mercado de Licitações</h2>
-        <p>Não perca tempo! Assine agora e aproveite todos os nossos benefícios.</p>
+        <h2>{{title}}</h2>
+        <p>{{subtitle}}</p>
       </div>
     </div>
 
-    <button>
+   <!-- <button>
       Assine agora
-    </button>
+    </button>-->
   </div>
   <div class="container-buttons">
     <div class="dropdown">

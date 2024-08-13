@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { PrivateRoutingModule } from './private-routing.module';
+import {PrivateRoutingModule} from './private-routing.module';
 import {SharedModule} from "@shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HomeComponent} from "@app/views/private/home/home.component";
@@ -15,6 +15,7 @@ import {MatInput} from "@angular/material/input";
 import {QrCodeModule} from "ng-qrcode";
 import {MatDivider} from "@angular/material/divider";
 import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
+import {SettingsComponent} from "@app/views/private/settings/settings.component";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/te
     DashboardComponent,
     HelpComponent,
     TendersComponent,
-    TendersFavoritesComponent
+    TendersFavoritesComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,
@@ -39,4 +41,5 @@ import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/te
     MatDivider
   ]
 })
-export class PrivateModule { }
+export class PrivateModule {
+}
