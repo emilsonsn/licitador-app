@@ -60,7 +60,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   }
 
   onSelectChange(event: any) {
-    const value = (event.target as HTMLSelectElement).value;
+    const value = (event.target as HTMLSelectElement)?.value;
     this.displayText = value;
     this.control.setValue(value);
     this.onChange(value);
@@ -86,8 +86,9 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   }
 
   onOptionSelect(value: any) {
+    console.log('d')
     this.selectedValue = value;
-    this.selectedOptionLabel = this.options.find(option => option.value === value)?.label || '';
+    this.selectedOptionLabel = this.options.find(option => option?.value === value)?.label || '';
     this.isDropdownOpen = false;
     this.onSelectChange(value); // Caso você tenha uma função para lidar com a mudança
   }
