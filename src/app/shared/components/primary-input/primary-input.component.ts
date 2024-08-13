@@ -48,17 +48,29 @@ export class PrimaryInputComponent implements ControlValueAccessor {
 
   onSelectOption(value: string) {
     this.selectedOption = value;
-    const selectedOption = this.options.find(option => option.value === value);
+    const selectedOption =
+      this.options.find(option => option.value === value) as { value: string, label: string, sigla: string };
+
+    // Atualizar displayText com base na opção selecionada
     this.displayText = selectedOption ? selectedOption.label : '';
     this.control.setValue(this.displayText);
-    this.onChange(this.displayText);
+
+    // Atualizar e emitir o valor baseado na sigla se for o caso
+    if (this.returnArrayType === 'sigla' && selectedOption) {
+      this.control.setValue(selectedOption.sigla);
+    } else {
+      this.control.setValue(this.displayText);
+    }
+
+    this.onChange(this.control.value);
     this.onTouched();
 
-    // Emitir um array com a opção selecionada ou um array vazio
-    this.selectionChange.emit(selectedOption ? [{ value: selectedOption.value, label: selectedOption.label }] : []);
+    // Emitir o array com a opção selecionada, incluindo a sigla se disponível
+    this.selectionChange.emit(selectedOption ? [selectedOption]: []);
 
     this.isDropdownOpen = false;
   }
+
 
 
   onInput(event: any) {
