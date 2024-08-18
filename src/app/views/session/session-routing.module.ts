@@ -4,6 +4,7 @@ import {LoginComponent} from "@app/views/session/login/login.component";
 import {ToRecoverComponent} from "@app/views/session/to-recover/to-recover.component";
 import {RegisterComponent} from "@app/views/session/register/register.component";
 import {sessionGuard} from "@app/guards/session.guard";
+import {PasswordRecoveryComponent} from "@app/views/session/password-recovery/password-recovery.component";
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: "to-recover",
     component: ToRecoverComponent,
+  },
+  {
+    path: "password_recovery",
+    component: PasswordRecoveryComponent,
   },
   {
     path: "register",

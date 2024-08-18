@@ -28,6 +28,7 @@
       [type]="isPasswordVisible ? 'text' : 'password'"
       label="Password"
       cursor="pointer"
+      [value]="loginForm.get('password')?.value"
       placeholder="******"
       (onClick)="togglePasswordVisibility()"
     >

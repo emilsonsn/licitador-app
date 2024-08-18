@@ -5,24 +5,32 @@ import {environment} from '@env/environment';
 import {BehaviorSubject, Observable, of, tap} from "rxjs";
 import {LocalStorageService} from "@services/Help/local-storage.service";
 import {TokenResponse} from "@model/TokenResponse";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {InterceptorSkipHeader} from "@services/Auth/auth.interceptor";
-import {User} from "@model/User";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private authStatus = new BehaviorSubject<boolean>(this.hasToken());
+  code: string = '';
 
   constructor(
     private readonly _http: HttpClient,
     private readonly _storage: LocalStorageService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private route: ActivatedRoute,
   ) {
+
+    this.route.queryParams.subscribe(params => {
+      this.code = params['code'];
+    });
+
     this.authStatus.subscribe(isAuthenticated => {
       if (!isAuthenticated) {
-        this._router.navigate(['/login']).then();
+        if (!this.code) {
+          this._router.navigate(['/login']).then();
+        }
       }
     });
   }
@@ -54,6 +62,10 @@ export class AuthService {
 
   recoverPassword(email: string): Observable<any> {
     return this._http.post<any>(`${environment.api}/recoverPassword`, {email});
+  }
+
+  updatePassword(data: { code: string, password: string }): Observable<any> {
+    return this._http.post<any>(`${environment.api}/updatePassword`, data);
   }
 
   private hasToken(): boolean {
