@@ -1,4 +1,5 @@
 @import "variables";
+
 main {
   display: flex;
   height: 100vh;
@@ -6,7 +7,19 @@ main {
   background: $gray-bg;
 
   .content {
-    position: relative;
+    position: sticky;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    .content-body {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+
+      // Se necessário, adicionar padding/margin ou outro estilo adicional aqui
+    }
   }
 }
