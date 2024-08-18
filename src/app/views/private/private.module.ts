@@ -16,6 +16,7 @@ import {QrCodeModule} from "ng-qrcode";
 import {MatDivider} from "@angular/material/divider";
 import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
 import {SettingsComponent} from "@app/views/private/settings/settings.component";
+import {MatPaginator} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {SettingsComponent} from "@app/views/private/settings/settings.component"
     MatInput,
     MatLabel,
     QrCodeModule,
-    MatDivider
+    MatDivider,
+    MatPaginator
   ]
 })
 export class PrivateModule {

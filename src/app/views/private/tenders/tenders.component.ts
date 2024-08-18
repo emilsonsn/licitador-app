@@ -59,6 +59,12 @@ export class TendersComponent implements OnInit {
     this.loadCities();
   }
 
+  pageEvent($event: any) {
+    this.pageControl.page = $event.pageIndex + 1;
+    this.pageControl.take = $event.pageSize;
+    this.onSubmit();
+  }
+
   @HostListener('scroll', ['$event'])
   onScroll(event: Event) {
     const target = event.target as HTMLElement;
@@ -115,7 +121,7 @@ export class TendersComponent implements OnInit {
 
   onSubmit() {
     const formValues = this.tenderForm.value;
-    this.pageControl.page = 1;
+    // this.pageControl.page = 1;
     // Corrigir valores nulos, undefined ou vazios
     const cleanedFilters = Object.keys(formValues).reduce((acc, key) => {
       const value = formValues[key];
@@ -129,6 +135,11 @@ export class TendersComponent implements OnInit {
         next: (res) => {
           if (res && res.data) {
             this.tenders = res.data.data || [];
+
+            this.pageControl.page = res.data.current_page - 1;
+            this.pageControl.itemCount = res.data.total;
+            this.pageControl.pageCount = res.data.last_page;
+
           } else {
             this.tenders = [];
           }
@@ -147,27 +158,31 @@ export class TendersComponent implements OnInit {
     this.tenderService.getTenders(this.pageControl, {})
       .pipe(take(1))
       .subscribe(
-      {
-        next: (res) => {
-          if (res && res.data) {
-            // Filtrar duplicatas com base no ID do tender
-            const newTenders = res.data.data || [];
-            const existingTenderIds = new Set(this.tenders.map(tender => tender.id));
-            const uniqueTenders = newTenders.filter((tender: { id: number; }) => !existingTenderIds.has(tender.id));
+        {
+          next: (res) => {
+            if (res && res.data) {
+              // Filtrar duplicatas com base no ID do tender
+              const newTenders = res.data.data || [];
+              const existingTenderIds = new Set(this.tenders.map(tender => tender.id));
+              const uniqueTenders = newTenders.filter((tender: { id: number; }) => !existingTenderIds.has(tender.id));
 
-            // Adicionar tenders únicos à lista existente
-            this.tenders = [...this.tenders, ...uniqueTenders];
-            if (!!this.pageControl.page) {
-              this.pageControl.page += 1;
+              this.pageControl.page = res.data.current_page - 1;
+              this.pageControl.itemCount = res.data.total;
+              this.pageControl.pageCount = res.data.last_page;
+
+              // Adicionar tenders únicos à lista existente
+              this.tenders = [...this.tenders, ...uniqueTenders];
+              /* if (!!this.pageControl.page) {
+                 this.pageControl.page += 1;
+               }*/
             }
+          },
+          error: (error) => {
+            console.error('Error loading tenders', error);
+            this.isLoading = false;
           }
-        },
-        error: (error) => {
-          console.error('Error loading tenders', error);
-          this.isLoading = false;
         }
-      }
-    );
+      );
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
