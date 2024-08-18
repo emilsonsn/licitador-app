@@ -38,7 +38,7 @@ export class TendersFavoritesComponent {
       favorite: ['true'],
     });
 
-    this.loadTenders(); // Initial load
+    this.onSubmit(); // Initial load
   }
 
   pageEvent($event: any) {
