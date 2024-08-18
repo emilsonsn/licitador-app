@@ -12,21 +12,32 @@ main {
 
   section {
     flex: 1; /* Cada section ocupa a mesma proporção dentro do main */
-    padding: 10px;
     overflow-y: hidden; /* Evita scroll indesejado */
     display: flex;
     flex-direction: column;
   }
 
   .cards-section {
-    padding: 1rem 1rem 1rem 1rem;
-    overflow-y: auto;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
-    .cards-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+    .cards-section-body {
+      flex-grow: 1;
+      overflow-y: auto;
+
+      .cards-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
     }
+
+
   }
 
   .filter-section {

@@ -41,6 +41,12 @@ export class TendersFavoritesComponent {
     this.loadTenders(); // Initial load
   }
 
+  pageEvent($event: any) {
+    this.pageControl.page = $event.pageIndex + 1;
+    this.pageControl.take = $event.pageSize;
+    this.onSubmit();
+  }
+
   ngOnInit() {
     this.loadStates();
     this.loadCities();
@@ -102,7 +108,7 @@ export class TendersFavoritesComponent {
 
   onSubmit() {
     const formValues = this.tenderForm.value;
-    this.pageControl.page = 1;
+    // this.pageControl.page = 1;
     // Corrigir valores nulos, undefined ou vazios
     const cleanedFilters = Object.keys(formValues).reduce((acc, key) => {
       const value = formValues[key];
@@ -116,6 +122,11 @@ export class TendersFavoritesComponent {
         next: (res) => {
           if (res && res.data) {
             this.tenders = res.data.data || [];
+
+            this.pageControl.page = res.data.current_page - 1;
+            this.pageControl.itemCount = res.data.total;
+            this.pageControl.pageCount = res.data.last_page;
+
           } else {
             this.tenders = [];
           }
@@ -131,7 +142,7 @@ export class TendersFavoritesComponent {
 
   loadTenders() {
     this.isLoading = true;
-    this.tenderService.getTenders(this.pageControl, {favorite: true})
+    this.tenderService.getTenders(this.pageControl, {})
       .pipe(take(1))
       .subscribe(
         {
@@ -142,11 +153,15 @@ export class TendersFavoritesComponent {
               const existingTenderIds = new Set(this.tenders.map(tender => tender.id));
               const uniqueTenders = newTenders.filter((tender: { id: number; }) => !existingTenderIds.has(tender.id));
 
+              this.pageControl.page = res.data.current_page - 1;
+              this.pageControl.itemCount = res.data.total;
+              this.pageControl.pageCount = res.data.last_page;
+
               // Adicionar tenders únicos à lista existente
               this.tenders = [...this.tenders, ...uniqueTenders];
-              if (!!this.pageControl.page) {
-                this.pageControl.page += 1;
-              }
+              /* if (!!this.pageControl.page) {
+                 this.pageControl.page += 1;
+               }*/
             }
           },
           error: (error) => {

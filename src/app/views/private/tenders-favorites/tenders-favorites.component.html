@@ -1,11 +1,16 @@
 <main>
-  <section class="cards-section" (scroll)="onScroll($event)">
-    <div class="cards-container">
-      <div *ngFor="let tender of tenders; let i = index">
-        <app-tender-card style="width: 100%" [data]="tender"></app-tender-card>
+  <section class="cards-section">
+    <div class="cards-section-body">
+      <div class="cards-container">
+        <div *ngFor="let tender of tenders; let i = index">
+          <app-tender-card style="width: 100%" [data]="tender"></app-tender-card>
+        </div>
+        <p *ngIf="isLoading">Carregando...</p>
       </div>
-      <p *ngIf="isLoading">Carregando...</p>
+    </div>
+    <div style="padding: 0 1rem;">
+      <mat-paginator style="" [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
+                     [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
     </div>
   </section>
-
 </main>
