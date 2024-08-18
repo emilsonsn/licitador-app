@@ -58,7 +58,6 @@ export class TenderCardComponent {
 
   openUrlOrigin(url: string){
     if(url){
-      alert(url);
       window.open(url, '_blank');
     } else{
       this._toastrService.error('Site de origem não encontrado');
