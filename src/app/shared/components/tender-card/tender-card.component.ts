@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Tender} from "@model/tender";
 import dayjs from "dayjs";
 import {TenderService} from "@services/tender/tender.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tender-card',
@@ -15,7 +16,10 @@ export class TenderCardComponent {
   protected readonly length = length;
   viewedPlus: boolean = false;
 
-  constructor(private readonly tenderService: TenderService) {
+  constructor(
+    private readonly tenderService: TenderService,
+    private readonly _toastrService: ToastrService
+  ) {
   }
 
   truncate(str: string | null | undefined, maxChars: number): string {
@@ -46,8 +50,19 @@ export class TenderCardComponent {
         res.data.forEach((url: string) => {
           window.open(url, '_blank');
         });
+      }else{
+        this._toastrService.error('Edital não encontrado');
       }
     });
+  }
+
+  openUrlOrigin(url: string){
+    if(url){
+      alert(url);
+      window.open(url, '_blank');
+    } else{
+      this._toastrService.error('Site de origem não encontrado');
+    }
   }
 
   viewMore() {
