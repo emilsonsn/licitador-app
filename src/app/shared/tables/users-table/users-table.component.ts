@@ -110,9 +110,10 @@ export class UsersTableComponent implements OnChanges{
       .subscribe(res => {
         this.users = res.data.data;
         this.pageControl.search_term = this.searchTerm || '';
-        this.pageControl.page = res.current_page;
-        this.pageControl.itemCount = res.total;
-        this.pageControl.pageCount = res.last_page;
+
+        this.pageControl.page = res.data.current_page - 1;
+        this.pageControl.itemCount = res.data.total;
+        this.pageControl.pageCount = res.data.last_page;
       });
   }
 
