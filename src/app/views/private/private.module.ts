@@ -16,7 +16,8 @@ import {QrCodeModule} from "ng-qrcode";
 import {MatDivider} from "@angular/material/divider";
 import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
 import {SettingsComponent} from "@app/views/private/settings/settings.component";
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
+import {getPortuguesePaginatorIntl} from "@shared/hepers/PortuguesePaginator";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {MatPaginator} from "@angular/material/paginator";
     QrCodeModule,
     MatDivider,
     MatPaginator
-  ]
+  ],
+  providers: [MatPaginatorIntl, {provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl()}],
 })
 export class PrivateModule {
 }
