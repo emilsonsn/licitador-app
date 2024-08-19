@@ -77,9 +77,7 @@ export class SettingsComponent {
     const formData = new FormData();
     formData.append('title', this.settingsForm.get('title')?.value);
     formData.append('subtitle', this.settingsForm.get('subtitle')?.value);
-    if (this.settingsForm.get('banner')?.value) {
-      formData.append('banner', this.settingsForm.get('banner')?.value);
-    }
+    formData.append('banner', this.settingsForm.get('banner')?.value);
 
     this.settingsService.updateSettings(formData).subscribe(response => {
       if (response.status) {

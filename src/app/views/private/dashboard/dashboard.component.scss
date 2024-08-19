@@ -1,5 +1,12 @@
 @import "variables";
 
+@media only screen and (max-width: 800px) {
+  .main-section {
+    display: block;
+  }
+}
+
+
 main {
   display: flex;
   flex-direction: column;

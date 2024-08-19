@@ -1,5 +1,17 @@
 @import "variables";
 
+@media only screen and (max-width: 800px) {
+  .dropdown-btn {
+    span {
+      //display: none;
+    }
+  }
+
+  .dropdown-content{
+
+  }
+}
+
 header {
   position: relative;
   padding: 1rem;
@@ -49,6 +61,8 @@ header {
       display: flex;
       align-items: center;
       gap: 1rem;
+
+
     }
 
     button {
@@ -74,14 +88,13 @@ header {
       display: inline-block;
 
       .dropdown-btn {
-        min-width: 210px;
+        //min-width: 210px;
       }
 
       .dropdown-content {
         position: absolute;
         display: none;
         background-color: $primary-color;
-        min-width: 210px;
         z-index: 1;
         margin-top: 20px;
         border-radius: 8px;

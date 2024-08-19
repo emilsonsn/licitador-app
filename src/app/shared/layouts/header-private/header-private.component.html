@@ -7,7 +7,7 @@
         [options]="options"
       />
 
-      <div>
+      <div class="commercial-titles">
         <h2>{{title}}</h2>
         <p>{{subtitle}}</p>
       </div>
@@ -20,7 +20,7 @@
   <div class="container-buttons">
     <div class="dropdown">
       <button class="dropdown-btn" (click)="toggleDropdown($event)">
-        {{ user?.name }}
+        <span>{{ user?.name }}</span>
         @if (show_dropdown) {
           <i class="fa-solid fa-angle-up"></i>
         } @else {

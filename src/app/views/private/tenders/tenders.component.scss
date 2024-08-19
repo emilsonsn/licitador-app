@@ -4,6 +4,12 @@
   height: 100%;
 }
 
+@media only screen and (max-width: 800px) {
+  .main-section {
+    display: block;
+  }
+}
+
 
 main {
   height: 100%; /* O main ocupa toda a altura da viewport */
