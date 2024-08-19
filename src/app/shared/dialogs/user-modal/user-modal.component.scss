@@ -1,0 +1,46 @@
+@import "variables";
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-slide-toggle {
+  margin-top: 10px;
+}
+
+mat-slide-toggle[disabled] {
+  opacity: 0.6; /* Ajuste a opacidade para indicar que está desativado */
+  cursor: not-allowed; /* Alterar o cursor para indicar que não é interativo */
+}
+
+
+/* Adicione esses estilos no seu arquivo de estilo SCSS ou CSS global */
+
+.active-button {
+  background-color: #4caf50 !important; /* Verde para ativo */
+  color: white;
+}
+
+.inactive-button {
+  background-color: #f44336 !important; /* Vermelho para inativo */
+  color: white;
+}
+
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 20px;
+  outline: none;
+  font-size: 16px;
+  background-color: $primary-color;
+  color: white;
+  box-shadow: 0 0 10px 0 rgba(133, 61, 227, 0.56);
+
+
+}

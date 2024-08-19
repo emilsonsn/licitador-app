@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Usuário</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" placeholder="Digite o nome" readonly>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Digite o email" type="email" readonly>
+    </mat-form-field>
+
+    <button
+      class="button"
+            [ngClass]="{'active-button': userForm.get('is_active')?.value, 'inactive-button': !userForm.get('is_active')?.value}">
+
+      @if (userForm.get('is_active')?.value){
+        <i class="fa-regular fa-circle-check"></i>
+        <span>Plano Ativo</span>
+      } @else {
+        <i class="fa-regular fa-circle-xmark"></i>
+        <span>Plano Inativo</span>
+      }
+    </button>
+
+  </form>
+</div>
+
+<div mat-dialog-actions style="display: flex; justify-content: flex-end;">
+  <button mat-button (click)="onCancel()">Fechar</button>
+  <!--  <button mat-button color="primary" [mat-dialog-close]="userForm.value" [disabled]="userForm.invalid">Salvar</button>-->
+</div>
