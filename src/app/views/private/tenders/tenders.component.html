@@ -252,7 +252,7 @@
       </div>
     </div>
     <div style="padding: 0 1rem;">
-      <mat-paginator style="" [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
+      <mat-paginator [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
                      [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
     </div>
   </section>
