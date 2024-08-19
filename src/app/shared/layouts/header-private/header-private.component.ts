@@ -5,6 +5,8 @@ import {AnimationOptions} from "ngx-lottie";
 import {User} from "@model/User";
 import {SettingsService} from "@services/settings/settings.service";
 import {environment} from "@env/environment";
+import {MatDialog} from "@angular/material/dialog";
+import {UserModalComponent} from "@shared/dialogs/user-modal/user-modal.component";
 
 @Component({
   selector: 'app-header-private',
@@ -22,6 +24,7 @@ export class HeaderPrivateComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _AuthService: AuthService,
     private readonly _router: Router,
+    private dialog: MatDialog,
     private settingsService: SettingsService
   ) {
 
@@ -76,4 +79,20 @@ export class HeaderPrivateComponent implements OnInit, OnDestroy {
     path: '/assets/images/Animation_megaphone.json',
   };
 
+  openUserModal() {
+
+    console.log(this.user);
+
+    const dialogRef = this.dialog.open(UserModalComponent, {
+      width: '300px',
+      data: this.user
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Dados do usuário:', result);
+        // Você pode enviar os dados para o backend ou fazer outras ações aqui
+      }
+    });
+  }
 }
