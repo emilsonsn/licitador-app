@@ -25,7 +25,7 @@ export class TendersComponent implements OnInit {
     page: 1,
     itemCount: 0,
     pageCount: 0,
-    orderField: 'bid_opening_date',
+    orderField: 'proposal_closing_date',
     order: Order.DESC,
   };
   isLoading = false;
