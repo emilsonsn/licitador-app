@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Tender} from "@model/tender";
 import dayjs from "dayjs";
 import {TenderService} from "@services/tender/tender.service";
 import { ToastrService } from 'ngx-toastr';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-tender-card',
@@ -15,6 +16,15 @@ export class TenderCardComponent {
   protected readonly dayjs = dayjs;
   protected readonly length = length;
   viewedPlus: boolean = false;
+  viewItems: boolean = false;
+  noteText: FormControl = new FormControl('');
+
+  @Input()
+  isLoading = false;
+
+  @Output()
+  loading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
 
   constructor(
     private readonly tenderService: TenderService,
@@ -67,6 +77,45 @@ export class TenderCardComponent {
   viewMore() {
     this.viewedPlus = !this.viewedPlus;
   }
+
+  onViewItems() {
+    this.viewItems = !this.viewItems;
+  }
+  
+  note(tender_id: any){
+    const text = this.noteText.value;
+    var note = {tender_id, note: text};
+    this.tenderService.note(note)
+    .subscribe({
+      next: () => {
+        this._toastrService.success('Nota adicionada com sucesso');
+        this.data?.notes.push({tender_id, note: text})
+        this.noteText.setValue('');
+      },
+      error: () => {
+        this._toastrService.error('Não foi possível adicionar a nota');
+      }
+    });
+  }
+
+  deletenote(noteId: any){
+    const text = this.noteText.value;
+    this.tenderService.noteDelete(noteId)
+    .subscribe({
+      next: () => {
+        this._toastrService.success('Nota deletada com sucesso');
+        if (this.data && this.data.notes) {
+          this.data.notes = this.data.notes.filter(note => note.id !== noteId);
+        }
+        this.loading.emit(!this.isLoading);
+      },
+      error: () => {
+        this._toastrService.error('Não foi possível deletar a nota');
+      }
+    });
+  }
+
+  
 
   favorite(data: Tender | null) {
     if (!data) {

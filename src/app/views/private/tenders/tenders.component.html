@@ -246,7 +246,7 @@
     <div class="cards-section-body">
       <div class="cards-container">
         <div *ngFor="let tender of tenders; let i = index">
-          <app-tender-card style="width: 100%" [data]="tender"></app-tender-card>
+          <app-tender-card style="width: 100%" (loading)="isLoading" [isLoading]="isLoading" [data]="tender"></app-tender-card>
         </div>
         <p *ngIf="isLoading">Carregando...</p>
       </div>

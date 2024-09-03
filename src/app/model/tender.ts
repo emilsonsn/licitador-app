@@ -22,6 +22,14 @@ export interface Tender {
   publication_date: string;
   update_date: string;
   favorites: any;
+  items: any;
+  notes: Note[];
 }
 
+export interface Note{
+  id?: number;
+  tender_id: number;
+  tender?: Tender;
+  note: string;
+}
 

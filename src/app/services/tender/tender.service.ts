@@ -4,6 +4,7 @@ import {PageControl} from "@model/application";
 import {Observable} from "rxjs";
 import {Utils} from "@shared/utils";
 import {environment} from "@env/environment";
+import { Note } from '@model/tender';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,14 @@ export class TenderService {
   public edital(id: number): Observable<any> {
     return this._http.get(`${environment.api}/tender/get-edital/${id}`);
   }
+
+  public note(note: Note): Observable<any> {
+    return this._http.post(`${environment.api}/tender/note`, note);
+  }
+
+  public noteDelete(id: number): Observable<any> {
+    return this._http.delete(`${environment.api}/tender/note-delete/${id}`);
+  }
+
+  
 }

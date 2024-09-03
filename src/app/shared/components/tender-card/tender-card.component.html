@@ -83,15 +83,35 @@
     </div>
     <div class="card-buttons">
       <button (click)="getEdital(data?.id)">Baixar Edital</button>
-      <!--<button>Itens</button>-->
+      <button *ngIf="data?.items?.length" style="background-color: rgb(0, 132, 255);" (click)="onViewItems()">Ver Itens</button>
     </div>
-    <!-- <app-primary-input
+    <div *ngIf="viewItems" style="max-height: 200px; overflow-y: auto;">
+      <ul>
+        <li *ngFor="let item of data?.items; let index = index" style="list-style: circle; margin-bottom: 10px; margin-left: 10px;">
+          {{ index+1 }} - {{ item.description }}
+          <hr>
+        </li>
+      </ul>
+    </div>
+
+    <app-primary-input
        label="Anotações"
        inputName="text"
        type="text"
+       [formControl]="noteText"
        placeholder="Digite sua mensagem..."
      >
-       <mat-icon>send</mat-icon>
-     </app-primary-input>-->
+       <mat-icon (click)="note(data?.id)" style="cursor: pointer;">send</mat-icon>
+     </app-primary-input>
+
+    <div>
+      <div *ngFor="let note of data?.notes">
+        <div style="margin-bottom: 10px; margin-left: 10px;">
+          <i (click)="deletenote(note?.id)" class="fa-regular fa-trash-can" style="color: red; cursor: pointer; margin-right: 10px;"></i>
+          {{ note.note }}
+        </div>
+      </div>
+    </div>
+    
   </div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Tender} from '@model/tender';
 import Estados from '../../../../assets/json/Estados.json';
@@ -59,6 +59,13 @@ export class TendersComponent implements OnInit {
     this.loadCities();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isLoading'] && changes['isLoading'].currentValue) {
+      console.log('fff')
+      this.loadTenders();
+    }
+  }
+  
   pageEvent($event: any) {
     this.pageControl.page = $event.pageIndex + 1;
     this.pageControl.take = $event.pageSize;
