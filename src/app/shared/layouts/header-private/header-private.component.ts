@@ -80,19 +80,19 @@ export class HeaderPrivateComponent implements OnInit, OnDestroy {
   };
 
   openUserModal() {
+    window.location.href = "/painel/user-business"
+    // console.log(this.user);
 
-    console.log(this.user);
+    // const dialogRef = this.dialog.open(UserModalComponent, {
+    //   width: '300px',
+    //   data: this.user
+    // });
 
-    const dialogRef = this.dialog.open(UserModalComponent, {
-      width: '300px',
-      data: this.user
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Dados do usuário:', result);
-        // Você pode enviar os dados para o backend ou fazer outras ações aqui
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     console.log('Dados do usuário:', result);
+    //     // Você pode enviar os dados para o backend ou fazer outras ações aqui
+    //   }
+    // });
   }
 }

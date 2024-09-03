@@ -9,6 +9,7 @@ import {TendersComponent} from "@app/views/private/tenders/tenders.component";
 import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/tenders-favorites.component";
 import {adminGuard} from "@app/guards/admin.guard";
 import {SettingsComponent} from "@app/views/private/settings/settings.component";
+import { UserBusinessComponent } from './user-business/user-business.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent,
+        canActivate: [adminGuard]
+      },
+      {
+        path: 'user-business',
+        component: UserBusinessComponent,
         canActivate: [adminGuard]
       },
       {

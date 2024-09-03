@@ -18,6 +18,7 @@ import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/te
 import {SettingsComponent} from "@app/views/private/settings/settings.component";
 import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {getPortuguesePaginatorIntl} from "@shared/hepers/PortuguesePaginator";
+import { UserBusinessComponent } from './user-business/user-business.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {getPortuguesePaginatorIntl} from "@shared/hepers/PortuguesePaginator";
     HelpComponent,
     TendersComponent,
     TendersFavoritesComponent,
-    SettingsComponent
+    SettingsComponent,
+    UserBusinessComponent
   ],
   imports: [
     CommonModule,
