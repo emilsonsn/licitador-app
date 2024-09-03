@@ -33,7 +33,6 @@ const routes: Routes = [
       {
         path: 'user-business',
         component: UserBusinessComponent,
-        canActivate: [adminGuard]
       },
       {
         path: 'help',
