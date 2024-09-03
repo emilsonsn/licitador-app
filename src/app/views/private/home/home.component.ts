@@ -21,12 +21,12 @@ export class HomeComponent {
     {
       title: 'ERP + Emissor NFe',
       description: 'ERP + Emissor NFe',
-      link: 'https://notas.localizadordeeditais.com.br'
+      link: 'https://notas.licitanteprime.com.br/'
     },
     {
-      title: 'Gestor de CNDs',
-      description: 'Gestor de CNDs',
-      link: 'https://cnd.localizadordeeditais.com.br/'
+      title: 'Gestor de DOCs',
+      description: 'Gestor de DOCs',
+      link: 'https://doc.licitanteprime.com.br/'
     }
 
   ];
