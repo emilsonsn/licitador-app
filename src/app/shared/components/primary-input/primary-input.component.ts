@@ -96,7 +96,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
       return this.options.find(option => option.value === value);
     }).filter(option => option !== undefined) as { value: string, label: string }[];
 
-    this.displayText = selectedOptionsArray.map(option => option.label).join(', ');
+    this.displayText = selectedOptionsArray.map(option => option.label).join(',');
   }
 
   updateValue() {
@@ -105,9 +105,9 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     }).filter(option => option !== undefined) as { value: string, label: string, sigla: string }[];
 
     if (this.returnArrayType === 'sigla') {
-      this.control.setValue(selectedOptionsArray.map(option => option.sigla).join(', '));
+      this.control.setValue(selectedOptionsArray.map(option => option.sigla).join(','));
     } else if (this.returnArrayType === 'value') {
-      this.control.setValue(selectedOptionsArray.map(option => option.value).join(', '));
+      this.control.setValue(selectedOptionsArray.map(option => option.value).join(','));
     } else {
       this.control.setValue(this.displayText);
     }
@@ -127,7 +127,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     if (typeof value === 'string' && value !== '') {
-      const valuesArray = value.split(', ');
+      const valuesArray = value.split(',');
       this.selectedOptions = new Set(valuesArray);
     } else {
       this.selectedOptions = new Set();
