@@ -8,17 +8,6 @@
         <i class="fa-regular fa-star" (click)="favorite(data)"></i>
       }
     </div>
-    <div>
-      <!--Atualizada em {{ dayjs(data?.update_date).format("DD/MM/YYYY") }}-->
-      <p><strong>
-        <a (click)="openUrlOrigin(formatUrl(data?.origin_url))" target="_blank"
-           rel="noopener noreferrer"
-           style="text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 0.5rem; color: #551A8B"
-        >
-          <span>Site Oficial</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a></strong>
-      </p></div>
   </div>
   <div class="card-main">
     <!--<div class="card-buttons">
@@ -48,7 +37,8 @@
             padding: 0.3rem 0.5rem;
             border-radius: 0.5rem;
             ">
-            {{ (data?.value | currency:'BRL') ?? '----------' }}
+            {{ data?.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+
           </span>
         </p>
         @if (viewedPlus) {
@@ -84,6 +74,17 @@
     <div class="card-buttons">
       <button (click)="getEdital(data?.id)">Baixar Edital</button>
       <button *ngIf="data?.items?.length" style="background-color: rgb(0, 132, 255);" (click)="onViewItems()">Ver Itens</button>
+      <button *ngIf="data?.origin_url" style="background-color: rgb(48, 148, 39);  border: none;">
+        <strong>
+          <a (click)="openUrlOrigin(formatUrl(data?.origin_url))" target="_blank"
+             rel="noopener noreferrer"
+             style="text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 0.5rem; color: white;"
+          >
+            <span>Site Oficial</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </strong>
+      </button>
     </div>
     <div *ngIf="viewItems" style="max-height: 200px; overflow-y: auto;">
       <ul>
