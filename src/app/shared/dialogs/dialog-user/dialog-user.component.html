@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Criar novo usuário</h2>
+
+<mat-dialog-content >
+  <form [formGroup]="userForm" class="row">
+    <mat-form-field appearance="outline" class="col-md-12 mt-2">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" placeholder="Digite seu nome" />
+      <mat-error *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+        O nome é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-12">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Digite seu email" />
+      <mat-error *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+        O email é obrigatório e precisa ser válido
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end">
+  <button class="btn btn-danger" (click)="onCancel()">Cancelar</button>
+  <button class="btn btn-success ms-2" [disabled]="userForm.invalid" (click)="onSubmit()">Salvar</button>
+</mat-dialog-actions>

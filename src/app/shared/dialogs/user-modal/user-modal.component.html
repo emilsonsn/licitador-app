@@ -1,12 +1,12 @@
 <h1 mat-dialog-title>Usuário</h1>
 <div mat-dialog-content>
   <form [formGroup]="userForm">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Nome</mat-label>
       <input matInput formControlName="name" placeholder="Digite o nome" readonly>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" placeholder="Digite o email" type="email" readonly>
     </mat-form-field>

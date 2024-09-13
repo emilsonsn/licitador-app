@@ -23,6 +23,10 @@ export class UserService {
     return this._http.get(`${environment.api}/user/search?${paginate}${filterParams}`);
   }
 
+  public createUser(user: any): Observable<any> {
+    return this._http.post<any>(`${environment.api}/user/create`, user);
+  }
+
   public patchUser(id: number, user: any): Observable<any> {
     return this._http.patch<any>(`${environment.api}/user/${id}`, user);
   }

@@ -10,9 +10,15 @@
     >
       <i class="fa-solid fa-magnifying-glass"></i>
     </app-primary-input>
+
+    <button (click)="onAddButton()" class="btn btn-success sucess btn-lg d-flex justify-content-center aligm-items-center">
+      Adicionar
+      <i class="fa-solid fa-circle-plus ms-2 fs-4"></i>
+    </button>
   </div>
   <app-users-table
     style="height: 100%;"
     [searchTerm]="searchTerm"
+    [loading]="loading"
   ></app-users-table>
 </div>

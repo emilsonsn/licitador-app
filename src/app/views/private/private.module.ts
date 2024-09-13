@@ -22,6 +22,8 @@ import { UserBusinessComponent } from './user-business/user-business.component';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import localePtExtra from '@angular/common/locales/extra/pt';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogsModule } from '@shared/dialogs/dialogs.module';
 
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
 
@@ -43,6 +45,8 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     ReactiveFormsModule,
     MatFormField,
     MatIconButton,
+    MatDialogModule,
+    DialogsModule,
     MatInput,
     MatLabel,
     QrCodeModule,
