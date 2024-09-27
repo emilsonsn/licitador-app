@@ -112,8 +112,20 @@
                 </app-primary-input>-->
 
         <app-primary-input
+          [value]="this.tenderForm.get('update_date_start')?.value"
+          label="Data Prazo (A partir)"
+          type="date"
+          formControlName="update_date_start"
+        >
+          <i class="fa-solid fa-calendar"></i>
+        </app-primary-input>
+
+        <mat-divider></mat-divider>
+
+
+        <app-primary-input
           [value]="this.tenderForm.get('update_date_end')?.value"
-          label="Data Prazo"
+          label="Data Prazo (Até)"
           type="date"
           formControlName="update_date_end"
         >
