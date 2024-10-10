@@ -29,6 +29,7 @@ export class UserBusinessComponent implements OnInit {
       name: [''],
       surname: [''],
       email: [''],
+      phone: [''],
       birthday: [''],
       postalcode: [''],
       address: [''],
