@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, Output, SimpleChanges} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 type InputTypes = 'text' | 'number' | 'password' | 'email' | 'tel' | 'select' | 'multiselect' | 'date';
@@ -46,6 +46,9 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   onTouched: () => void = () => {
   };
 
+  ngOnChanges(changes: SimpleChanges): void {    
+  }
+
   onSelectOption(value: string) {
     this.selectedOption = value;
     const selectedOption =
@@ -71,8 +74,6 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     this.isDropdownOpen = false;
   }
 
-
-
   onInput(event: any) {
     const value = (event.target as HTMLInputElement).value;
     this.displayText = value;
@@ -91,7 +92,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     this.updateValue();
   }
 
-  updateDisplayText() {
+  updateDisplayText() {    
     const selectedOptionsArray = Array.from(this.selectedOptions).map(value => {
       return this.options.find(option => option.value === value);
     }).filter(option => option !== undefined) as { value: string, label: string }[];
@@ -136,7 +137,6 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     this.updateDisplayText();
     this.control.setValue(this.displayText);
   }
-
 
   normalizeText(text: string): string {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');

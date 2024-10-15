@@ -3,6 +3,8 @@
     <form class="filter-container" [formGroup]="tenderForm" (ngSubmit)="onSubmit()">
       <div class="filter-buttons-header">
         <p (click)="clearFilters()"><i class="fa-solid fa-broom"></i> Limpar</p>
+        <p (click)="getFilter()"><i class="fa-solid fa-pen"></i> Preencher com favorito</p>
+        <p (click)="saveFilter()"><i class="fa-solid fa-star"></i> Favoritar busca</p>
         <p (click)="reloadFilters()"><i class="fa-solid fa-arrows-rotate"></i> Recarregar</p>
       </div>
       <div class="filter-form-inputs">
@@ -26,6 +28,7 @@
 
         <!--Buscar por Estado-->
         <app-primary-input
+          [value]="this.tenderForm.get('uf')?.value"
           formControlName="uf"
           [type]="'select'"
           [placeholder]="'Selecione os Estados'"
@@ -66,6 +69,7 @@
 
         <!--Buscar por n° modalidades-->
         <app-primary-input
+          [value]="this.tenderForm.get('modality_ids')?.value"
           formControlName="modality_ids"
           [type]="'multiselect'"
           [placeholder]="'Selecione as Modalidades'"
@@ -245,7 +249,7 @@
           </label>-->
       </div>
       <div class="filter-bnt-header">
-        <button class="btn-primary">Pesquisar</button>
+        <button class="btn-primary">Pesquisar</button>        
       </div>
     </form>
   </section>

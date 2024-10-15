@@ -30,11 +30,14 @@ export class UserBusinessComponent implements OnInit {
       surname: [''],
       email: [''],
       phone: [''],
+      has_notification :[false],
       birthday: [''],
       postalcode: [''],
       address: [''],
       city: [''],
-      state: ['']
+      state: [''],
+      password: [''],
+      confirm_password: ['']
     });
 
     this.empresaForm = this.fb.group({
@@ -45,7 +48,6 @@ export class UserBusinessComponent implements OnInit {
     });
 
     this.getuser();
-    
   }
 
   getuser(){
@@ -61,6 +63,16 @@ export class UserBusinessComponent implements OnInit {
   onClientSubmit(): void {
     const clienteData = this.clienteForm.value;
 
+    if(clienteData.password && clienteData.password.length < 8){
+      this._toastrService.warning('A senha deve ter pelo menos 8 caracteres.')
+      return;      
+    }
+
+    if(clienteData.password != clienteData.confirm_password){
+      this._toastrService.warning('Senhas não coincidem.')
+      return;
+    }
+
     this._userService.patchUser(this.user.id, clienteData)
     .subscribe(data => {
         this._toastrService.success('Dados atualizados com sucesso!');
@@ -74,6 +86,5 @@ export class UserBusinessComponent implements OnInit {
     .subscribe(data => {
       this._toastrService.success('Dados atualizados com sucesso!');
     });
-
   }
 }

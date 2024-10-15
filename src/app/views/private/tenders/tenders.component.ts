@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Tender} from '@model/tender';
 import Estados from '../../../../assets/json/Estados.json';
@@ -7,6 +7,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {TenderService} from '@services/tender/tender.service';
 import {Order, PageControl} from '@model/application';
 import {take} from "rxjs";
+import { FilterService } from '@services/Filter/filter.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tenders',
@@ -33,7 +35,11 @@ export class TendersComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
-    private readonly tenderService: TenderService
+    private readonly tenderService: TenderService,
+    private readonly _filterService: FilterService,
+    private readonly _toastrService: ToastrService,
+    private cdr: ChangeDetectorRef // Adicionar ChangeDetectorRef
+
   ) {
     this.tenderForm = this.fb.group({
       object: [''],
@@ -61,11 +67,35 @@ export class TendersComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isLoading'] && changes['isLoading'].currentValue) {
-      console.log('fff')
       this.loadTenders();
     }
   }
   
+  public getFilter(){
+    this._filterService.getFilter()
+    .subscribe({
+      next: (res) => {
+        this.tenderForm.patchValue(res.data);
+        this.cdr.detectChanges();
+      },
+      error: (error) =>  {
+        this._toastrService.error(error.error.message)
+      }
+    });
+  }
+
+  public saveFilter(){
+    this._filterService.createFilter(this.tenderForm.getRawValue())
+    .subscribe({
+      next: (res) => {
+        this._toastrService.success(res.message)
+      },
+      error: (error) =>  {
+        this._toastrService.error(error.error.message)
+      }
+    });
+  }
+
   pageEvent($event: any) {
     this.pageControl.page = $event.pageIndex + 1;
     this.pageControl.take = $event.pageSize;
