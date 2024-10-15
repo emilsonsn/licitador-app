@@ -7,8 +7,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {TenderService} from '@services/tender/tender.service';
 import {Order, PageControl} from '@model/application';
 import {take} from "rxjs";
-import { FilterService } from '@services/Filter/filter.service';
-import { ToastrService } from 'ngx-toastr';
+import {FilterService} from '@services/Filter/filter.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-tenders',
@@ -70,30 +70,33 @@ export class TendersComponent implements OnInit {
       this.loadTenders();
     }
   }
-  
-  public getFilter(){
+
+  public getFilter() {
     this._filterService.getFilter()
-    .subscribe({
-      next: (res) => {
-        this.tenderForm.patchValue(res.data);
-        this.cdr.detectChanges();
-      },
-      error: (error) =>  {
-        this._toastrService.error(error.error.message)
-      }
-    });
+      .subscribe({
+        next: (res) => {
+          this.clearFilters();
+          setTimeout(() => {
+            this.tenderForm.patchValue(res.data);
+            this.cdr.detectChanges();
+          }, 200)
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message)
+        }
+      });
   }
 
-  public saveFilter(){
+  public saveFilter() {
     this._filterService.createFilter(this.tenderForm.getRawValue())
-    .subscribe({
-      next: (res) => {
-        this._toastrService.success(res.message)
-      },
-      error: (error) =>  {
-        this._toastrService.error(error.error.message)
-      }
-    });
+      .subscribe({
+        next: (res) => {
+          this._toastrService.success(res.message)
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message)
+        }
+      });
   }
 
   pageEvent($event: any) {

@@ -1,4 +1,13 @@
-import {Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  Input,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 type InputTypes = 'text' | 'number' | 'password' | 'email' | 'tel' | 'select' | 'multiselect' | 'date';
@@ -25,7 +34,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() error: boolean = false;
   @Input() errorInput: boolean = false;
   @Input() value: string = '';
-  @Input() options: { value: string, label: string }[] = [];
+  @Input() options: { value: string, label: string, sigla?: string }[] = [];
   @Input() returnArrayType: 'value' | 'label' | 'sigla' = 'label'; // Definido para retornar valores ou labels
   @Output() onClick = new EventEmitter();
   @Output() selectionChange = new EventEmitter<{ value: string, label: string }[]>();
@@ -46,8 +55,33 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   onTouched: () => void = () => {
   };
 
-  ngOnChanges(changes: SimpleChanges): void {    
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.value && this.returnArrayType === 'sigla') {
+      const _value = this.options.find(option => option.sigla === this.value) as {
+        value: string,
+        label: string,
+        sigla: string
+      };
+      this.onSelectOption(_value.value);
+    } else if (this.value && this.type === 'multiselect') {
+      if (Array.isArray(this.value)) {
+        this.value.forEach(v => this.onMultiselectToggle(v));
+      } else {
+        this.value.split(",").forEach(v => {
+          if (isNaN(Number(v))) {
+            const selectedOption = this.options.find(option => option.label === v) as {
+              value: string,
+              label: string,
+              sigla: string
+            };
+            this.onMultiselectToggle(selectedOption.value);
+          }
+        });
+
+      }
+    }
   }
+
 
   onSelectOption(value: string) {
     this.selectedOption = value;
@@ -69,7 +103,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     this.onTouched();
 
     // Emitir o array com a opção selecionada, incluindo a sigla se disponível
-    this.selectionChange.emit(selectedOption ? [selectedOption]: []);
+    this.selectionChange.emit(selectedOption ? [selectedOption] : []);
 
     this.isDropdownOpen = false;
   }
@@ -92,7 +126,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     this.updateValue();
   }
 
-  updateDisplayText() {    
+  updateDisplayText() {
     const selectedOptionsArray = Array.from(this.selectedOptions).map(value => {
       return this.options.find(option => option.value === value);
     }).filter(option => option !== undefined) as { value: string, label: string }[];

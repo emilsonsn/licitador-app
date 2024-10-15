@@ -47,6 +47,7 @@
 
         <!--Buscar por Cidade-->
         <app-primary-input
+          [value]="this.tenderForm.get('city')?.value"
           formControlName="city"
           [type]="'multiselect'"
           [placeholder]="'Selecione as Cidades'"
@@ -76,8 +77,8 @@
           [inputName]="'modalities'"
           [label]="'Modalidades'"
           [returnArrayType]="'value'"
-          [options]="[            
-            { value: '5', label: 'Pregão eletrônico'}, 
+          [options]="[
+            { value: '5', label: 'Pregão eletrônico'},
             { value: '6', label: 'Dispensas e dispensas eletrônicas' },
             { value: '1', label: 'Convite' },
             { value: '2', label: 'Concorrência' },
@@ -249,7 +250,7 @@
           </label>-->
       </div>
       <div class="filter-bnt-header">
-        <button class="btn-primary">Pesquisar</button>        
+        <button class="btn-primary">Pesquisar</button>
       </div>
     </form>
   </section>
