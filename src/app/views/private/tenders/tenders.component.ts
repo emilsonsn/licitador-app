@@ -80,6 +80,7 @@ export class TendersComponent implements OnInit {
           setTimeout(() => {
             this.fill = !this.fill;
             this.tenderForm.patchValue(res.data);
+            this.onSubmit();
             this.cdr.detectChanges();
           }, 200)
         },
