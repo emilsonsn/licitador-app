@@ -23,10 +23,15 @@ export class HomeComponent {
       description: 'ERP + Emissor NFe',
       link: 'https://notas.licitanteprime.com.br/'
     },
-    {
+      {
       title: 'Gestor de DOCs',
       description: 'Gestor de DOCs',
       link: 'https://doc.licitanteprime.com.br/'
+    },
+    {
+      title: 'Fornecedores para Licitação',
+      description: 'Fornecedores para Licitação',
+      link: 'https://fornecedor.licitanteprime.com.br/'
     }
 
   ];

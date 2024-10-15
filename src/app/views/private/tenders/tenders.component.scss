@@ -48,8 +48,8 @@ main {
 
   .filter-section {
     gap: 0.5rem;
-    flex-grow: 0.5;
-    min-width: 500px;
+    flex-grow: 0.4;
+    min-width: 450px;
     padding: 1rem;
 
     .filter-container {
@@ -89,6 +89,7 @@ main {
           display: flex;
           gap: 0.5rem;
           cursor: pointer;
+          font-size: 13px;
         }
       }
 
