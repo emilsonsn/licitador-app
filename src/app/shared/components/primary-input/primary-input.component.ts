@@ -34,6 +34,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() error: boolean = false;
   @Input() errorInput: boolean = false;
   @Input() value: string = '';
+  @Input() fill: boolean = false;
   @Input() options: { value: string, label: string, sigla?: string }[] = [];
   @Input() returnArrayType: 'value' | 'label' | 'sigla' = 'label'; // Definido para retornar valores ou labels
   @Output() onClick = new EventEmitter();
@@ -55,7 +56,14 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   onTouched: () => void = () => {
   };
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {    
+    const { fill } = changes;
+    if (fill && fill.currentValue !== fill.previousValue) {
+      this.fillTenderForm()
+    }
+  }
+
+  fillTenderForm(): void {
     if (this.value && this.returnArrayType === 'sigla') {
       const _value = this.options.find(option => option.sigla === this.value) as {
         value: string,
@@ -67,21 +75,21 @@ export class PrimaryInputComponent implements ControlValueAccessor {
       if (Array.isArray(this.value)) {
         this.value.forEach(v => this.onMultiselectToggle(v));
       } else {
-        this.value.split(",").forEach(v => {
+        const values = this.value.split(",");
+        values.forEach(v => {
           if (isNaN(Number(v))) {
             const selectedOption = this.options.find(option => option.label === v) as {
               value: string,
               label: string,
               sigla: string
             };
-            this.onMultiselectToggle(selectedOption.value);
+            if(selectedOption) this.onMultiselectToggle(selectedOption.value);
           }
         });
-
       }
     }
+    this.fill = false;
   }
-
 
   onSelectOption(value: string) {
     this.selectedOption = value;
@@ -162,7 +170,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     if (typeof value === 'string' && value !== '') {
-      const valuesArray = value.split(',');
+      const valuesArray = value.split(',');      
       this.selectedOptions = new Set(valuesArray);
     } else {
       this.selectedOptions = new Set();

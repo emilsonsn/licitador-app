@@ -29,6 +29,7 @@
         <!--Buscar por Estado-->
         <app-primary-input
           [value]="this.tenderForm.get('uf')?.value"
+          [fill]="fill"
           formControlName="uf"
           [type]="'select'"
           [placeholder]="'Selecione os Estados'"
@@ -47,6 +48,7 @@
 
         <!--Buscar por Cidade-->
         <app-primary-input
+          [fill]="fill"
           [value]="this.tenderForm.get('city')?.value"
           formControlName="city"
           [type]="'multiselect'"
@@ -72,6 +74,7 @@
         <app-primary-input
           [value]="this.tenderForm.get('modality_ids')?.value"
           formControlName="modality_ids"
+          [fill]="fill"
           [type]="'multiselect'"
           [placeholder]="'Selecione as Modalidades'"
           [inputName]="'modalities'"

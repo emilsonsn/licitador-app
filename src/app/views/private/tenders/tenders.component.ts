@@ -22,6 +22,7 @@ export class TendersComponent implements OnInit {
   private allCities: any[] = [];
   private selectedStates: Set<string> = new Set();
   public tenderForm!: FormGroup;
+  public fill: boolean = false;
   pageControl: PageControl = {
     take: 10,
     page: 1,
@@ -77,6 +78,7 @@ export class TendersComponent implements OnInit {
         next: (res) => {
           this.clearFilters();
           setTimeout(() => {
+            this.fill = !this.fill;
             this.tenderForm.patchValue(res.data);
             this.cdr.detectChanges();
           }, 200)
