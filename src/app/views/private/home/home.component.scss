@@ -9,6 +9,18 @@ main {
   gap: 1rem;
   padding: 1rem;
 
+  .tour{
+    background: #363636;
+    min-width: 60px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white !important;
+  }
+
   h4 {
     font-size: 1.5rem;
     display: flex;

@@ -10,6 +10,20 @@
   }
 }
 
+.tour{
+  background: #363636 !important;
+  width: 60px !important;
+  height: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+  border-radius: 8px !important;
+  border: none !important;
+  font-size: 1rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: white !important;
+}
 
 main {
   height: 100%; /* O main ocupa toda a altura da viewport */

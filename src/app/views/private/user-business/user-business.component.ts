@@ -90,10 +90,10 @@ export class UserBusinessComponent implements OnInit {
     });
   }
 
-  private startTour(tour: string): void {
+  public startTour(tour: string, init = false): void {
     let tourString = localStorage.getItem('tour') ?? '[]';
     let storage_tour = JSON.parse(tourString);    
-    if(!storage_tour.includes(tour)){
+    if(init || !storage_tour.includes(tour)){
         const intro = introJs();
         intro.setOptions({
           steps: [
