@@ -7,6 +7,20 @@ body {
     padding: 0;
   }
   
+  .tour{
+    background: #363636 !important;
+    width: 60px !important;
+    height: 30px;
+    margin-left: 10px;
+    border-radius: 8px !important;
+    border: none !important;
+    font-size: 1rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    color: white !important;
+  }
+
   /* Estilo para o container principal */
   .container {
     max-width: 1200px;
