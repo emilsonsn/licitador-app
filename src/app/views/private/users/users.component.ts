@@ -29,6 +29,7 @@ export class UsersComponent {
       .subscribe(value => {
         this.searchTerm = value.searchTerm;
       });
+
   }
 
   public clearSearchTerm(): void {

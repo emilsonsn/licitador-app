@@ -9,6 +9,7 @@ import {Order, PageControl} from '@model/application';
 import {take} from "rxjs";
 import {FilterService} from '@services/Filter/filter.service';
 import {ToastrService} from 'ngx-toastr';
+import introJs from 'intro.js';
 
 @Component({
   selector: 'app-tenders',
@@ -64,6 +65,7 @@ export class TendersComponent implements OnInit {
   ngOnInit() {
     this.loadStates();
     this.loadCities();
+    this.startTour('tenders');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -280,5 +282,57 @@ export class TendersComponent implements OnInit {
       }
     );
   }
+
+  private startTour(tour: string): void {
+    let tourString = localStorage.getItem('tour') ?? '[]';
+    let storage_tour = JSON.parse(tourString);    
+    if(!storage_tour.includes(tour)){
+        const intro = introJs();
+        intro.setOptions({
+          steps: [
+            {
+              intro: `Bem vindo ao buscador de editais!`
+            },
+            {
+              element: 'form',
+              intro: "Aqui você encontrará nossos mais diversos filtros de busca.",
+              position: 'left'
+            },
+            {
+              element: '#favoritar',
+              intro: 'Ao clicar aqui você salva o filtro que está preenchido no formulário abaixo.',
+              position: 'left'
+            },
+            {
+              element: '#favorito',
+              intro: 'Clicando aqui o filtro salvo é preenchido automáticamente.',
+              position: 'left'
+            },
+            {
+              element: '.cards-section',
+              intro: 'Esses são os nossos mais de 100.000 editais.',
+              position: 'left'
+            },
+            {
+              element: '.cards-section',
+              intro: 'Para cada edital você encontrará botões de ação que vai te permitir visitar o site do orgão, ver itens e até baixar editais.',
+              position: 'left'
+            },
+            {
+              element: '.cards-section',
+              intro: 'Na parte superior de cada você edital você verá um botão onde poderá está favoritando suas licitações de interesse.',
+              position: 'left'
+            }
+          ],
+          nextLabel: 'Próximo',
+          prevLabel: 'Anterior',
+          skipLabel: '×',
+          doneLabel: 'Concluir'
+        });
+        intro.start();
+        storage_tour.push(tour)
+        localStorage.setItem('tour',JSON.stringify(storage_tour))
+    }
+}
 
 }

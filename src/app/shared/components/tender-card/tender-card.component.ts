@@ -13,6 +13,10 @@ import { FormControl } from '@angular/forms';
 export class TenderCardComponent {
   @Input()
   data: Tender | null = null;
+
+  @Input()
+  id: string = '';
+
   protected readonly dayjs = dayjs;
   protected readonly length = length;
   viewedPlus: boolean = false;

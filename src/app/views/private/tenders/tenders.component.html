@@ -3,8 +3,8 @@
     <form class="filter-container" [formGroup]="tenderForm" (ngSubmit)="onSubmit()">
       <div class="filter-buttons-header">
         <p (click)="clearFilters()"><i class="fa-solid fa-broom"></i> Limpar</p>
-        <p (click)="getFilter()"><i class="fa-solid fa-pen"></i> Favorito</p>
-        <p (click)="saveFilter()"><i class="fa-solid fa-star"></i> Favoritar</p>
+        <p id="favorito" (click)="getFilter()"><i class="fa-solid fa-pen"></i> Favorito</p>
+        <p id="favoritar" (click)="saveFilter()"><i class="fa-solid fa-star"></i> Favoritar</p>
         <p (click)="reloadFilters()"><i class="fa-solid fa-arrows-rotate"></i> Recarregar</p>
       </div>
       <div class="filter-form-inputs">
@@ -261,7 +261,7 @@
     <div class="cards-section-body">
       <div class="cards-container">
         <div *ngFor="let tender of tenders; let i = index">
-          <app-tender-card style="width: 100%" (loading)="isLoading" [isLoading]="isLoading" [data]="tender"></app-tender-card>
+          <app-tender-card style="width: 100%" (loading)="isLoading" [id]="'tender' + i" [isLoading]="isLoading" [data]="tender"></app-tender-card>
         </div>
         <p *ngIf="isLoading">Carregando...</p>
       </div>
