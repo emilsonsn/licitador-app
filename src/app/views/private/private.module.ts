@@ -53,7 +53,7 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     MatLabel,
     QrCodeModule,
     MatDivider,
-    MatPaginator
+    MatPaginator,
   ],
   providers: [MatPaginatorIntl, {provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl()}],
 })

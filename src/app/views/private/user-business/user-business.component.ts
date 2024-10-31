@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '@model/User';
 import { AuthService } from '@services/Auth/auth.service';
 import { UserService } from '@services/User/user.service';
+import introJs from 'intro.js';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -48,6 +49,7 @@ export class UserBusinessComponent implements OnInit {
     });
 
     this.getuser();
+    this.startTour('user-business');
   }
 
   getuser(){
@@ -87,4 +89,42 @@ export class UserBusinessComponent implements OnInit {
       this._toastrService.success('Dados atualizados com sucesso!');
     });
   }
+
+  private startTour(tour: string): void {
+    let tourString = localStorage.getItem('tour') ?? '[]';
+    let storage_tour = JSON.parse(tourString);    
+    if(!storage_tour.includes(tour)){
+        const intro = introJs();
+        intro.setOptions({
+          steps: [
+            {
+              intro: `Essa é a página com os dados do seu perfil e empresa.`
+            },
+            {
+              element: '#cliente',
+              intro: "Adicione seu dados aqui",
+              position: 'left'
+            },
+            {
+              element: '#phone',
+              intro: 'Confira seu numero de whastapp para receber as notificações.`,',
+              position: 'left'
+            },
+            {
+              element: '#hasNotification',
+              intro: 'Clique no botão para receber notificação de novos editais do seu estado no seu whatsapp',
+              position: 'left'
+            }   
+            
+          ],
+          nextLabel: 'Próximo',
+          prevLabel: 'Anterior',
+          skipLabel: '×',
+          doneLabel: 'Concluir'
+        });
+        intro.start();
+        storage_tour.push(tour)
+        localStorage.setItem('tour',JSON.stringify(storage_tour))
+    }
+}
 }

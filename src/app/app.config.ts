@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([
       authInterceptor
     ])),
-    provideToastr(),
+    provideToastr(),    
     provideAnimations(), provideAnimationsAsync()
   ]
 };
