@@ -10,6 +10,7 @@ import {TendersFavoritesComponent} from "@app/views/private/tenders-favorites/te
 import {adminGuard} from "@app/guards/admin.guard";
 import {SettingsComponent} from "@app/views/private/settings/settings.component";
 import { UserBusinessComponent } from './user-business/user-business.component';
+import { AutomationComponent } from './automation/automation.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [adminGuard]
+      },
+      {
+        path: 'automation',
+        component: AutomationComponent,
         canActivate: [adminGuard]
       },
       {

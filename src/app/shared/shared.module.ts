@@ -14,7 +14,6 @@ import {ComponentsModule} from "@shared/components/components.module";
   ],
   exports: [
     TablesModule,
-    PipesModule,
     LayoutsModule,
     DirectivesModule,
     ComponentsModule,

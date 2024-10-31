@@ -1,0 +1,101 @@
+@import "variables";
+
+.container {
+  box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.table-scroll {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-spacing: 0;
+}
+
+.table-scroll thead {
+  background: $primary-color;
+  color: #fff;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.table-scroll tbody {
+  display: block;
+  position: relative;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  height: 0; /* Important: This height setting ensures tbody uses flex-grow */
+}
+
+.table-scroll tr {
+  display: flex;
+}
+
+.table-scroll td, .table-scroll th {
+  flex: 1; /* Ensures all columns take up equal space */
+  padding: 1rem;
+  text-align: left;
+}
+
+.table-scroll.small-first-col td:first-child,
+.table-scroll.small-first-col th:first-child {
+  flex: 0 0 20%; /* Adjust as needed */
+}
+
+.table-scroll tbody tr:nth-child(2n) {
+  background: $table-tr-nth-child;
+}
+
+.body-half-screen {
+  max-height: 55dvh;
+}
+
+.small-col {
+  flex: 0 0 10%; /* Adjust as needed */
+}
+
+.div-td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.active {
+  background: #c9ffc9;
+  color: rgb(16, 128, 25);
+}
+
+.not_active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: #ffc9c9;
+  color: rgb(128, 16, 16);
+}
+
+.td-action {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.button-block {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+}

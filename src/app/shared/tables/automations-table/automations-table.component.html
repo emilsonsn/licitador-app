@@ -1,0 +1,30 @@
+<div class="container">
+  <table class="table-scroll small-first-col">
+    <thead>
+    <tr>
+      <th *ngFor="let col of columns" [class.hasorder]="col.order" [ngStyle]="{'text-align': col.align}"
+          [class.active-order]="pageControl.orderField === col.slug">
+        <div class="{{pageControl.orderField === col.slug ? 'th '+col.align : ''}}">
+          {{ col.title }}
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody class="body-half-screen">
+      @if (!automations.length) {
+        <td [ngStyle]="{'text-align': 'center'}" [attr.colspan]="columns.length + 1">
+          <div>Nenhum resultado encontrado</div>
+        </td>
+      } @else {
+        <tr *ngFor="let automation of automations">
+          <td class="text-center">{{ automation.id }}</td>
+          <td class="text-center">{{ automation.state }}</td>
+          <td class="text-center">{{ automation.city }}</td>
+          <td class="text-center">{{ automation.status | automationStatus}}</td>
+        </tr>  
+      }
+    </tbody>
+  </table>
+  <mat-paginator [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
+                 [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
+</div>

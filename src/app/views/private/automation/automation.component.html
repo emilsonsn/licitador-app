@@ -1,0 +1,27 @@
+<main>
+    <section>
+        <div class="container left">
+            <form action="" [formGroup]="form">
+                <div class="title">
+                    <h2>Disparo automático de busca</h2>
+                    <p>Executa busca instantânea para estado e cidade.</p>
+                </div>
+                <div class="form-group">
+                    <label for="state">Estado (sigla)</label>
+                    <input formControlName="state" type="text" class="form-control" name="state">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="city">Cidade (Sao paulo)</label>
+                    <input formControlName="city" class="form-control" type="text" name="city">
+                </div>
+                <div class="form-group mt-2">
+                    <input (click)="onSubmit()" class="btn btn-primary" type="submit" value="Iniciar busca" style="width: 100%;">
+                </div>
+            </form>
+        </div>
+        <app-automations-table
+        [loading]="loading">
+        </app-automations-table>
+    </section>
+
+</main>

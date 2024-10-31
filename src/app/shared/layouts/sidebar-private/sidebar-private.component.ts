@@ -25,6 +25,13 @@ export class SidebarPrivateComponent implements OnInit {
       link: 'painel/dashboard',
       private: true
     },
+    {      
+      type: 'link',
+      label: 'Automações de busca',
+      icon: 'fa-solid fa-magnifying-glass-plus',
+      link: 'painel/automation',
+      private: true
+    },
     {
       type: 'link',
       label: 'Usuários',
