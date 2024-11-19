@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Criar nova categoria</h2>
+
+<mat-dialog-content >
+  <form [formGroup]="form" class="row">
+    <mat-form-field appearance="outline" class="col-md-12 mt-2">
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="description" placeholder="Descrição da categoria" />
+      <mat-error *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+        O nome é obrigatório
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end">
+  <button class="btn btn-danger" (click)="onCancel()">Cancelar</button>
+  <button class="btn btn-success ms-2" [disabled]="form.invalid" (click)="onSubmit()">Salvar</button>
+</mat-dialog-actions>

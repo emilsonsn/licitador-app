@@ -1,0 +1,77 @@
+<div class="container">
+  <table class="table-scroll small-first-col">
+    <thead>
+    <tr>
+      <th *ngFor="let col of columns" [class.hasorder]="col.order" [ngStyle]="{'text-align': col.align}"
+          [class.active-order]="pageControl.orderField === col.slug">
+        <div class="{{pageControl.orderField === col.slug ? 'th '+col.align : ''}}">
+          {{ col.title }}
+          <!--     <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
+                 {{ pageControl.order === 'DESC' ? 'arrow_downward' : 'arrow_upward' }}
+               </i>-->
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody class="body-half-screen">
+      @if (loading) {
+        <tr>
+          <td *ngFor="let col of columns">
+            <ngx-skeleton-loader appearance="line"/>
+          </td>
+        </tr>
+      } @else if (!documents.length) {
+        <td [ngStyle]="{'text-align': 'center'}" [attr.colspan]="columns.length + 1">
+          <div>Nenhum resultado encontrado</div>
+        </td>
+      } @else {
+        <tr *ngFor="let document of documents">
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ document.id }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ document.category?.description }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ document.description }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ document.filename }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div 
+              class="div-td" 
+              [ngClass]="{'expired': isDateExpired(document.expiration_date)}"
+            >
+              {{ document.expiration_date | date:'dd/MM/YYYY'}}
+            </div>
+          </td>
+          
+          <td [ngStyle]="{'text-align': 'center'}" class="td-action">
+            <button *ngIf="document?.path" class="btn btn-sm btn-primary" (click)="openDocument(document.path)">
+              <i class="fa-solid fa-file"></i>
+            </button>            
+
+            <button class="btn btn-sm btn-success ms-2" (click)="onEditButton(document)">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+
+            <button class="btn btn-sm btn-danger ms-2" (click)="deleteCategory(document.id)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <mat-paginator [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
+                 [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
+</div>

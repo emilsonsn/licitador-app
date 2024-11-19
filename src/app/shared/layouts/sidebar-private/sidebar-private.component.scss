@@ -6,21 +6,19 @@
   background-color: $sidebar-bg;
   //border-right: 2px solid $primary-color;
   transition: width 0.3s;
+  width: 250px;
 
-  &:hover {
-    width: 250px;
 
-    .sidebar-content{
-      .sidebar-item {
-        justify-content: start;
-      }
-    }
+  .sidebar-label {
+    display: flex !important;
+    overflow: visible; /* Para garantir que o texto completo seja exibido quando o sidebar está expandido */
+    white-space: nowrap; /* Para evitar quebra de linha */
+    text-overflow: clip; /* Remove a sobreposição de reticências no texto enquanto expandindo */
+  }
 
-    .sidebar-label {
-      display: flex !important;
-      overflow: visible; /* Para garantir que o texto completo seja exibido quando o sidebar está expandido */
-      white-space: nowrap; /* Para evitar quebra de linha */
-      text-overflow: clip; /* Remove a sobreposição de reticências no texto enquanto expandindo */
+  .sidebar-content{
+    .sidebar-item {
+      justify-content: start;
     }
   }
 
@@ -35,7 +33,6 @@
       width: 100%;
       padding: 15px 10px;
       text-align: center;
-      justify-content: center;
       text-decoration: none;
       color: $primary-color;
       display: flex;

@@ -11,6 +11,9 @@ import {adminGuard} from "@app/guards/admin.guard";
 import {SettingsComponent} from "@app/views/private/settings/settings.component";
 import { UserBusinessComponent } from './user-business/user-business.component';
 import { AutomationComponent } from './automation/automation.component';
+import { CategoryComponent } from './category/category.component';
+import { SubcategoryComponent } from './subcategory/subcategory.component';
+import { DocumentComponent } from './document/document.component';
 
 const routes: Routes = [
   {
@@ -29,6 +32,20 @@ const routes: Routes = [
       {
         path: 'automation',
         component: AutomationComponent,
+        canActivate: [adminGuard]
+      },
+      {
+        path: 'category',
+        component: CategoryComponent,
+        canActivate: [adminGuard]
+      },
+      {
+        path: 'document',
+        component: DocumentComponent,        
+      },
+      {
+        path: 'subcategory',
+        component: SubcategoryComponent,
         canActivate: [adminGuard]
       },
       {

@@ -8,12 +8,17 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { DialogUserComponent } from './dialog-user/dialog-user.component';
 import { MatIconModule } from '@angular/material/icon';
+import { DialogCategoryComponent } from './category-user/dialog-category.component';
+import { DialogDocumentComponent } from './dialog-document/dialog-document.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
 @NgModule({
   declarations: [
-    DialogUserComponent
+    DialogUserComponent,
+    DialogCategoryComponent,
+    DialogDocumentComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSelectModule
   ],
 })
 export class DialogsModule { }

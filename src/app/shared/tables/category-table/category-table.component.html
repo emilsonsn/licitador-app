@@ -1,0 +1,53 @@
+<div class="container">
+  <table class="table-scroll small-first-col">
+    <thead>
+    <tr>
+      <th *ngFor="let col of columns" [class.hasorder]="col.order" [ngStyle]="{'text-align': col.align}"
+          [class.active-order]="pageControl.orderField === col.slug">
+        <div class="{{pageControl.orderField === col.slug ? 'th '+col.align : ''}}">
+          {{ col.title }}
+          <!--     <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
+                 {{ pageControl.order === 'DESC' ? 'arrow_downward' : 'arrow_upward' }}
+               </i>-->
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody class="body-half-screen">
+      @if (loading) {
+        <tr>
+          <td *ngFor="let col of columns">
+            <ngx-skeleton-loader appearance="line"/>
+          </td>
+        </tr>
+      } @else if (!categories.length) {
+        <td [ngStyle]="{'text-align': 'center'}" [attr.colspan]="columns.length + 1">
+          <div>Nenhum resultado encontrado</div>
+        </td>
+      } @else {
+        <tr *ngFor="let category of categories">
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ category.id }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ category.description }}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}">
+            <div class="div-td">
+              {{ category.created_at | date:'dd/MM/YYYY HH:mm'}}
+            </div>
+          </td>
+          <td [ngStyle]="{'text-align': 'center'}" class="td-action">
+            <button class="btn btn-sm btn-danger" (click)="deleteCategory(category.id)">Deletar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <mat-paginator [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
+                 [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
+</div>

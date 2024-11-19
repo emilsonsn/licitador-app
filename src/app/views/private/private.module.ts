@@ -25,6 +25,9 @@ import localePtExtra from '@angular/common/locales/extra/pt';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogsModule } from '@shared/dialogs/dialogs.module';
 import { AutomationComponent } from './automation/automation.component';
+import { CategoryComponent } from './category/category.component';
+import { SubcategoryComponent } from './subcategory/subcategory.component';
+import { DocumentComponent } from './document/document.component';
 
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
 
@@ -39,6 +42,9 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     TendersFavoritesComponent,
     SettingsComponent,
     UserBusinessComponent,
+    CategoryComponent,
+    SubcategoryComponent,
+    DocumentComponent
   ],
   imports: [
     CommonModule,

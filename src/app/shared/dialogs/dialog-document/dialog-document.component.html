@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Criar novo documento</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="row">
+    <mat-form-field appearance="outline" class="col-md-12 mt-2">
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="description" placeholder="Descrição do documento" />
+      <mat-error *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+        A descrição é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-12 mt-2">
+      <mat-label>Data de Expiração</mat-label>
+      <input matInput type="date" formControlName="expiration_date" placeholder="Data de expiração" />
+      <mat-error *ngIf="form.get('expiration_date')?.invalid && form.get('expiration_date')?.touched">
+        A data de expiração é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-12 mt-2">
+      <mat-label>Categoria</mat-label>
+      <mat-select formControlName="category_id" placeholder="Selecione uma categoria">
+        <mat-option *ngFor="let category of categories" [value]="category.id">
+          {{ category.description }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('category')?.invalid && form.get('category')?.touched">
+        A categoria é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <div class="col-md-12 mt-2">
+      <input id="file" type="file" (change)="onFileSelected($event)" />
+      <mat-error *ngIf="form.get('file')?.invalid && form.get('file')?.touched">
+        O arquivo é obrigatório
+      </mat-error>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end">
+  <button class="btn btn-danger" (click)="onCancel()">Cancelar</button>
+  <button class="btn btn-success ms-2" [disabled]="form.invalid" (click)="onSubmit()">Salvar</button>
+</mat-dialog-actions>
