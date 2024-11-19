@@ -6,6 +6,8 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import { AutomationsTableComponent } from './automations-table/automations-table.component';
 import { PipesModule } from '@shared/pipes/pipes.module';
+import { CategoryTableComponent } from './category-table/category-table.component';
+import { DocumentTableComponent } from './document-table/document-table.component';
 
 
 
@@ -13,10 +15,14 @@ import { PipesModule } from '@shared/pipes/pipes.module';
   declarations: [
     UsersTableComponent,
     AutomationsTableComponent,
+    CategoryTableComponent,
+    DocumentTableComponent
   ],
   exports: [
     UsersTableComponent,
-    AutomationsTableComponent
+    AutomationsTableComponent,
+    CategoryTableComponent,
+    DocumentTableComponent
   ],
   imports: [
     CommonModule,

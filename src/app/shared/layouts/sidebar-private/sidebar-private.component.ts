@@ -27,6 +27,20 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {      
       type: 'link',
+      label: 'Categoria',
+      icon: 'fa-solid fa-list',
+      link: 'painel/category',
+      private: true
+    },
+    {      
+      type: 'link',
+      label: 'Documentos',
+      icon: 'fa-solid fa-file',
+      link: 'painel/document',
+      private: false
+    },
+    {      
+      type: 'link',
       label: 'Automações de busca',
       icon: 'fa-solid fa-magnifying-glass-plus',
       link: 'painel/automation',
