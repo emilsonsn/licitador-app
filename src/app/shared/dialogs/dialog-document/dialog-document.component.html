@@ -13,9 +13,6 @@
     <mat-form-field appearance="outline" class="col-md-12 mt-2">
       <mat-label>Data de Expiração</mat-label>
       <input matInput type="date" formControlName="expiration_date" placeholder="Data de expiração" />
-      <mat-error *ngIf="form.get('expiration_date')?.invalid && form.get('expiration_date')?.touched">
-        A data de expiração é obrigatória
-      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="col-md-12 mt-2">
