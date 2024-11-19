@@ -27,7 +27,7 @@ export class DialogDocumentComponent {
   ) {
     this.form = this.fb.group({
       description: ['', Validators.required],
-      expiration_date: ['', Validators.required],
+      expiration_date: [''],
       file: [''],
       category_id: ['', Validators.required],
     });
