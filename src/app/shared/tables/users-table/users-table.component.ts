@@ -3,6 +3,9 @@ import {Order, PageControl} from "@model/application";
 import {User} from "@model/User";
 import {finalize} from "rxjs";
 import {UserService} from "@services/User/user.service";
+import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users-table',
@@ -62,7 +65,9 @@ export class UsersTableComponent implements OnChanges{
   };
 
   constructor(
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private _dialog: MatDialog,
+    private readonly _toastrService: ToastrService
   ) {
     this.search();
   }
@@ -95,6 +100,29 @@ export class UsersTableComponent implements OnChanges{
         });
     }
   }
+
+  public delete(id?: number): void {
+    if (id) {
+      const dialogRef = this._dialog.open(DialogConfirmComponent, {
+        data: { text: 'Tem certeza que deseja deletar o usuário?' },
+      });
+
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          this._userService.delete(id).subscribe({
+            next: (res) => {
+              this._toastrService.success(res.message);
+              this.search();
+            },
+            error: (error) => {
+              this._toastrService.error(error.error.message);
+            },
+          });
+        }
+      });
+    }
+  }
+
 
   private _initOrStopLoading(): void {
     this.loading = !this.loading;
