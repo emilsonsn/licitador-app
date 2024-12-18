@@ -34,4 +34,8 @@ export class UserService {
   public blockUser(id: number): Observable<any> {
     return this._http.post<any>(`${environment.api}/user/block/${id}`, {});
   }
+
+  public delete(id: number): Observable<any> {
+    return this._http.delete<any>(`${environment.api}/user/${id}`, {});
+  }
 }

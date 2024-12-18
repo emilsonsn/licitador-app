@@ -1,0 +1,26 @@
+.dialog-container {
+    text-align: center;
+    padding: 20px;
+  
+    h2 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+  
+    p {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      color: #555;
+    }
+  
+    .dialog-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+  
+      button {
+        min-width: 80px;
+      }
+    }
+  }
+  
