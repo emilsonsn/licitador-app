@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
 
 
   loadUserGraphData(): void {
-    this.dashboardService.getUserGraph({period: 'all'}).subscribe(response => {
+    this.dashboardService.getUserGraph({period: 'annual'}).subscribe(response => {
       if (response.status) {
         this.userGraphData = response.data;
         this.renderChart();
