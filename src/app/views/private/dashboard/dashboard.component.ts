@@ -92,9 +92,9 @@ export class DashboardComponent implements OnInit {
     new Chart(ctx.getContext('2d')!, {
       type: 'line',
       data: {
-        labels: this.generateMonths(7),
+        labels: this.generateMonths(12),
         datasets: [{
-          data: this.countEntriesPerMonth(this.userGraphData, 7),
+          data: this.countEntriesPerMonth(this.userGraphData, 12),
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1
