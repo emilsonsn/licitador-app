@@ -22,6 +22,7 @@ export interface Tender {
   publication_date: string;
   update_date: string;
   favorites: any;
+  api_origin: string;
   items: any;
   notes: Note[];
 }

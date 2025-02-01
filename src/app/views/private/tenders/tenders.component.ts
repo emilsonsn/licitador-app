@@ -20,6 +20,7 @@ export class TendersComponent implements OnInit {
   public tenders: Tender[] = [];
   public statesOptions: { value: string, label: string }[] = [];
   public citiesOptions: { value: string, label: string }[] = [];
+  public iminenceOptions: { value: string, label: string }[] = [];
   private allCities: any[] = [];
   private selectedStates: Set<string> = new Set();
   public tenderForm!: FormGroup;
@@ -54,6 +55,7 @@ export class TendersComponent implements OnInit {
       organ_cnpj: [''],
       organ_name: [''],
       process: [''],
+      iminence: [''],
       observations: [''],
       favorite: [false],
       status: [[]],
@@ -66,6 +68,11 @@ export class TendersComponent implements OnInit {
     this.loadStates();
     this.loadCities();
     this.startTour('tenders');
+
+    this.iminenceOptions = [
+      {label: 'Sim', value: 'true'},
+      {label: 'Não', value: 'false'},
+    ]
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -147,6 +154,10 @@ export class TendersComponent implements OnInit {
   onStatesChange(selectedStates: { value: string, label: string }[]) {
     this.selectedStates = new Set(selectedStates.map(state => state.value));
     this.filterCities();
+  }
+
+  onIminanceChange(iminance: { value: string, label: string }[]) {
+    this.tenderForm.get('iminence')?.patchValue(iminance[0]?.value);
   }
 
   filterCities() {

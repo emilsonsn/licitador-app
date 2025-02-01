@@ -28,6 +28,22 @@
            </label>
            -->
 
+           <app-primary-input
+           [value]="this.tenderForm.get('iminence')?.value"
+           [fill]="fill"
+           formControlName="iminence"
+           [type]="'select'"
+           [placeholder]="'Buscar iminência de deserto?'"
+           [inputName]="'state'"
+           [label]="'Iminência'"
+           [returnArrayType]="'sigla'"
+           [options]="iminenceOptions"
+          (selectionChange)="onIminanceChange($event)"
+
+         >
+           <i class="fa-solid fa-chevron-down"></i>
+         </app-primary-input>
+
         <!--Buscar por Estado-->
         <app-primary-input
           [value]="this.tenderForm.get('uf')?.value"
@@ -43,6 +59,8 @@
         >
           <i class="fa-solid fa-chevron-down"></i>
         </app-primary-input>
+
+        
         <!--<div class="filter-buttons-state">
           <p (click)="selectAllStates()">Filtrar por Região</p>
           <p (click)="selectAllStates()">Todos os Estados</p>
@@ -193,8 +211,8 @@
         <app-primary-input
           [value]="this.tenderForm.get('process')?.value"
           formControlName="process"
-          placeholder="Pesquise por Nº Processo"
-          label="Nº Processo"
+          placeholder="Pesquise por Nº do edital"
+          label="Nº Edital"
         >
           <i class="fa-solid fa-inbox"></i>
         </app-primary-input>
