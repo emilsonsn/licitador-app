@@ -16,10 +16,14 @@
     </div>-->
     <div class="card-information-board">
       <div class="card-information">
+        <div class="badge c-warning" *ngIf="data?.api_origin === 'COMPRASAPI'">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Iminência de deserto
+        </div>
         <p><strong>Objeto: </strong>{{ data?.object }}</p>
         <div class="card-information-container">
           <div class="left">
-            <p><strong>Data de abertura : </strong>{{ dayjs(data?.proposal_closing_date).format("DD/MM/YYYY") }}</p>
+            <p><strong>Data de abertura : </strong>{{ dayjs(data?.proposal_closing_date).format("DD/MM/YYYY HH:mm:ss") }}</p>
             <p><strong>Edital: </strong><span style="color: gray">{{ data?.process }}</span></p>
             <p><strong>Órgão: </strong>{{ data?.organ_name }}</p>
           </div>
@@ -37,7 +41,7 @@
             padding: 0.3rem 0.5rem;
             border-radius: 0.5rem;
             ">
-            {{ data?.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+            {{ data?.value ?? '0' | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
 
           </span>
         </p>
