@@ -28,22 +28,6 @@
            </label>
            -->
 
-           <app-primary-input
-           [value]="this.tenderForm.get('iminence')?.value"
-           [fill]="fill"
-           formControlName="iminence"
-           [type]="'select'"
-           [placeholder]="'Buscar iminência de deserto?'"
-           [inputName]="'state'"
-           [label]="'Iminência'"
-           [returnArrayType]="'sigla'"
-           [options]="iminenceOptions"
-          (selectionChange)="onIminanceChange($event)"
-
-         >
-           <i class="fa-solid fa-chevron-down"></i>
-         </app-primary-input>
-
         <!--Buscar por Estado-->
         <app-primary-input
           [value]="this.tenderForm.get('uf')?.value"
@@ -111,6 +95,23 @@
             { value: '1', label: 'Chamada/Chamamento público' },
             { value: '9,10,11,12', label: 'Outros' },
           ]"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </app-primary-input>
+
+
+        <app-primary-input
+          [value]="this.tenderForm.get('iminence')?.value"
+          [fill]="fill"
+          formControlName="iminence"
+          [type]="'select'"
+          [placeholder]="'Buscar iminência de deserto?'"
+          [inputName]="'state'"
+          [label]="'Iminência de deserto'"
+          [returnArrayType]="'sigla'"
+          [options]="iminenceOptions"
+        (selectionChange)="onIminanceChange($event)"
+
         >
           <i class="fa-solid fa-chevron-down"></i>
         </app-primary-input>
