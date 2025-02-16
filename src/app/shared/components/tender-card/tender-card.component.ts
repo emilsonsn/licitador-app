@@ -1,9 +1,10 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Tender} from "@model/tender";
 import dayjs from "dayjs";
 import {TenderService} from "@services/tender/tender.service";
 import { ToastrService } from 'ngx-toastr';
 import { FormControl } from '@angular/forms';
+import { AuthService } from '@services/Auth/auth.service';
 
 @Component({
   selector: 'app-tender-card',
@@ -26,13 +27,16 @@ export class TenderCardComponent {
   @Input()
   isLoading = false;
 
+  @Input()
+  isAdmin = false;
+
   @Output()
   loading: EventEmitter<boolean> = new EventEmitter<boolean>();
   
 
   constructor(
     private readonly tenderService: TenderService,
-    private readonly _toastrService: ToastrService
+    private readonly _toastrService: ToastrService,
   ) {
   }
 
@@ -66,6 +70,19 @@ export class TenderCardComponent {
         });
       }else{
         this._toastrService.error('Edital não encontrado');
+      }
+    });
+  }
+
+  deleteTender(tender_id: any){
+    this.tenderService.delete(tender_id)
+    .subscribe({
+      next: () => {
+        this._toastrService.success('Tender excluído com sucesso');
+        this.loading.emit(true);
+      },
+      error: () => {
+        this._toastrService.error('Não foi possível excluir o tender');
       }
     });
   }

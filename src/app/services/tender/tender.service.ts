@@ -22,6 +22,10 @@ export class TenderService {
     return this._http.get(`${environment.api}/tender/search?${paginate}${filterParams}`);
   }
 
+  public delete(id: number): Observable<any> {
+    return this._http.delete(`${environment.api}/tender/${id}`);
+  }
+
   public favorite(id: number): Observable<any> {
     return this._http.post(`${environment.api}/tender/favorite/${id}`, {});
   }
