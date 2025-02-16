@@ -10,6 +10,7 @@ import {take} from "rxjs";
 import {FilterService} from '@services/Filter/filter.service';
 import {ToastrService} from 'ngx-toastr';
 import introJs from 'intro.js';
+import { AuthService } from '@services/Auth/auth.service';
 
 @Component({
   selector: 'app-tenders',
@@ -25,6 +26,7 @@ export class TendersComponent implements OnInit {
   private selectedStates: Set<string> = new Set();
   public tenderForm!: FormGroup;
   public fill: boolean = false;
+  public isAdmin: boolean = false;
   pageControl: PageControl = {
     take: 10,
     page: 1,
@@ -41,8 +43,8 @@ export class TendersComponent implements OnInit {
     private readonly tenderService: TenderService,
     private readonly _filterService: FilterService,
     private readonly _toastrService: ToastrService,
-    private cdr: ChangeDetectorRef // Adicionar ChangeDetectorRef
-
+    private cdr: ChangeDetectorRef,
+    private readonly _authService: AuthService
   ) {
     this.tenderForm = this.fb.group({
       object: [''],
@@ -67,12 +69,20 @@ export class TendersComponent implements OnInit {
   ngOnInit() {
     this.loadStates();
     this.loadCities();
+    this.loadRole();
     this.startTour('tenders');
 
     this.iminenceOptions = [
       {label: 'Sim', value: 'true'},
       {label: 'Não', value: 'false'},
     ]
+  }
+
+  loadRole(){
+    this._authService.getUser()
+    .subscribe( res => {
+      this.isAdmin = !!res.data.is_admin;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -211,6 +221,7 @@ export class TendersComponent implements OnInit {
 
   loadTenders() {
     this.isLoading = true;
+    console.log('buscar tender');
     this.tenderService.getTenders(this.pageControl, {})
       .pipe(take(1))
       .subscribe(

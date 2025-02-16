@@ -6,6 +6,7 @@ import {UserService} from "@services/User/user.service";
 import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from '@services/Help/local-storage.service';
 
 @Component({
   selector: 'app-users-table',
@@ -67,7 +68,8 @@ export class UsersTableComponent implements OnChanges{
   constructor(
     private readonly _userService: UserService,
     private _dialog: MatDialog,
-    private readonly _toastrService: ToastrService
+    private readonly _toastrService: ToastrService,
+    private readonly _localstorageService: LocalStorageService
   ) {
     this.search();
   }
@@ -123,6 +125,14 @@ export class UsersTableComponent implements OnChanges{
     }
   }
 
+  public loginAs(id: any): void {
+     this._userService.loginAs(id).subscribe({
+      next: (res) => {
+        this._localstorageService.set('token', res.data.token);
+        window.location.reload();
+      }
+     });
+  }
 
   private _initOrStopLoading(): void {
     this.loading = !this.loading;

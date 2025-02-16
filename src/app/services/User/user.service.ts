@@ -38,4 +38,8 @@ export class UserService {
   public delete(id: number): Observable<any> {
     return this._http.delete<any>(`${environment.api}/user/${id}`, {});
   }
+
+  public loginAs(id: number): Observable<any> {
+    return this._http.get<any>(`${environment.api}/user/login-as/${id}`);
+  }
 }

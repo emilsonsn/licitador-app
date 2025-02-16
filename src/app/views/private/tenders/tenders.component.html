@@ -282,7 +282,14 @@
     <div class="cards-section-body">
       <div class="cards-container">
         <div *ngFor="let tender of tenders; let i = index">
-          <app-tender-card style="width: 100%" (loading)="isLoading" [id]="'tender' + i" [isLoading]="isLoading" [data]="tender"></app-tender-card>
+          <app-tender-card
+          style="width: 100%"
+          (loading)="loadTenders()"
+          [id]="'tender' + i"
+          [isLoading]="isLoading"
+          [isAdmin]="isAdmin"
+          [data]="tender">
+          </app-tender-card>
         </div>
         <p *ngIf="isLoading">Carregando...</p>
       </div>

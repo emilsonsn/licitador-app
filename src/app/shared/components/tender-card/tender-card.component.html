@@ -89,6 +89,14 @@
           </a>
         </strong>
       </button>
+      <button
+        style="background-color: rgb(240, 28, 28);  border: none;"
+        *ngIf="isAdmin"
+        (click)="deleteTender(data?.id)"
+        >
+          Deletar
+          <i class="fa-solid fa-trash"></i>
+      </button>
     </div>
     <div *ngIf="viewItems" style="max-height: 200px; overflow-y: auto;">
       <ul>
