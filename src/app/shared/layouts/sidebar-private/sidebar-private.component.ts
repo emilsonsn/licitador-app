@@ -20,7 +20,7 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {
       type: 'link',
-      label: 'Favoritos',
+      label: 'Licitações Favoritas',
       icon: 'fa-solid fa-star',
       link: 'painel/home/tenders/favorites',
     },
