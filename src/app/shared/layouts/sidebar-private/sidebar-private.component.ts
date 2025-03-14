@@ -20,6 +20,12 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {
       type: 'link',
+      label: 'Favoritos',
+      icon: 'fa-solid fa-star',
+      link: 'painel/home/tenders/favorites',
+    },
+    {
+      type: 'link',
       label: 'Dashboard',
       icon: 'fa-solid fa-chart-simple',
       link: 'painel/dashboard',
@@ -102,6 +108,6 @@ export class SidebarPrivateComponent implements OnInit {
   }
 
   isActive(link: string): boolean {
-    return this._router.url.includes(link);
-  }
+    return this._router.url === '/' + link;
+  }  
 }
