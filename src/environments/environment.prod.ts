@@ -3,6 +3,7 @@ export const environment = {
   home: '/painel',
   appName: 'Licitador App',
   api: 'https://app.localizadordeeditais.com.br:3001/api',
+  //api: 'https://teste.localizadordeeditais.com.br:3001/api',
   // api: 'http://127.0.0.1:8000/api',
   url: '',
   version: require('../../package.json').version,
