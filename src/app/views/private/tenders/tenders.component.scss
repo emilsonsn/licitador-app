@@ -43,6 +43,19 @@ main {
     flex-direction: column;
     gap: 0.5rem;
 
+    .loading{
+      width: 100%;
+      margin: 50px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+      i{  
+        font-size: 4rem;
+        color: $primary-color;
+      }
+    }
+
     .cards-section-body {
       flex-grow: 1;
       overflow-y: auto;

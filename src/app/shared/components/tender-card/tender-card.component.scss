@@ -23,47 +23,39 @@
   .card-header {
     background: $header-tender-card-color;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;    
     align-items: center;
-    padding: 0.5rem; // Reduzido para se adequar à nova altura
+    padding: 0.5rem;
     color: #2d007a;
+    width: 100%;
 
-    .card-header-left {
+    .card-header-left{
       display: flex;
-      align-items: center;
-      gap: 0.5rem; // Reduzido para se adequar à nova altura
-
-      .active-status-card {
-        color: #FD6868;
-      }
-
-      i {
-        cursor: pointer;
-      }
+      justify-content: space-between;
+      width: 100%;      
     }
-
   }
 
   .card-main {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; // Reduzido para se adequar à nova altura
-    padding: 0.5rem; // Reduzido para se adequar à nova altura
+    gap: 0.5rem;
+    padding: 0.5rem;
 
     .card-buttons {
       display: flex;
       justify-content: start;
       align-items: center;
-      gap: 0.5rem; // Reduzido para se adequar à nova altura
+      gap: 0.5rem;
 
       button {
         background: $primary-color;
         color: white;
         border: 1px solid $primary-color;
-        padding: 0.5rem; // Reduzido para se adequar à nova altura
+        padding: 0.5rem;
         border-radius: 8px;
         cursor: pointer;
-        font-size: 14px; // Reduzido para se adequar à nova altura
+        font-size: 14px;
         box-shadow: 0 0 10px 0 rgba(223, 198, 255, 0.37);
 
         &:hover {

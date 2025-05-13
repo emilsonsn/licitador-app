@@ -279,8 +279,11 @@
     </form>
   </section>
   <section class="cards-section">
-    <div class="cards-section-body">
-      <div class="cards-container">
+    <div class="cards-section-body">      
+      <div class="loading" *ngIf="isLoading">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+      <div class="cards-container" #cardsTop>
         <div *ngFor="let tender of tenders; let i = index">
           <app-tender-card
           style="width: 100%"
@@ -288,10 +291,10 @@
           [id]="'tender' + i"
           [isLoading]="isLoading"
           [isAdmin]="isAdmin"
+          [index]="((pageControl?.page ?? 1 - 1) * (pageControl?.take ?? 10)) + i + 1"
           [data]="tender">
           </app-tender-card>
-        </div>
-        <p *ngIf="isLoading">Carregando...</p>
+        </div>        
       </div>
     </div>
     <div style="padding: 0 1rem;">

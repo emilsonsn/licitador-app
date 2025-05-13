@@ -6,11 +6,12 @@ import Cidades from '../../../../assets/json/Cidades.json';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TenderService} from '@services/tender/tender.service';
 import {Order, PageControl} from '@model/application';
-import {take} from "rxjs";
+import {finalize, take} from "rxjs";
 import {FilterService} from '@services/Filter/filter.service';
 import {ToastrService} from 'ngx-toastr';
 import introJs from 'intro.js';
 import { AuthService } from '@services/Auth/auth.service';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-tenders',
@@ -27,7 +28,9 @@ export class TendersComponent implements OnInit {
   public tenderForm!: FormGroup;
   public fill: boolean = false;
   public isAdmin: boolean = false;
-  pageControl: PageControl = {
+  @ViewChild('cardsTop') cardsTop!: ElementRef;
+
+  public pageControl: PageControl = {
     take: 10,
     page: 1,
     itemCount: 0,
@@ -186,6 +189,7 @@ export class TendersComponent implements OnInit {
   }
 
   onSubmit() {
+    this.tenders = [];
     const formValues = this.tenderForm.value;
     // this.pageControl.page = 1;
     // Corrigir valores nulos, undefined ou vazios
@@ -196,7 +200,15 @@ export class TendersComponent implements OnInit {
       return acc;
     }, {} as any);
 
-    this.tenderService.getTenders(this.pageControl, cleanedFilters).subscribe(
+    setTimeout(() => {
+      this.cardsTop?.nativeElement?.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
+
+    this.isLoading = true;
+
+    this.tenderService.getTenders(this.pageControl, cleanedFilters)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe(
       {
         next: (res) => {
           if (res && res.data) {
@@ -204,7 +216,11 @@ export class TendersComponent implements OnInit {
 
             this.pageControl.page = res.data.current_page - 1;
             this.pageControl.itemCount = res.data.total;
-            this.pageControl.pageCount = res.data.last_page;
+            this.pageControl.pageCount = res.data.last_page;      
+            
+            console.log({
+              page2 :this.pageControl.page,
+            })
 
           } else {
             this.tenders = [];

@@ -1,12 +1,21 @@
 <div class="card">
   <div class="card-header">
     <div class="card-header-left">
-      <p>#{{ data?.id }}</p>
-      @if (data?.favorites.length > 0) {
-        <i [id]="'favorite' + id" class="fa-solid fa-star active-status-card" (click)="favorite(data)"></i>
-      } @else {
-        <i [id]="'favorite' + id" class="fa-regular fa-star" (click)="favorite(data)"></i>
-      }
+      <div>
+        <h2>
+          <p class="card-header-title">
+            Nª {{ index }}
+          </p>
+        </h2>
+      </div>
+      <div>
+        <p>#{{ data?.id }}</p>
+        @if (data?.favorites.length > 0) {
+          <i [id]="'favorite' + id" class="fa-solid fa-star active-status-card" (click)="favorite(data)"></i>
+        } @else {
+          <i [id]="'favorite' + id" class="fa-regular fa-star" (click)="favorite(data)"></i>
+        }
+      </div>
     </div>
   </div>
   <div class="card-main">

@@ -18,6 +18,9 @@ export class TenderCardComponent {
   @Input()
   id: string = '';
 
+  @Input()
+  index: number = 0;
+
   protected readonly dayjs = dayjs;
   protected readonly length = length;
   viewedPlus: boolean = false;
