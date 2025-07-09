@@ -50,7 +50,7 @@
             padding: 0.3rem 0.5rem;
             border-radius: 0.5rem;
             ">
-            {{ data?.value ?? '0' | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+            {{ data?.value ? (data?.value !== '0.00' ? (data?.value | currency:'BRL':'symbol':'1.2-2':'pt-BR') : 'Sigiloso') : 'Sigiloso'}}
 
           </span>
         </p>
