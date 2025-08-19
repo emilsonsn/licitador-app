@@ -22,12 +22,7 @@ export class HomeComponent {
     {
       title: 'ERP + Emissor NFe',
       description: 'ERP + Emissor NFe',
-      link: 'https://notas.licitanteprime.com.br/'
-    },
-      {
-      title: 'Gestor de DOCs',
-      description: 'Gestor de DOCs',
-      link: 'https://doc.licitanteprime.com.br/'
+      link: 'https://erpnotas.licitanteprime.com.br/login'
     },
     {
       title: 'Fornecedores para Licitação',

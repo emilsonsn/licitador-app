@@ -5,8 +5,8 @@
     <form class="filter-container" [formGroup]="tenderForm" (ngSubmit)="onSubmit()">
       <div class="filter-buttons-header">
         <p (click)="clearFilters()"><i class="fa-solid fa-broom"></i> Limpar</p>
-        <p id="favorito" (click)="getFilter()"><i class="fa-solid fa-pen"></i> Favorito</p>
-        <p id="favoritar" (click)="saveFilter()"><i class="fa-solid fa-star"></i> Favoritar</p>
+        <p id="favorito" (click)="getFilter()"><i class="fa-solid fa-pen"></i> Carregar Filtro</p>
+        <p id="favoritar" (click)="saveFilter()"><i class="fa-solid fa-star"></i> Gravar Filtro</p>
         <p (click)="reloadFilters()"><i class="fa-solid fa-arrows-rotate"></i> Recarregar</p>
       </div>
       <div class="filter-form-inputs">
@@ -301,5 +301,62 @@
       <mat-paginator [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
                      [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
     </div>
+    <!-- Checkbox escondido -->
+<input type="checkbox" id="toggle-chat" hidden>
+
+<!-- Botão flutuante com texto personalizado -->
+<label for="toggle-chat" id="chat-toggle-button">IA - Assistente</label>
+
+<!-- Iframe do chat -->
+<iframe 
+  src="https://chat.localizadordeeditais.com.br/" 
+  id="chat-ia"
+></iframe>
+
+<style>
+  /* Botão flutuante */
+  #chat-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #9d0101;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 24px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    transition: background-color 0.3s ease;
+    font-family: Arial, sans-serif;
+  }
+
+  #chat-toggle-button:hover {
+    background-color: #005fa3;
+  }
+
+  /* Iframe oculto por padrão */
+  #chat-ia {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    width: 30%;
+    height: 500px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
+
+  /* Exibir iframe quando o checkbox estiver marcado */
+  #toggle-chat:checked ~ #chat-ia {
+    display: block;
+  }
+</style>
+
+
   </section>
 </main>

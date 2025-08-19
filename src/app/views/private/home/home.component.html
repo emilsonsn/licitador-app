@@ -3,10 +3,12 @@
   <div class="commercial">
     <div class="commercial-details">
       <div class="tooltip">Localizador de Editais</div>
-      <h2>Faça Parte da Maior Comunidade de Licitantes do Brasil</h2>
-      <a href="https://arnaldotadeu.com.br/inscreva-se-para-a-mentoria-ao-vivo" target="_blank"><button>ENTRAR PARA A COMUNIDADE</button></a>
+      <h1 style="color: #fff; font-size: 40px; line-height: 10px;">Cada edital é uma nova oportunidade </h1><h1 style=" color: #fff; font-size: 40px;"> para transformar esforço em sucesso</h1>
+      <br>
+      <h2>Conheça o LiciTool, um verdadeiro canivete suiço de ferramentas<br> para quem trabalha com Licitação</h2>
+      <a href="https://licitool.com.br/" target="_blank"><button>ACESSE O LICITOOL</button></a>
     </div>
-    <img alt="" src="assets/images/im2.jpg"/>
+    <img alt="" src="https://licitool.com.br/wp-content/uploads/2025/05/licitante-2.jpg"/>
   </div>
   <h4>
     <i class="fa-solid fa-gear"></i>
@@ -16,7 +18,63 @@
   </h4>
   <div class="content">
     <div class="content-bnt" *ngFor="let tool of tools" (click)="navigate(tool.link)">
-      <h2 style="font-size:19px;">{{ tool.title }}</h2>
+      <h2 style="font-size:19px; font-weight: 400; margin-top: 16px;">{{ tool.title }}</h2>
     </div>
   </div>
+<!-- Checkbox escondido -->
+<input type="checkbox" id="toggle-chat" hidden>
+
+<!-- Botão flutuante com texto personalizado -->
+<label for="toggle-chat" id="chat-toggle-button">IA - Assistente Jurídico e Licitação</label>
+
+<!-- Iframe do chat -->
+<iframe 
+  src="https://chat.localizadordeeditais.com.br/" 
+  id="chat-ia"
+></iframe>
+
+<style>
+  /* Botão flutuante */
+  #chat-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #9d0101;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 24px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    transition: background-color 0.3s ease;
+    font-family: Arial, sans-serif;
+  }
+
+  #chat-toggle-button:hover {
+    background-color: #005fa3;
+  }
+
+  /* Iframe oculto por padrão */
+  #chat-ia {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 30%;
+    height: 500px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
+
+  /* Exibir iframe quando o checkbox estiver marcado */
+  #toggle-chat:checked ~ #chat-ia {
+    display: block;
+  }
+</style>
+
 </main>
