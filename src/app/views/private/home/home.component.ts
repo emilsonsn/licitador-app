@@ -22,17 +22,34 @@ export class HomeComponent {
     {
       title: 'ERP + Emissor NFe',
       description: 'ERP + Emissor NFe',
-      link: 'https://erpnotas.licitanteprime.com.br/login'
+      link: 'https://meuatendimento.sebrae.com.br/sites/PortalSebrae/produtoseservicos/emissornfe'
     },
     {
-      title: 'Fornecedores para Licitação',
-      description: 'Fornecedores para Licitação',
-      link: 'https://fornecedor.licitanteprime.com.br/'
+      title: 'Melhor envio',
+      description: 'Melhores sites para cotação de frete',
+      link: 'https://melhorenvio.com.br/p/tw2ekrx0WR'
+    },
+    {
+      title: 'Jamef',
+      description: 'Frete com a Jamef',
+      link: 'https://www.jamef.com.br/cotacao-de-frete'
+    },
+    {
+      title: "Loggi",
+      description: "Frete com a Loggi",
+      link: "https://www.loggi.com/pt-br/calcular-frete/"
+    },
+    {
+      title: "Correios",
+      description: "Frete com os Correios",
+      link: "https://www2.correios.com.br/sistemas/precosPrazos/"
+    },
+    {
+      title: "Rodonaves",
+      description: "Frete com a Rodonaves",
+      link: "https://rodonavesexpress.rte.com.br/express/"
     }
-
   ];
-
-  
 
   constructor(
     private readonly _router: Router
