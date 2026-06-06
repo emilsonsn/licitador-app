@@ -23,8 +23,22 @@ export interface Tender {
   update_date: string;
   favorites: any;
   api_origin: string;
-  items: any;
+  items: TenderItem[];
   notes: Note[];
+}
+
+export interface TenderItem {
+  numeroItem: number;
+  descricao: string;
+  materialOuServico: string;
+  materialOuServicoNome: string;
+  valorUnitarioEstimado: number;
+  valorTotal: number;
+  quantidade: number;
+  unidadeMedida: string;
+  orcamentoSigiloso: boolean;
+  itemCategoriaId: number;
+  itemCategoriaNome: string;
 }
 
 export interface Note{
@@ -33,4 +47,3 @@ export interface Note{
   tender?: Tender;
   note: string;
 }
-

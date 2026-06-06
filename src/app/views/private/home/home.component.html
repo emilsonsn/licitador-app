@@ -1,80 +1,81 @@
-<main>
+<main class="home-page">
+  <section class="home-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Gestor Facility</p>
+      <h1>Parceira. Confiança. <strong>Resultado.</strong></h1>
+      <p>Cada edital é uma nova oportunidade para transformar esforço em sucesso.</p>
 
-  <div class="commercial">
-    <div class="commercial-details">
-      <div class="tooltip">Localizador de Editais</div>
-      <h1 style="color: #fff; font-size: 40px; line-height: 10px;">Cada edital é uma nova oportunidade </h1><h1 style=" color: #fff; font-size: 40px;"> para transformar esforço em sucesso</h1>
-      <br>
-      <h2>Conheça o LiciTool, um verdadeiro canivete suiço de ferramentas<br> para quem trabalha com Licitação</h2>
-      <a href="https://licitool.com.br/" target="_blank"><button>ACESSE O LICITOOL</button></a>
+      <div class="hero-actions">
+        <button type="button" class="primary-action" (click)="navigate('/painel/home/tenders')">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Encontrar licitações
+        </button>
+
+        <button type="button" class="secondary-action" (click)="startTour('home', true)">
+          <i class="fa-solid fa-route"></i>
+          Tour
+        </button>
+      </div>
     </div>
-    <img alt="" src="https://licitool.com.br/wp-content/uploads/2025/05/licitante-2.jpg"/>
-  </div>
-  <h4>
-    <i class="fa-solid fa-gear"></i>
-    Painel de Ferramentas
 
-    <button class="tour" (click)="startTour('home', true)">Tour</button>
-  </h4>
-  <div class="content">
-    <div class="content-bnt" *ngFor="let tool of tools" (click)="navigate(tool.link)">
-      <h2 style="font-size:19px; font-weight: 400; margin-top: 16px;">{{ tool.title }}</h2>
+    <img alt="Gestor Facility" src="assets/images/pagina_inicial.png"/>
+  </section>
+
+  <section class="section-block quick-access">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Acesso rápido</p>
+        <h2>Ferramentas principais</h2>
+      </div>
+      <i class="fa-solid fa-bolt"></i>
     </div>
-  </div>
-<!-- Checkbox escondido -->
-<input type="checkbox" id="toggle-chat" hidden>
 
-<!-- Botão flutuante com texto personalizado -->
-<label for="toggle-chat" id="chat-toggle-button">IA - Assistente Jurídico e Licitação</label>
+    <div class="tool-grid">
+      <button
+        *ngFor="let tool of mainTools"
+        type="button"
+        class="tool-card primary-tool"
+        (click)="navigate(tool.link)">
+        <i class="{{ tool.icon }}"></i>
+        <span>{{ tool.title }}</span>
+        <small>{{ tool.description }}</small>
+      </button>
+    </div>
+  </section>
 
-<!-- Iframe do chat -->
-<iframe 
-  src="https://chat.localizadordeeditais.com.br/" 
-  id="chat-ia"
-></iframe>
+  <section class="section-block">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Operação</p>
+        <h2>Serviços úteis para sua rotina</h2>
+      </div>
+      <i class="fa-solid fa-layer-group"></i>
+    </div>
 
-<style>
-  /* Botão flutuante */
-  #chat-toggle-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #9d0101;
-    color: white;
-    padding: 12px 16px;
-    font-size: 16px;
-    border-radius: 24px;
-    text-align: center;
-    cursor: pointer;
-    z-index: 10000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    user-select: none;
-    transition: background-color 0.3s ease;
-    font-family: Arial, sans-serif;
-  }
+    <div class="tool-grid external-grid">
+      <button
+        *ngFor="let tool of externalTools"
+        type="button"
+        class="tool-card"
+        (click)="navigate(tool.link)">
+        <i class="{{ tool.icon }}"></i>
+        <span>{{ tool.title }}</span>
+        <small>{{ tool.description }}</small>
+        <em>Abre em nova aba</em>
+      </button>
+    </div>
+  </section>
 
-  #chat-toggle-button:hover {
-    background-color: #005fa3;
-  }
+  <input type="checkbox" id="toggle-chat" hidden>
 
-  /* Iframe oculto por padrão */
-  #chat-ia {
-    display: none;
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 30%;
-    height: 500px;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-  }
+  <label for="toggle-chat" id="chat-toggle-button">
+    <i class="fa-solid fa-comments"></i>
+    IA Jurídica
+  </label>
 
-  /* Exibir iframe quando o checkbox estiver marcado */
-  #toggle-chat:checked ~ #chat-ia {
-    display: block;
-  }
-</style>
-
+  <iframe
+    src="https://chat.localizadordeeditais.com.br/"
+    id="chat-ia"
+    title="IA - Assistente Jurídico e Licitação"
+  ></iframe>
 </main>

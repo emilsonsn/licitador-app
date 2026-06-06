@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {Tender} from "@model/tender";
+import {Tender, TenderItem} from "@model/tender";
 import dayjs from "dayjs";
 import {TenderService} from "@services/tender/tender.service";
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +25,10 @@ export class TenderCardComponent {
   protected readonly length = length;
   viewedPlus: boolean = false;
   viewItems: boolean = false;
+  isLoadingItems: boolean = false;
+  itemsLoaded: boolean = false;
+  itemsMessage: string = '';
+  tenderItems: TenderItem[] = [];
   noteText: FormControl = new FormControl('');
 
   @Input()
@@ -103,7 +107,44 @@ export class TenderCardComponent {
   }
 
   onViewItems() {
-    this.viewItems = !this.viewItems;
+    if (this.viewItems) {
+      this.viewItems = false;
+      return;
+    }
+
+    this.viewItems = true;
+
+    if (this.itemsLoaded) {
+      return;
+    }
+
+    const tenderId = this.data?.id;
+    if (!tenderId) {
+      this.itemsMessage = 'Não foi possível identificar a licitação para buscar os itens.';
+      return;
+    }
+
+    this.isLoadingItems = true;
+    this.itemsMessage = '';
+
+    this.tenderService.items(tenderId).subscribe({
+      next: (res) => {
+        this.tenderItems = res?.data ?? [];
+        this.itemsLoaded = true;
+
+        if (!this.tenderItems.length) {
+          this.itemsMessage = 'Nenhum item encontrado para esta licitação.';
+        }
+      },
+      error: () => {
+        this.tenderItems = [];
+        this.itemsMessage = 'Não foi possível carregar os itens desta licitação.';
+        this.isLoadingItems = false;
+      },
+      complete: () => {
+        this.isLoadingItems = false;
+      }
+    });
   }
   
   note(tender_id: any){

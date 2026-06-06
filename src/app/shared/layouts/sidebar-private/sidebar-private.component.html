@@ -1,12 +1,18 @@
 <nav class="sidebar">
+  <div class="sidebar-brand">
+    <img src="assets/images/logo.png" alt="Gestor Facility">
+    <span>Gestor Facility</span>
+  </div>
+
   <div class="sidebar-content">
-    <div *ngFor="let item of items"
+    <button *ngFor="let item of items"
+         type="button"
          class="sidebar-item"
          [class.active]="isActive(item.link)"
+         [attr.aria-current]="isActive(item.link) ? 'page' : null"
          (click)="navigate(item.link)">
-
       <i class="{{ item.icon }}"></i>
       <span class="sidebar-label">{{ item.label }}</span>
-    </div>
+    </button>
   </div>
 </nav>

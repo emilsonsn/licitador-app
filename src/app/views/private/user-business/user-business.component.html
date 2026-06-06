@@ -1,107 +1,148 @@
-<div>
+<main class="profile-page">
+  <section class="profile-hero">
     <div>
-      <!-- Aba de Dados do Cliente -->
-      <div class="tab-pane container active" id="cliente">
-        <h2 class="d-flex justify-content-start">
-            Meus dados
-            <div class="ms-3 badge bg-primary fs-6">
-                <i class="fa-solid fa-circle-check"></i>
-                Assinatura ativa
-            </div>
-
-            <button class="user-business" (click)="startTour('home', true)">Tour</button>
-        </h2>
-        
-        <form [formGroup]="clienteForm" class="row">
-
-          <div class="col-md-12 mt-2">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="hasNotification" formControlName="has_notification">
-              <label class="form-check-label" for="hasNotification">Receber atualizações de novas licitações</label>
-            </div>
-          </div>
-          
-          <div class="col-md-6">
-            <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" formControlName="name" placeholder="Digite seu nome" required>
-          </div>
-          <div class="col-md-6">
-            <label for="sobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" id="sobrenome" formControlName="surname" placeholder="Digite seu sobrenome" required>
-          </div>
-
-          <div class="col-md-12 mt-2">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" readonly class="form-control" id="email" formControlName="email" placeholder="Digite seu email" required>
-          </div>
-
-          <div class="col-md-6">
-            <label for="phone" class="form-label">Whatsapp</label>
-            <input type="phone" class="form-control" id="phone" formControlName="phone" placeholder="5599999999999">
-          </div>
-
-          <div class="col-md-6">
-            <label for="dataNascimento" class="form-label">Data de Nascimento</label>
-            <input type="date" class="form-control" id="dataNascimento" formControlName="birthday" placeholder="Digite sua data de nascimento" required>
-          </div>
-          <div class="col-md-6">
-            <label for="cep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="cep" formControlName="postalcode" placeholder="Digite seu CEP" required>
-          </div>
-          <div class="col-md-6">
-            <label for="rua" class="form-label">Rua</label>
-            <input type="text" class="form-control" id="rua" formControlName="address" placeholder="Digite sua rua" required>
-          </div>
-          <div class="col-md-6">
-            <label for="cidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="cidade" formControlName="city" placeholder="Digite sua cidade" required>
-          </div>
-          <div class="col-md-6">
-            <label for="estado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="estado" formControlName="state" placeholder="Digite seu estado" required>
-          </div>
-          <div class="col-md-6 mt-2">
-            <label for="senha" class="form-label">Nova Senha</label>
-            <input type="password" class="form-control" id="senha" formControlName="password" placeholder="Digite a nova senha">
-          </div>
-          <div class="col-md-6 mt-2">
-            <label for="confirmarSenha" class="form-label">Confirmar Nova Senha</label>
-            <input type="password" class="form-control" id="confirmarSenha" formControlName="confirm_password" placeholder="Confirme a nova senha">
-          </div>
-          
-          <div class="d-flex justify-content-end mt-2">
-            <button style="width: 20%;" class="btn btn-primary" (click)="onClientSubmit()">Salvar dados</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Aba de Dados da Empresa -->
-      <div class="container" id="empresa">
-        <h2>Dados da minha empresa</h2>
-        <form [formGroup]="empresaForm" class="row">
-          <div class="col-md-6">
-            <label for="cnpj" class="form-label">CNPJ</label>
-            <input type="text" class="form-control" id="cnpj" formControlName="cnpj" placeholder="Digite o CNPJ" required>
-          </div>
-          <div class="col-md-6">
-            <label for="razaoSocial" class="form-label">Razão Social</label>
-            <input type="text" class="form-control" id="razaoSocial" formControlName="corporate_reason" placeholder="Digite a razão social" required>
-          </div>
-          <div class="col-md-6">
-            <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
-            <input type="text" class="form-control" id="nomeFantasia" formControlName="fantasy_name" placeholder="Digite o nome fantasia" required>
-          </div>
-          <div class="col-md-6">
-            <label for="dataInicioOperacao" class="form-label">Data de Início de Operação</label>
-            <input type="date" class="form-control" id="dataInicioOperacao" formControlName="opening_date" placeholder="Digite a data de início de operação" required>
-          </div>
-          <div class="d-flex justify-content-end mt-2">
-            <button style="width: 20%;" class="btn btn-primary" (click)="onBusinessSubmit()">Salvar dados</button>
-          </div>
-        </form>
-      </div>
+      <p class="eyebrow">Minha conta</p>
+      <h1>Perfil e empresa</h1>
+      <span>Atualize seus dados para manter as notificações e informações comerciais em dia.</span>
     </div>
-  </div>
-  
 
-  
+    <div class="hero-actions">
+      <div class="status-badge">
+        <i class="fa-solid fa-circle-check"></i>
+        Assinatura ativa
+      </div>
+
+      <button class="tour-button" type="button" (click)="startTour('user-business', true)">
+        <i class="fa-solid fa-route"></i>
+        Tour
+      </button>
+    </div>
+  </section>
+
+  <section class="profile-grid">
+    <form [formGroup]="clienteForm" class="profile-panel" id="cliente">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Dados pessoais</p>
+          <h2>Meus dados</h2>
+        </div>
+        <i class="fa-solid fa-user-check"></i>
+      </div>
+
+      <div class="notification-row">
+        <div>
+          <strong>Novas licitações</strong>
+          <span>Receba atualizações de editais no WhatsApp cadastrado.</span>
+        </div>
+
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="hasNotification" formControlName="has_notification">
+          <label class="form-check-label" for="hasNotification">Ativar</label>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="nome" class="form-label">Nome</label>
+          <input type="text" class="form-control" id="nome" formControlName="name" placeholder="Digite seu nome" required>
+        </div>
+
+        <div class="field">
+          <label for="sobrenome" class="form-label">Sobrenome</label>
+          <input type="text" class="form-control" id="sobrenome" formControlName="surname" placeholder="Digite seu sobrenome" required>
+        </div>
+
+        <div class="field full">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" readonly class="form-control" id="email" formControlName="email" placeholder="Digite seu email" required>
+        </div>
+
+        <div class="field">
+          <label for="phone" class="form-label">WhatsApp</label>
+          <input type="phone" class="form-control" id="phone" formControlName="phone" placeholder="5599999999999">
+        </div>
+
+        <div class="field">
+          <label for="dataNascimento" class="form-label">Data de nascimento</label>
+          <input type="date" class="form-control" id="dataNascimento" formControlName="birthday" required>
+        </div>
+
+        <div class="field">
+          <label for="cep" class="form-label">CEP</label>
+          <input type="text" class="form-control" id="cep" formControlName="postalcode" placeholder="Digite seu CEP" required>
+        </div>
+
+        <div class="field">
+          <label for="rua" class="form-label">Rua</label>
+          <input type="text" class="form-control" id="rua" formControlName="address" placeholder="Digite sua rua" required>
+        </div>
+
+        <div class="field">
+          <label for="cidade" class="form-label">Cidade</label>
+          <input type="text" class="form-control" id="cidade" formControlName="city" placeholder="Digite sua cidade" required>
+        </div>
+
+        <div class="field">
+          <label for="estado" class="form-label">Estado</label>
+          <input type="text" class="form-control" id="estado" formControlName="state" placeholder="Digite seu estado" required>
+        </div>
+
+        <div class="field">
+          <label for="senha" class="form-label">Nova senha</label>
+          <input type="password" class="form-control" id="senha" formControlName="password" placeholder="Digite a nova senha">
+        </div>
+
+        <div class="field">
+          <label for="confirmarSenha" class="form-label">Confirmar nova senha</label>
+          <input type="password" class="form-control" id="confirmarSenha" formControlName="confirm_password" placeholder="Confirme a nova senha">
+        </div>
+      </div>
+
+      <div class="panel-actions">
+        <button class="btn btn-primary" type="button" (click)="onClientSubmit()">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Salvar dados
+        </button>
+      </div>
+    </form>
+
+    <form [formGroup]="empresaForm" class="profile-panel compact-panel" id="empresa">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Dados comerciais</p>
+          <h2>Minha empresa</h2>
+        </div>
+        <i class="fa-solid fa-building"></i>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="cnpj" class="form-label">CNPJ</label>
+          <input type="text" class="form-control" id="cnpj" formControlName="cnpj" placeholder="Digite o CNPJ" required>
+        </div>
+
+        <div class="field">
+          <label for="razaoSocial" class="form-label">Razão social</label>
+          <input type="text" class="form-control" id="razaoSocial" formControlName="corporate_reason" placeholder="Digite a razão social" required>
+        </div>
+
+        <div class="field">
+          <label for="nomeFantasia" class="form-label">Nome fantasia</label>
+          <input type="text" class="form-control" id="nomeFantasia" formControlName="fantasy_name" placeholder="Digite o nome fantasia" required>
+        </div>
+
+        <div class="field">
+          <label for="dataInicioOperacao" class="form-label">Início de operação</label>
+          <input type="date" class="form-control" id="dataInicioOperacao" formControlName="opening_date" required>
+        </div>
+      </div>
+
+      <div class="panel-actions">
+        <button class="btn btn-primary" type="button" (click)="onBusinessSubmit()">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Salvar empresa
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

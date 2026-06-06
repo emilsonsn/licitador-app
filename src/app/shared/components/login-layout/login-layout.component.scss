@@ -18,7 +18,7 @@ main {
   .main-section {
     gap: 0.5rem;
     flex-grow: 1;
-    background-color: $primary-color;
+    background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
     color: white;
     text-transform: uppercase;
   }
@@ -82,9 +82,9 @@ main {
         }
 
         &.btn-primary {
-          background-color: $primary-color;
+          background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
           color: white;
-          box-shadow: 0 8px 12px rgba(148, 64, 255, 0.2);
+          box-shadow: 0 8px 12px rgba(34, 148, 77, 0.2);
         }
 
         &.btn-secondary {
@@ -103,5 +103,4 @@ main {
     }
   }
 }
-
 

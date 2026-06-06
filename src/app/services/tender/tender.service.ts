@@ -34,6 +34,10 @@ export class TenderService {
     return this._http.get(`${environment.api}/tender/get-edital/${id}`);
   }
 
+  public items(id: number): Observable<any> {
+    return this._http.get(`${environment.api}/tender/${id}/items`);
+  }
+
   public note(note: Note): Observable<any> {
     return this._http.post(`${environment.api}/tender/note`, note);
   }
