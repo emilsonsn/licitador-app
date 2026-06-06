@@ -28,7 +28,7 @@ export interface Tender {
 }
 
 export interface TenderItem {
-  numeroItem: number;
+  numeroItem: number | null;
   descricao: string;
   materialOuServico: string;
   materialOuServicoNome: string;
