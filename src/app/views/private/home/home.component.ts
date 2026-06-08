@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import introJs from 'intro.js';
 
 @Component({
   selector: 'app-home',
@@ -40,32 +39,28 @@ export class HomeComponent {
       link: 'https://www.jamef.com.br/cotacao-de-frete'
     },
     {
-      title: "Loggi",
-      description: "Frete com a Loggi",
+      title: 'Loggi',
+      description: 'Frete com a Loggi',
       icon: 'fa-solid fa-box',
-      link: "https://www.loggi.com/pt-br/calcular-frete/"
+      link: 'https://www.loggi.com/pt-br/calcular-frete/'
     },
     {
-      title: "Correios",
-      description: "Frete com os Correios",
+      title: 'Correios',
+      description: 'Frete com os Correios',
       icon: 'fa-solid fa-envelopes-bulk',
-      link: "https://www2.correios.com.br/sistemas/precosPrazos/"
+      link: 'https://www2.correios.com.br/sistemas/precosPrazos/'
     },
     {
-      title: "Rodonaves",
-      description: "Frete com a Rodonaves",
+      title: 'Rodonaves',
+      description: 'Frete com a Rodonaves',
       icon: 'fa-solid fa-road',
-      link: "https://rodonavesexpress.rte.com.br/express/"
+      link: 'https://rodonavesexpress.rte.com.br/express/'
     }
   ];
 
   constructor(
     private readonly _router: Router
   ) { }
-
-  ngOnInit(){
-    this.startTour('home');
-  }
 
   get mainTools() {
     return this.tools.filter(tool => !tool.link.startsWith('http'));
@@ -75,45 +70,10 @@ export class HomeComponent {
     return this.tools.filter(tool => tool.link.startsWith('http'));
   }
 
-  public startTour(tour: string, init = false): void {
-      let tourString = localStorage.getItem('tour') ?? '[]';
-      let storage_tour = JSON.parse(tourString);    
-      if(init || !storage_tour.includes(tour)){
-          const intro = introJs();
-          intro.setOptions({
-            steps: [
-              {
-                intro: `Bem vindo!
-                Esse é o seu primeiro acesso, obrigado :)`
-              },
-              {
-                element: '.quick-access',
-                intro: "Aqui temos os botões para acessar as ferramentas",
-                position: 'left'
-              },
-              {
-                element: '.container-buttons .dropdown',
-                intro: 'Aqui você terá acesso ao seu perfil',
-                position: 'left'
-              }   
-            ],
-            nextLabel: 'Próximo',
-            prevLabel: 'Anterior',
-            skipLabel: '×',
-            doneLabel: 'Concluir'
-          });
-          intro.start();
-          storage_tour.push(tour)
-          localStorage.setItem('tour',JSON.stringify(storage_tour))
-      }
-  }
-
   navigate(link: string) {
     if (link.startsWith('http')) {
-      // Abre o link externo em uma nova aba
       window.open(link, '_blank');
     } else {
-      // Navega para a rota interna
       this._router.navigate([link]).then();
     }
   }
