@@ -20,6 +20,12 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {
       type: 'link',
+      label: 'Encontrar licitações',
+      icon: 'fa-solid fa-magnifying-glass-chart',
+      link: 'painel/home/tenders',
+    },
+    {
+      type: 'link',
       label: 'Licitações Favoritas',
       icon: 'fa-solid fa-star',
       link: 'painel/home/tenders/favorites',
