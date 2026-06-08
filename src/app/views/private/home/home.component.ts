@@ -27,6 +27,12 @@ export class HomeComponent {
       link: '/painel/freight-quotes'
     },
     {
+      title: 'Plataforma Sicx',
+      description: 'Acesse os atalhos da plataforma Sicx',
+      icon: 'fa-solid fa-store',
+      link: '/painel/sicx-platform'
+    },
+    {
       title: 'ERP + Emissor NFe',
       description: 'Emissão e gestão fiscal',
       icon: 'fa-solid fa-receipt',

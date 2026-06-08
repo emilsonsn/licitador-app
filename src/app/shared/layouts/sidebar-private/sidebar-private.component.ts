@@ -32,6 +32,12 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {
       type: 'link',
+      label: 'Plataforma Sicx',
+      icon: 'fa-solid fa-store',
+      link: 'painel/sicx-platform',
+    },
+    {
+      type: 'link',
       label: 'Dashboard',
       icon: 'fa-solid fa-chart-simple',
       link: 'painel/dashboard',

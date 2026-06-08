@@ -1,0 +1,133 @@
+@import "variables";
+
+.sicx-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 24px;
+}
+
+.section-block {
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid rgba(34, 148, 77, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(15, 79, 42, 0.07);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(34, 148, 77, 0.12);
+
+  h2 {
+    margin: 0;
+    color: $secondary-color;
+    font-size: 1.35rem;
+    font-weight: 800;
+  }
+
+  > i {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(34, 148, 77, 0.16);
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  color: $primary-color;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.sicx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 14px;
+}
+
+.sicx-card {
+  min-height: 142px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  text-align: left;
+  color: $secondary-color;
+  background: #f8fbf9;
+  border: 1px solid rgba(34, 148, 77, 0.12);
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+
+  > i {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+    border-radius: 8px;
+  }
+
+  span {
+    font-size: 1rem;
+    font-weight: 800;
+  }
+
+  small {
+    color: $text-color;
+    font-size: 0.9rem;
+    line-height: 1.25;
+  }
+
+  em {
+    margin-top: auto;
+    color: $primary-color;
+    font-size: 0.78rem;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  &:hover {
+    background: #ffffff;
+    border-color: rgba(34, 148, 77, 0.26);
+    box-shadow: 0 14px 26px rgba(15, 79, 42, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(34, 148, 77, 0.22);
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 720px) {
+  .sicx-page {
+    padding: 14px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
