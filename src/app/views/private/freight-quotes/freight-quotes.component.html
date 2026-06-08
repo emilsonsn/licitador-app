@@ -1,0 +1,24 @@
+<main class="freight-page">
+  <section class="section-block">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Frete</p>
+        <h2>Cotar frete</h2>
+      </div>
+      <i class="fa-solid fa-truck-fast"></i>
+    </div>
+
+    <div class="freight-grid">
+      <button
+        *ngFor="let tool of freightTools"
+        type="button"
+        class="freight-card"
+        (click)="openLink(tool.link)">
+        <i class="{{ tool.icon }}"></i>
+        <span>{{ tool.title }}</span>
+        <small>{{ tool.description }}</small>
+        <em>Abre em nova aba</em>
+      </button>
+    </div>
+  </section>
+</main>

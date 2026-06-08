@@ -1,52 +1,9 @@
 @import "variables";
 
-.home-page {
+.freight-page {
   width: 100%;
   min-height: 100%;
   padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.home-hero {
-  width: 100%;
-  overflow: hidden;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 18px 38px rgba(15, 79, 42, 0.18);
-
-  a {
-    display: block;
-    cursor: pointer;
-    transition: filter 0.2s ease, transform 0.2s ease;
-
-    &:hover {
-      filter: brightness(0.94);
-      transform: scale(1.01);
-    }
-
-    &:focus-visible {
-      outline: 3px solid $primary-color;
-      outline-offset: -3px;
-    }
-  }
-
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-}
-
-.eyebrow {
-  margin: 0;
-  color: inherit;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0;
-  text-transform: uppercase;
-  opacity: 0.72;
 }
 
 .section-block {
@@ -73,11 +30,6 @@
     font-weight: 800;
   }
 
-  .eyebrow {
-    color: $primary-color;
-    opacity: 1;
-  }
-
   > i {
     width: 44px;
     height: 44px;
@@ -91,17 +43,22 @@
   }
 }
 
-.tool-grid {
+.eyebrow {
+  margin: 0;
+  color: $primary-color;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.freight-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
   gap: 14px;
 }
 
-.external-grid {
-  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
-}
-
-.tool-card {
+.freight-card {
   min-height: 142px;
   padding: 16px;
   display: flex;
@@ -157,58 +114,15 @@
     box-shadow: 0 14px 26px rgba(15, 79, 42, 0.1);
     transform: translateY(-2px);
   }
-}
 
-.primary-tool {
-  min-height: 156px;
-  background: $primary-color-item;
-}
-
-#chat-toggle-button {
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  min-height: 46px;
-  padding: 0 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  color: #ffffff;
-  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
-  border-radius: 8px;
-  font-weight: 800;
-  cursor: pointer;
-  z-index: 10000;
-  user-select: none;
-  box-shadow: 0 14px 28px rgba(15, 79, 42, 0.22);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 18px 32px rgba(15, 79, 42, 0.26);
+  &:focus-visible {
+    outline: 3px solid rgba(34, 148, 77, 0.22);
+    outline-offset: 2px;
   }
 }
 
-#chat-ia {
-  display: none;
-  position: fixed;
-  right: 22px;
-  bottom: 82px;
-  width: min(420px, calc(100vw - 44px));
-  height: min(560px, calc(100vh - 120px));
-  border: 1px solid rgba(34, 148, 77, 0.16);
-  border-radius: 8px;
-  box-shadow: 0 18px 38px rgba(15, 79, 42, 0.22);
-  z-index: 9999;
-}
-
-#toggle-chat:checked ~ #chat-ia {
-  display: block;
-}
-
 @media (max-width: 720px) {
-  .home-page {
+  .freight-page {
     padding: 14px;
   }
 

@@ -1,0 +1,24 @@
+<main class="sicx-page">
+  <section class="section-block">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Atalhos</p>
+        <h2>Plataforma Sicx</h2>
+      </div>
+      <i class="fa-solid fa-store"></i>
+    </div>
+
+    <div class="sicx-grid">
+      <button
+        *ngFor="let tool of platformTools"
+        type="button"
+        class="sicx-card"
+        (click)="openLink(tool.link)">
+        <i class="{{ tool.icon }}"></i>
+        <span>{{ tool.title }}</span>
+        <small>{{ tool.description }}</small>
+        <em>Abre em nova aba</em>
+      </button>
+    </div>
+  </section>
+</main>
