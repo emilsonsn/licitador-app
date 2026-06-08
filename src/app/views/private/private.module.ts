@@ -28,6 +28,7 @@ import { AutomationComponent } from './automation/automation.component';
 import { CategoryComponent } from './category/category.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { DocumentComponent } from './document/document.component';
+import { FreightQuotesComponent } from './freight-quotes/freight-quotes.component';
 
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
 
@@ -44,7 +45,8 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     UserBusinessComponent,
     CategoryComponent,
     SubcategoryComponent,
-    DocumentComponent
+    DocumentComponent,
+    FreightQuotesComponent
   ],
   imports: [
     CommonModule,

@@ -14,6 +14,7 @@ import { AutomationComponent } from './automation/automation.component';
 import { CategoryComponent } from './category/category.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { DocumentComponent } from './document/document.component';
+import { FreightQuotesComponent } from './freight-quotes/freight-quotes.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'document',
         component: DocumentComponent,        
+      },
+      {
+        path: 'freight-quotes',
+        component: FreightQuotesComponent
       },
       {
         path: 'subcategory',

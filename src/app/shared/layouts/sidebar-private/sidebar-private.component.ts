@@ -26,6 +26,12 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {
       type: 'link',
+      label: 'Cotar frete',
+      icon: 'fa-solid fa-truck-fast',
+      link: 'painel/freight-quotes',
+    },
+    {
+      type: 'link',
       label: 'Dashboard',
       icon: 'fa-solid fa-chart-simple',
       link: 'painel/dashboard',
