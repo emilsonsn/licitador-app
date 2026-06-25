@@ -15,6 +15,14 @@
         } @else {
           <i [id]="'favorite' + id" class="fa-regular fa-star" (click)="favorite(data)"></i>
         }
+        <button
+          type="button"
+          class="calendar-icon-button"
+          [class.active]="!!data?.calendar_status"
+          [attr.aria-label]="data?.calendar_status ? 'Remover do calendário' : 'Adicionar ao calendário'"
+          (click)="calendarToggle(data)">
+          <i [class]="data?.calendar_status ? 'fa-solid fa-calendar-check' : 'fa-regular fa-calendar'"></i>
+        </button>
       </div>
     </div>
   </div>

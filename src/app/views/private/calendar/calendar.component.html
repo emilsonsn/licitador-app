@@ -1,0 +1,89 @@
+<main class="calendar-page">
+  <section class="calendar-hero">
+    <div>
+      <p class="eyebrow">Calendário</p>
+      <h1>Licitações marcadas</h1>
+      <span>Acompanhe por data as licitações adicionadas ao seu calendário.</span>
+    </div>
+  </section>
+
+  <section class="status-filter">
+    <span>Status:</span>
+    <button
+      type="button"
+      class="status-badge status-all"
+      [class.selected]="selectedStatus === null"
+      (click)="filterByStatus(null)">
+      Todos
+    </button>
+
+    <button
+      type="button"
+      class="status-badge"
+      *ngFor="let status of statusOptions"
+      [ngClass]="status.className"
+      [class.selected]="selectedStatus === status.value"
+      (click)="filterByStatus(status.value)">
+      {{ status.label }}
+    </button>
+  </section>
+
+  <section class="calendar-panel">
+    <div class="calendar-toolbar">
+      <button type="button" class="icon-button" (click)="previousMonth()" aria-label="Mês anterior">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <h2>{{ currentMonthLabel() }}</h2>
+
+      <button type="button" class="icon-button" (click)="nextMonth()" aria-label="Próximo mês">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      Carregando calendário...
+    </div>
+
+    <div class="calendar-grid" *ngIf="!isLoading">
+      <div class="weekday" *ngFor="let weekDay of weekDays">{{ weekDay }}</div>
+
+      <div
+        class="calendar-day"
+        *ngFor="let day of calendarDays"
+        [class.outside-month]="!day.isCurrentMonth"
+        [class.has-tenders]="day.tenders.length">
+        <div class="day-number">{{ day.date.format('DD') }}</div>
+
+        <div class="day-cards">
+          <article class="calendar-card" *ngFor="let tender of day.tenders" (click)="openTenderModal(tender)">
+            <div class="card-topline">
+              <span
+                class="status-dot"
+                [ngClass]="getStatusOption(tender.calendar_status).className">
+                {{ getStatusOption(tender.calendar_status).label }}
+              </span>
+
+              <button
+                type="button"
+                class="remove-button"
+                aria-label="Remover do calendário"
+                (click)="$event.stopPropagation(); removeFromCalendar(tender)">
+                <i class="fa-solid fa-calendar-xmark"></i>
+              </button>
+            </div>
+
+            <h3>{{ tender.object }}</h3>
+            <p>{{ tender.organ_name }}</p>
+
+            <div class="card-meta">
+              <span>{{ tender.city }} - {{ tender.uf }}</span>
+              <span>{{ tender.value && tender.value !== '0.00' ? (tender.value | currency:'BRL':'symbol':'1.2-2':'pt-BR') : 'Sigiloso' }}</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -71,6 +71,13 @@ export class SidebarPrivateComponent implements OnInit {
       link: 'painel/company',
       private: false
     },
+    {
+      type: 'link',
+      label: 'Calendário',
+      icon: 'fa-solid fa-calendar-days',
+      link: 'painel/calendar',
+      private: false
+    },
     {      
       type: 'link',
       label: 'Automações de busca',

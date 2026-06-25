@@ -1,0 +1,83 @@
+<section class="calendar-modal">
+  <header class="modal-header">
+    <div>
+      <p class="eyebrow">Licitação #{{ tender.id }}</p>
+      <h2>{{ tender.object }}</h2>
+    </div>
+
+    <button type="button" class="icon-button" aria-label="Fechar" (click)="close()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </header>
+
+  <div class="status-section">
+    <span>Status atual</span>
+
+    <div class="status-options">
+      <button
+        type="button"
+        class="status-badge"
+        *ngFor="let status of statusOptions"
+        [ngClass]="status.className"
+        [class.selected]="tender.calendar_status === status.value"
+        [disabled]="isSaving"
+        (click)="changeStatus(status.value)">
+        {{ status.label }}
+      </button>
+    </div>
+  </div>
+
+  <div class="details-grid">
+    <div class="detail full">
+      <span>Órgão</span>
+      <strong>{{ tender.organ_name }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>Cidade</span>
+      <strong>{{ tender.city }} - {{ tender.uf }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>Modalidade</span>
+      <strong>{{ tender.modality }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>Situação</span>
+      <strong>{{ tender.status }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>Edital</span>
+      <strong>{{ tender.process }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>Prazo da proposta</span>
+      <strong>{{ tender.proposal_closing_date ? dayjs(tender.proposal_closing_date).format('DD/MM/YYYY HH:mm') : '-' }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>Data de abertura</span>
+      <strong>{{ tender.bid_opening_date ? dayjs(tender.bid_opening_date).format('DD/MM/YYYY HH:mm') : '-' }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>Valor estimado</span>
+      <strong>{{ tender.value && tender.value !== '0.00' ? (tender.value | currency:'BRL':'symbol':'1.2-2':'pt-BR') : 'Sigiloso' }}</strong>
+    </div>
+
+    <div class="detail full">
+      <span>Observações</span>
+      <strong>{{ tender.observations || tender.description || '-' }}</strong>
+    </div>
+  </div>
+
+  <footer class="modal-actions">
+    <button type="button" class="remove-action" [disabled]="isSaving" (click)="removeFromCalendar()">
+      <i class="fa-solid fa-calendar-xmark"></i>
+      Remover do calendário
+    </button>
+  </footer>
+</section>
