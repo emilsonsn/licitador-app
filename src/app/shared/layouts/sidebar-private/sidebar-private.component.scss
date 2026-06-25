@@ -39,12 +39,34 @@
   }
 
   .sidebar-content {
+    flex: 1;
     display: flex;
     gap: 0.35rem;
     flex-direction: column;
     align-items: stretch;
     padding: 1rem 0.85rem;
     overflow-y: auto;
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .admin-section {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(34, 148, 77, 0.12);
+    }
+
+    .sidebar-section-title {
+      padding: 0 14px 4px;
+      color: rgba(15, 79, 42, 0.62);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
 
     .sidebar-item {
       width: 100%;
@@ -131,6 +153,18 @@
     .sidebar-content {
       padding: 0.85rem 0.55rem;
       align-items: center;
+
+      .sidebar-section {
+        width: 100%;
+      }
+
+      .admin-section {
+        width: 100%;
+      }
+
+      .sidebar-section-title {
+        display: none;
+      }
 
       .sidebar-item {
         justify-content: center;

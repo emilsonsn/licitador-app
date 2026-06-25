@@ -11,6 +11,7 @@ import { User } from "@model/User";
 })
 export class SidebarPrivateComponent implements OnInit {
   public items: SidebarTypes[] = [];
+  public adminItems: SidebarTypes[] = [];
   private allItems: SidebarTypes[] = [
     {
       type: 'link',
@@ -122,9 +123,11 @@ export class SidebarPrivateComponent implements OnInit {
 
   private filterItems(): void {
     if (this.user && this.user.is_admin) {
-      this.items = this.allItems; // Show all items for admin users
+      this.items = this.allItems.filter(item => !item.private);
+      this.adminItems = this.allItems.filter(item => item.private);
     } else {
       this.items = this.allItems.filter(item => !item.private);
+      this.adminItems = [];
     }
   }
 
