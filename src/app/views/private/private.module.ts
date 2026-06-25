@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {PrivateRoutingModule} from './private-routing.module';
 import {SharedModule} from "@shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import {HomeComponent} from "@app/views/private/home/home.component";
 import {HelpComponent} from "@app/views/private/help/help.component";
 import {DashboardComponent} from "@app/views/private/dashboard/dashboard.component";
@@ -33,6 +34,7 @@ import { SicxPlatformComponent } from './sicx-platform/sicx-platform.component';
 import { CompanyComponent } from './company/company.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarTenderModalComponent } from './calendar/calendar-tender-modal.component';
+import { RadarComponent } from './radar/radar.component';
 
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
 
@@ -54,12 +56,14 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     SicxPlatformComponent,
     CompanyComponent,
     CalendarComponent,
-    CalendarTenderModalComponent
+    CalendarTenderModalComponent,
+    RadarComponent
   ],
   imports: [
     CommonModule,
     PrivateRoutingModule,
     SharedModule,
+    FormsModule,
     ReactiveFormsModule,
     MatFormField,
     MatIconButton,

@@ -78,6 +78,13 @@ export class SidebarPrivateComponent implements OnInit {
       link: 'painel/calendar',
       private: false
     },
+    {
+      type: 'link',
+      label: 'Radar',
+      icon: 'fa-solid fa-location-dot',
+      link: 'painel/radar',
+      private: false
+    },
     {      
       type: 'link',
       label: 'Automações de busca',

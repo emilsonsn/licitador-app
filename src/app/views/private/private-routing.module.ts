@@ -18,6 +18,7 @@ import { FreightQuotesComponent } from './freight-quotes/freight-quotes.componen
 import { SicxPlatformComponent } from './sicx-platform/sicx-platform.component';
 import { CompanyComponent } from './company/company.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { RadarComponent } from './radar/radar.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,10 @@ const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarComponent,
+      },
+      {
+        path: 'radar',
+        component: RadarComponent,
       },
       {
         path: 'help',
