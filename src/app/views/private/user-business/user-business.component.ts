@@ -14,7 +14,6 @@ import { ToastrService } from 'ngx-toastr';
 export class UserBusinessComponent implements OnInit {
 
   clienteForm: FormGroup = this.fb.group({});  
-  empresaForm: FormGroup = this.fb.group({});
   user: any;
 
   constructor(
@@ -41,13 +40,6 @@ export class UserBusinessComponent implements OnInit {
       confirm_password: ['']
     });
 
-    this.empresaForm = this.fb.group({
-      cnpj: [''],
-      corporate_reason: [''],
-      fantasy_name: [''],
-      opening_date: ['']
-    });
-
     this.getuser();
     this.startTour('user-business');
   }
@@ -57,7 +49,6 @@ export class UserBusinessComponent implements OnInit {
       if (value) {
         this.user = value?.data;
         this.clienteForm.patchValue(this.user);
-        this.empresaForm.patchValue(this.user);
       }
     });
   }
@@ -81,15 +72,6 @@ export class UserBusinessComponent implements OnInit {
     });
   }
 
-  onBusinessSubmit(): void {
-    const empresaData = this.empresaForm.value;
-
-    this._userService.patchUser(this.user.id, empresaData)
-    .subscribe(data => {
-      this._toastrService.success('Dados atualizados com sucesso!');
-    });
-  }
-
   public startTour(tour: string, init = false): void {
     let tourString = localStorage.getItem('tour') ?? '[]';
     let storage_tour = JSON.parse(tourString);    
@@ -98,7 +80,7 @@ export class UserBusinessComponent implements OnInit {
         intro.setOptions({
           steps: [
             {
-              intro: `Essa é a página com os dados do seu perfil e empresa.`
+              intro: `Essa é a página com os dados do seu perfil.`
             },
             {
               element: '#cliente',

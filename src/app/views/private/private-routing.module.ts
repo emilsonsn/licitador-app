@@ -16,6 +16,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { DocumentComponent } from './document/document.component';
 import { FreightQuotesComponent } from './freight-quotes/freight-quotes.component';
 import { SicxPlatformComponent } from './sicx-platform/sicx-platform.component';
+import { CompanyComponent } from './company/company.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
       {
         path: 'user-business',
         component: UserBusinessComponent,
+      },
+      {
+        path: 'company',
+        component: CompanyComponent,
       },
       {
         path: 'help',

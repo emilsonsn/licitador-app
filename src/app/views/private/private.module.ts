@@ -30,6 +30,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { DocumentComponent } from './document/document.component';
 import { FreightQuotesComponent } from './freight-quotes/freight-quotes.component';
 import { SicxPlatformComponent } from './sicx-platform/sicx-platform.component';
+import { CompanyComponent } from './company/company.component';
 
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
 
@@ -48,7 +49,8 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     SubcategoryComponent,
     DocumentComponent,
     FreightQuotesComponent,
-    SicxPlatformComponent
+    SicxPlatformComponent,
+    CompanyComponent
   ],
   imports: [
     CommonModule,

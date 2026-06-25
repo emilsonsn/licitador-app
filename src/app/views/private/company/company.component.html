@@ -1,0 +1,186 @@
+<main class="company-page">
+  <section class="company-hero">
+    <div>
+      <p class="eyebrow">Empresa</p>
+      <h1>Dados da empresa</h1>
+      <span>Cadastre e atualize as informações comerciais, fiscais e bancárias da sua empresa.</span>
+    </div>
+
+    <div class="hero-actions">
+      <button class="tour-button" type="button" (click)="startTour('company', true)">
+        <i class="fa-solid fa-route"></i>
+        Tour
+      </button>
+    </div>
+  </section>
+
+  <form [formGroup]="companyForm" class="company-panel">
+    <section class="form-section" id="company-data">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Cadastro</p>
+          <h2>Dados cadastrais</h2>
+        </div>
+        <i class="fa-solid fa-building"></i>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="cnpj" class="form-label">CNPJ</label>
+          <input type="text" class="form-control" id="cnpj" formControlName="cnpj" placeholder="00.000.000/0000-00" maxlength="18">
+        </div>
+
+        <div class="field">
+          <label for="corporate_reason" class="form-label">Razão social</label>
+          <input type="text" class="form-control" id="corporate_reason" formControlName="corporate_reason" placeholder="Digite a razão social" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="fantasy_name" class="form-label">Nome fantasia</label>
+          <input type="text" class="form-control" id="fantasy_name" formControlName="fantasy_name" placeholder="Digite o nome fantasia" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="phone" class="form-label">Telefone</label>
+          <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="(00) 00000-0000" maxlength="255">
+        </div>
+
+        <div class="field full">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email" placeholder="empresa@email.com" maxlength="255">
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Localização</p>
+          <h2>Endereço</h2>
+        </div>
+        <i class="fa-solid fa-location-dot"></i>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="zipcode" class="form-label">CEP</label>
+          <input type="text" class="form-control" id="zipcode" formControlName="zipcode" placeholder="00000-000" maxlength="10">
+        </div>
+
+        <div class="field">
+          <label for="street" class="form-label">Rua</label>
+          <input type="text" class="form-control" id="street" formControlName="street" placeholder="Digite a rua" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="number" class="form-label">Número</label>
+          <input type="text" class="form-control" id="number" formControlName="number" placeholder="Número" maxlength="20">
+        </div>
+
+        <div class="field">
+          <label for="complement" class="form-label">Complemento</label>
+          <input type="text" class="form-control" id="complement" formControlName="complement" placeholder="Complemento" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="neighborhood" class="form-label">Bairro</label>
+          <input type="text" class="form-control" id="neighborhood" formControlName="neighborhood" placeholder="Digite o bairro" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="city" class="form-label">Cidade</label>
+          <input type="text" class="form-control" id="city" formControlName="city" placeholder="Digite a cidade" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="state" class="form-label">Estado</label>
+          <input type="text" class="form-control" id="state" formControlName="state" placeholder="UF" maxlength="255">
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section" id="company-representative">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Representante</p>
+          <h2>Representante legal</h2>
+        </div>
+        <i class="fa-solid fa-user-tie"></i>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="legal_representative_name" class="form-label">Nome</label>
+          <input type="text" class="form-control" id="legal_representative_name" formControlName="legal_representative_name" placeholder="Nome do representante" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="legal_representative_rg" class="form-label">RG</label>
+          <input type="text" class="form-control" id="legal_representative_rg" formControlName="legal_representative_rg" placeholder="RG do representante" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="legal_representative_cpf" class="form-label">CPF</label>
+          <input type="text" class="form-control" id="legal_representative_cpf" formControlName="legal_representative_cpf" placeholder="000.000.000-00" maxlength="14">
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Financeiro</p>
+          <h2>Dados bancários</h2>
+        </div>
+        <i class="fa-solid fa-building-columns"></i>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="bank" class="form-label">Banco</label>
+          <input type="text" class="form-control" id="bank" formControlName="bank" placeholder="Nome do banco" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="agency" class="form-label">Agência</label>
+          <input type="text" class="form-control" id="agency" formControlName="agency" placeholder="Agência" maxlength="255">
+        </div>
+
+        <div class="field">
+          <label for="checking_account" class="form-label">Conta corrente</label>
+          <input type="text" class="form-control" id="checking_account" formControlName="checking_account" placeholder="Conta corrente" maxlength="255">
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Identidade visual</p>
+          <h2>Logo</h2>
+        </div>
+        <i class="fa-solid fa-image"></i>
+      </div>
+
+      <div class="logo-row">
+        <div class="logo-preview">
+          <img *ngIf="logoPreview" [src]="logoPreview" alt="Logo da empresa">
+          <i *ngIf="!logoPreview" class="fa-solid fa-building"></i>
+        </div>
+
+        <div class="field full">
+          <label for="logo" class="form-label">Arquivo da logo</label>
+          <input type="file" class="form-control" id="logo" accept="image/png,image/jpeg" (change)="onLogoChange($event)">
+          <span class="field-hint">JPG ou PNG, exatamente 120x120 pixels.</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="panel-actions">
+      <button class="btn btn-primary" type="button" (click)="onSubmit()">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar empresa
+      </button>
+    </div>
+  </form>
+</main>

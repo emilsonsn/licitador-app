@@ -63,6 +63,13 @@ export class SidebarPrivateComponent implements OnInit {
       link: 'painel/document',
       private: false
     },
+    {
+      type: 'link',
+      label: 'Empresa',
+      icon: 'fa-solid fa-building',
+      link: 'painel/company',
+      private: false
+    },
     {      
       type: 'link',
       label: 'Automações de busca',
