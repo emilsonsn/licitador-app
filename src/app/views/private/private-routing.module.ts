@@ -16,6 +16,11 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { DocumentComponent } from './document/document.component';
 import { FreightQuotesComponent } from './freight-quotes/freight-quotes.component';
 import { SicxPlatformComponent } from './sicx-platform/sicx-platform.component';
+import { CompanyComponent } from './company/company.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { RadarComponent } from './radar/radar.component';
+import { ProposalGeneratorComponent } from './proposal-generator/proposal-generator.component';
+import { DeclarationGeneratorComponent } from './declaration-generator/declaration-generator.component';
 
 const routes: Routes = [
   {
@@ -66,6 +71,26 @@ const routes: Routes = [
       {
         path: 'user-business',
         component: UserBusinessComponent,
+      },
+      {
+        path: 'company',
+        component: CompanyComponent,
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent,
+      },
+      {
+        path: 'radar',
+        component: RadarComponent,
+      },
+      {
+        path: 'proposal-generator',
+        component: ProposalGeneratorComponent,
+      },
+      {
+        path: 'declaration-generator',
+        component: DeclarationGeneratorComponent,
       },
       {
         path: 'help',

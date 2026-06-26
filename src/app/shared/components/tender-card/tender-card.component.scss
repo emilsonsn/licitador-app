@@ -33,6 +33,36 @@
       display: flex;
       justify-content: space-between;
       width: 100%;      
+
+      > div:last-child {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+    }
+
+    .calendar-icon-button {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(34, 148, 77, 0.28);
+      border-radius: 8px;
+      color: $secondary-color;
+      background: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+
+      &.active {
+        color: #ffffff;
+        background: $primary-color;
+        border-color: $primary-color;
+      }
     }
   }
 

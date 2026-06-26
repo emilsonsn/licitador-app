@@ -11,6 +11,7 @@ import { User } from "@model/User";
 })
 export class SidebarPrivateComponent implements OnInit {
   public items: SidebarTypes[] = [];
+  public adminItems: SidebarTypes[] = [];
   private allItems: SidebarTypes[] = [
     {
       type: 'link',
@@ -61,6 +62,41 @@ export class SidebarPrivateComponent implements OnInit {
       label: 'Documentos',
       icon: 'fa-solid fa-file',
       link: 'painel/document',
+      private: false
+    },
+    {
+      type: 'link',
+      label: 'Empresa',
+      icon: 'fa-solid fa-building',
+      link: 'painel/company',
+      private: false
+    },
+    {
+      type: 'link',
+      label: 'Calendário',
+      icon: 'fa-solid fa-calendar-days',
+      link: 'painel/calendar',
+      private: false
+    },
+    {
+      type: 'link',
+      label: 'Radar',
+      icon: 'fa-solid fa-location-dot',
+      link: 'painel/radar',
+      private: false
+    },
+    {
+      type: 'link',
+      label: 'Gerador de Proposta',
+      icon: 'fa-solid fa-file-signature',
+      link: 'painel/proposal-generator',
+      private: false
+    },
+    {
+      type: 'link',
+      label: 'Gerador de Declarações',
+      icon: 'fa-solid fa-file-lines',
+      link: 'painel/declaration-generator',
       private: false
     },
     {      
@@ -115,9 +151,11 @@ export class SidebarPrivateComponent implements OnInit {
 
   private filterItems(): void {
     if (this.user && this.user.is_admin) {
-      this.items = this.allItems; // Show all items for admin users
+      this.items = this.allItems.filter(item => !item.private);
+      this.adminItems = this.allItems.filter(item => item.private);
     } else {
       this.items = this.allItems.filter(item => !item.private);
+      this.adminItems = [];
     }
   }
 

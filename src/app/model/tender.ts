@@ -25,6 +25,8 @@ export interface Tender {
   api_origin: string;
   items: TenderItem[];
   notes: Note[];
+  calendar_status?: CalendarTenderStatus | null;
+  calendarTenders?: CalendarTender[];
 }
 
 export interface TenderItem {
@@ -47,3 +49,38 @@ export interface Note{
   tender?: Tender;
   note: string;
 }
+
+export type CalendarTenderStatus =
+  'participating'
+  | 'qualification'
+  | 'won'
+  | 'to_receive'
+  | 'finished'
+  | 'disqualified'
+  | 'not_done'
+  | 'no_award'
+  | 'suspended_new_date';
+
+export interface CalendarTender {
+  tender_id: number;
+  user_id: number;
+  status: CalendarTenderStatus;
+}
+
+export interface CalendarStatusOption {
+  value: CalendarTenderStatus;
+  label: string;
+  className: string;
+}
+
+export const CALENDAR_STATUS_OPTIONS: CalendarStatusOption[] = [
+  {value: 'participating', label: 'Participando', className: 'status-participating'},
+  {value: 'qualification', label: 'Habilitação', className: 'status-qualification'},
+  {value: 'won', label: 'Ganha', className: 'status-won'},
+  {value: 'to_receive', label: 'A receber', className: 'status-to-receive'},
+  {value: 'finished', label: 'Finalizado', className: 'status-finished'},
+  {value: 'disqualified', label: 'Desclassificado', className: 'status-disqualified'},
+  {value: 'not_done', label: 'Não fez', className: 'status-not-done'},
+  {value: 'no_award', label: 'Não ganhou nada', className: 'status-no-award'},
+  {value: 'suspended_new_date', label: 'Suspenso/Nova data', className: 'status-suspended-new-date'},
+];

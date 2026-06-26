@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Tender} from '@model/tender';
+import {CalendarTenderStatus, Tender} from '@model/tender';
 import Estados from '../../../../assets/json/Estados.json';
 import Cidades from '../../../../assets/json/Cidades.json';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -28,6 +28,7 @@ export class TendersComponent implements OnInit {
   public tenderForm!: FormGroup;
   public fill: boolean = false;
   public isAdmin: boolean = false;
+  private calendarMarkedStatuses: Map<number, CalendarTenderStatus> = new Map();
   @ViewChild('cardsTop') cardsTop!: ElementRef;
 
   public pageControl: PageControl = {
@@ -65,14 +66,14 @@ export class TendersComponent implements OnInit {
       favorite: [false],
       status: [[]],
     });
-
-    this.loadTenders(); // Initial load
   }
 
   ngOnInit() {
     this.loadStates();
     this.loadCities();
     this.loadRole();
+    this.loadCalendarMarkedTenders();
+    this.loadTenders();
     this.startTour('tenders');
 
     this.iminenceOptions = [
@@ -213,6 +214,7 @@ export class TendersComponent implements OnInit {
         next: (res) => {
           if (res && res.data) {
             this.tenders = res.data.data || [];
+            this.applyCalendarStatus(this.tenders);
 
             this.pageControl.page = res.data.current_page - 1;
             this.pageControl.itemCount = res.data.total;
@@ -248,6 +250,7 @@ export class TendersComponent implements OnInit {
               const newTenders = res.data.data || [];
               const existingTenderIds = new Set(this.tenders.map(tender => tender.id));
               const uniqueTenders = newTenders.filter((tender: { id: number; }) => !existingTenderIds.has(tender.id));
+              this.applyCalendarStatus(uniqueTenders);
 
               this.pageControl.page = res.data.current_page - 1;
               this.pageControl.itemCount = res.data.total;
@@ -273,6 +276,38 @@ export class TendersComponent implements OnInit {
 
   loadMoreTenders() {
     this.loadTenders();
+  }
+
+  loadCalendarMarkedTenders(): void {
+    this.tenderService.calendar().subscribe({
+      next: (res) => {
+        const calendarTenders = res?.data ?? [];
+        this.calendarMarkedStatuses = new Map(
+          calendarTenders
+            .filter((tender: Tender) => !!tender.id && !!tender.calendar_status)
+            .map((tender: Tender) => [tender.id, tender.calendar_status as CalendarTenderStatus])
+        );
+        this.applyCalendarStatus(this.tenders);
+      },
+      error: () => {
+        this.calendarMarkedStatuses.clear();
+      }
+    });
+  }
+
+  onCalendarChanged(tender: Tender): void {
+    if (tender.calendar_status) {
+      this.calendarMarkedStatuses.set(tender.id, tender.calendar_status);
+      return;
+    }
+
+    this.calendarMarkedStatuses.delete(tender.id);
+  }
+
+  private applyCalendarStatus(tenders: Tender[]): void {
+    tenders.forEach((tender) => {
+      tender.calendar_status = this.calendarMarkedStatuses.get(tender.id) ?? tender.calendar_status ?? null;
+    });
   }
 
   clearFilters() {
@@ -309,6 +344,7 @@ export class TendersComponent implements OnInit {
         next: (res) => {
           if (res && res.data) {
             this.tenders = res.data.data || [];
+            this.applyCalendarStatus(this.tenders);
           } else {
             this.tenders = [];
           }

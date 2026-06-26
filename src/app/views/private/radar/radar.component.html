@@ -1,0 +1,107 @@
+<main class="radar-page">
+  <section class="radar-hero">
+    <div class="pin-marker"></div>
+    <div>
+      <p class="eyebrow">Radar</p>
+      <h1>Radar de Licitações</h1>
+      <span>Proximidade inteligente a partir dos filtros selecionados</span>
+    </div>
+  </section>
+
+  <form class="radar-filters" [formGroup]="radarForm" (ngSubmit)="onSearch()">
+    <label>
+      <span>Busca</span>
+      <input type="text" formControlName="object" placeholder="Ex: cadeira, computador, TI...">
+    </label>
+
+    <label>
+      <span>Modalidade</span>
+      <select formControlName="modality_ids">
+        <option *ngFor="let modality of modalityOptions" [value]="modality.value">{{ modality.label }}</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Estado</span>
+      <select formControlName="uf" (change)="onStateChange()">
+        <option value="">Todos</option>
+        <option *ngFor="let state of statesOptions" [value]="state.sigla">{{ state.sigla }}</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Cidade</span>
+      <select formControlName="city">
+        <option value="">Todas</option>
+        <option *ngFor="let city of citiesOptions" [value]="city.label">{{ city.label }}</option>
+      </select>
+    </label>
+
+    <label class="radius-field">
+      <span>Raio</span>
+      <div class="radius-control">
+        <input type="range" min="50" max="1200" step="10" [(ngModel)]="radiusKm" [ngModelOptions]="{standalone: true}">
+        <strong>{{ radiusKm }}km</strong>
+      </div>
+    </label>
+
+    <div class="filter-actions">
+      <button type="button" class="clear-button" (click)="clearFilters()">
+        <i class="fa-solid fa-broom"></i>
+      </button>
+
+      <button type="submit" class="search-button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Buscar
+      </button>
+    </div>
+  </form>
+
+  <section class="radar-body">
+    <div class="map-shell">
+      <div id="radar-map"></div>
+
+      <div class="loading-overlay" *ngIf="isLoading">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Buscando licitações...
+      </div>
+
+      <aside class="radar-summary">
+        <strong>{{ visibleTenders }}</strong>
+        <span>licitações no radar</span>
+        <small>{{ groups.length }} cidades agrupadas</small>
+      </aside>
+    </div>
+
+    <aside class="tenders-panel" *ngIf="selectedGroup">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Licitações</p>
+          <h2>{{ selectedGroup.city }}/{{ selectedGroup.uf }}</h2>
+          <span *ngIf="selectedGroup.distance !== null">{{ selectedGroup.distance | number:'1.0-1' }} km do centro</span>
+        </div>
+
+        <button type="button" class="close-panel" (click)="selectedGroup = null" aria-label="Fechar lista">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="tender-list">
+        <article class="radar-tender-card" *ngFor="let tender of selectedGroup.tenders">
+          <strong>{{ tender.object }}</strong>
+          <span>{{ tender.organ_name }}</span>
+
+          <div>
+            <small>{{ tender.modality }}</small>
+            <small>{{ formatCurrency(tender.value) }}</small>
+          </div>
+
+          <button type="button" (click)="openTender(tender)">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            Site oficial
+          </button>
+        </article>
+      </div>
+    </aside>
+  </section>
+</main>

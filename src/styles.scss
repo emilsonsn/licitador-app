@@ -70,6 +70,7 @@ $licitador-app-theme: mat.define-light-theme((
 @include mat.all-component-themes($licitador-app-theme);
 
 /* You can add global styles to this file, and also import other style files */
+@import "node_modules/leaflet/dist/leaflet.css";
 @import url('https://fonts.cdnfonts.com/css/myriad-pro');
 @import "_variables.scss";
 @import 'ngx-toastr/toastr';

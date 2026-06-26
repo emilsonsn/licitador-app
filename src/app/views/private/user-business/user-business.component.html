@@ -2,8 +2,8 @@
   <section class="profile-hero">
     <div>
       <p class="eyebrow">Minha conta</p>
-      <h1>Perfil e empresa</h1>
-      <span>Atualize seus dados para manter as notificações e informações comerciais em dia.</span>
+      <h1>Perfil</h1>
+      <span>Atualize seus dados para manter as notificações e informações da sua conta em dia.</span>
     </div>
 
     <div class="hero-actions">
@@ -20,7 +20,7 @@
   </section>
 
   <section class="profile-grid">
-    <form [formGroup]="clienteForm" class="profile-panel" id="cliente">
+    <form [formGroup]="clienteForm" class="profile-panel profile-panel-full" id="cliente">
       <div class="panel-header">
         <div>
           <p class="eyebrow">Dados pessoais</p>
@@ -106,43 +106,5 @@
       </div>
     </form>
 
-    <form [formGroup]="empresaForm" class="profile-panel compact-panel" id="empresa">
-      <div class="panel-header">
-        <div>
-          <p class="eyebrow">Dados comerciais</p>
-          <h2>Minha empresa</h2>
-        </div>
-        <i class="fa-solid fa-building"></i>
-      </div>
-
-      <div class="form-grid">
-        <div class="field">
-          <label for="cnpj" class="form-label">CNPJ</label>
-          <input type="text" class="form-control" id="cnpj" formControlName="cnpj" placeholder="Digite o CNPJ" required>
-        </div>
-
-        <div class="field">
-          <label for="razaoSocial" class="form-label">Razão social</label>
-          <input type="text" class="form-control" id="razaoSocial" formControlName="corporate_reason" placeholder="Digite a razão social" required>
-        </div>
-
-        <div class="field">
-          <label for="nomeFantasia" class="form-label">Nome fantasia</label>
-          <input type="text" class="form-control" id="nomeFantasia" formControlName="fantasy_name" placeholder="Digite o nome fantasia" required>
-        </div>
-
-        <div class="field">
-          <label for="dataInicioOperacao" class="form-label">Início de operação</label>
-          <input type="date" class="form-control" id="dataInicioOperacao" formControlName="opening_date" required>
-        </div>
-      </div>
-
-      <div class="panel-actions">
-        <button class="btn btn-primary" type="button" (click)="onBusinessSubmit()">
-          <i class="fa-solid fa-floppy-disk"></i>
-          Salvar empresa
-        </button>
-      </div>
-    </form>
   </section>
 </main>

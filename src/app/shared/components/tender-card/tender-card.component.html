@@ -15,6 +15,14 @@
         } @else {
           <i [id]="'favorite' + id" class="fa-regular fa-star" (click)="favorite(data)"></i>
         }
+        <button
+          type="button"
+          class="calendar-icon-button"
+          [class.active]="!!data?.calendar_status"
+          [attr.aria-label]="data?.calendar_status ? 'Remover do calendário' : 'Adicionar ao calendário'"
+          (click)="calendarToggle(data)">
+          <i [class]="data?.calendar_status ? 'fa-solid fa-calendar-check' : 'fa-regular fa-calendar'"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -32,7 +40,7 @@
         <p><strong>Objeto: </strong>{{ data?.object }}</p>
         <div class="card-information-container">
           <div class="left">
-            <p><strong>Data de abertura : </strong>{{ dayjs(data?.proposal_closing_date).format("DD/MM/YYYY HH:mm:ss") }}</p>
+            <p><strong>Data de abertura : </strong>{{ dayjs(data?.proposal_closing_date).format("DD/MM/YYYY") }}</p>
             <p><strong>Edital: </strong><span style="color: gray">{{ data?.process }}</span></p>
             <p><strong>Órgão: </strong>{{ data?.organ_name }}</p>
           </div>

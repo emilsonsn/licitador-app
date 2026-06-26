@@ -4,7 +4,7 @@ import {PageControl} from "@model/application";
 import {Observable} from "rxjs";
 import {Utils} from "@shared/utils";
 import {environment} from "@env/environment";
-import { Note } from '@model/tender';
+import {CalendarTenderStatus, Note} from '@model/tender';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,18 @@ export class TenderService {
 
   public favorite(id: number): Observable<any> {
     return this._http.post(`${environment.api}/tender/favorite/${id}`, {});
+  }
+
+  public calendar(filters?: { status?: string | string[] }): Observable<any> {
+    const filterParams = Utils.mountPageControl({
+      status: Array.isArray(filters?.status) ? filters?.status.join(',') : filters?.status ?? ''
+    } as any);
+
+    return this._http.get(`${environment.api}/tender/calendar?${filterParams}`);
+  }
+
+  public calendarToggle(id: number, status?: CalendarTenderStatus): Observable<any> {
+    return this._http.post(`${environment.api}/tender/calendar/${id}`, status ? {status} : {});
   }
 
   public edital(id: number): Observable<any> {

@@ -1,0 +1,352 @@
+@import "variables";
+
+.radar-page {
+  min-height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: #f7f8fb;
+}
+
+.radar-hero {
+  min-height: 112px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #32147d 0%, #220565 100%);
+  border-radius: 8px 8px 0 0;
+
+  h1 {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 800;
+  }
+
+  span {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.82);
+  }
+}
+
+.pin-marker {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  background: #ff5a5f;
+  border-radius: 50%;
+
+  &::after {
+    content: "";
+    width: 2px;
+    height: 24px;
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+
+.radar-filters {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: minmax(240px, 2fr) minmax(150px, 1fr) 90px minmax(160px, 1fr) minmax(210px, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  background: #432293;
+  border-radius: 8px;
+  box-shadow: 0 14px 32px rgba(35, 8, 99, 0.16);
+
+  label {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  label > span {
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: #ffffff;
+    background: #11131d;
+    outline: none;
+
+    &:focus {
+      border-color: #24dff2;
+      box-shadow: 0 0 0 3px rgba(36, 223, 242, 0.16);
+    }
+  }
+}
+
+.radius-control {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  input {
+    accent-color: #24dff2;
+  }
+
+  strong {
+    min-width: 58px;
+    color: #24dff2;
+    font-size: 0.92rem;
+    text-align: right;
+  }
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.clear-button,
+.search-button,
+.close-panel,
+.radar-tender-card button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.clear-button {
+  width: 42px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.search-button {
+  padding: 0 18px;
+  color: #ffffff;
+  background: #5a5a61;
+}
+
+.radar-body {
+  min-height: 540px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.map-shell {
+  min-height: 540px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(36, 223, 242, 0.16);
+  border-radius: 8px;
+  background: #16171c;
+}
+
+#radar-map {
+  width: 100%;
+  height: 100%;
+  min-height: 540px;
+}
+
+:host ::ng-deep .radar-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: rgba(0, 159, 176, 0.88);
+  border: 2px solid #24dff2;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(36, 223, 242, 0.22);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+:host ::ng-deep .radar-marker span {
+  line-height: 1;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #ffffff;
+  background: rgba(11, 11, 16, 0.52);
+  font-weight: 800;
+  z-index: 500;
+}
+
+.radar-summary {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  min-width: 178px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(36, 223, 242, 0.24);
+  border-radius: 8px;
+  color: #ffffff;
+  background: rgba(18, 18, 28, 0.88);
+  z-index: 450;
+
+  strong {
+    color: #24dff2;
+    font-size: 1.7rem;
+    line-height: 1;
+  }
+
+  small {
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.68);
+  }
+}
+
+.tenders-panel {
+  min-height: 540px;
+  max-height: 700px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(34, 148, 77, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(15, 79, 42, 0.08);
+}
+
+.panel-header {
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(34, 148, 77, 0.12);
+
+  h2 {
+    margin: 0;
+    color: $secondary-color;
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+
+  span {
+    display: block;
+    margin-top: 3px;
+    color: $text-color;
+    font-size: 0.88rem;
+  }
+
+  .eyebrow {
+    color: $primary-color;
+    opacity: 1;
+  }
+}
+
+.close-panel {
+  width: 36px;
+  min-height: 36px;
+  color: $secondary-color;
+  background: $primary-color-item;
+}
+
+.tender-list {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.radar-tender-card {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(34, 148, 77, 0.12);
+  border-radius: 8px;
+  background: #f8fbf9;
+
+  strong {
+    display: -webkit-box;
+    overflow: hidden;
+    color: $secondary-color;
+    font-size: 0.95rem;
+    line-height: 1.25;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  span {
+    color: $text-color;
+    font-size: 0.84rem;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: $secondary-color;
+    font-weight: 700;
+  }
+
+  button {
+    color: #ffffff;
+    background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  }
+}
+
+@media (max-width: 1180px) {
+  .radar-filters,
+  .radar-body {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-actions,
+  .search-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .radar-page {
+    padding: 14px;
+  }
+
+  .radar-hero {
+    padding: 20px;
+  }
+
+  .radar-filters {
+    padding: 14px;
+  }
+}

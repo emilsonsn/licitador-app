@@ -5,14 +5,30 @@
   </div>
 
   <div class="sidebar-content">
-    <button *ngFor="let item of items"
-         type="button"
-         class="sidebar-item"
-         [class.active]="isActive(item.link)"
-         [attr.aria-current]="isActive(item.link) ? 'page' : null"
-         (click)="navigate(item.link)">
-      <i class="{{ item.icon }}"></i>
-      <span class="sidebar-label">{{ item.label }}</span>
-    </button>
+    <div class="sidebar-section">
+      <button *ngFor="let item of items"
+           type="button"
+           class="sidebar-item"
+           [class.active]="isActive(item.link)"
+           [attr.aria-current]="isActive(item.link) ? 'page' : null"
+           (click)="navigate(item.link)">
+        <i class="{{ item.icon }}"></i>
+        <span class="sidebar-label">{{ item.label }}</span>
+      </button>
+    </div>
+
+    <div class="sidebar-section admin-section" *ngIf="adminItems.length">
+      <span class="sidebar-section-title">Administração</span>
+
+      <button *ngFor="let item of adminItems"
+           type="button"
+           class="sidebar-item"
+           [class.active]="isActive(item.link)"
+           [attr.aria-current]="isActive(item.link) ? 'page' : null"
+           (click)="navigate(item.link)">
+        <i class="{{ item.icon }}"></i>
+        <span class="sidebar-label">{{ item.label }}</span>
+      </button>
+    </div>
   </div>
 </nav>

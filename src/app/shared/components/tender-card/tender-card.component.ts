@@ -39,6 +39,9 @@ export class TenderCardComponent {
 
   @Output()
   loading: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Output()
+  calendarChanged: EventEmitter<Tender> = new EventEmitter<Tender>();
   
 
   constructor(
@@ -193,6 +196,29 @@ export class TenderCardComponent {
         } else {
           data.favorites.push(1);
         }
+      }
+    });
+  }
+
+  calendarToggle(data: Tender | null) {
+    if (!data) {
+      return;
+    }
+
+    this.tenderService.calendarToggle(data.id).subscribe({
+      next: (res) => {
+        if (res?.data?.marked) {
+          data.calendar_status = res.data.calendar_status ?? 'participating';
+          this._toastrService.success('Licitação adicionada ao calendário');
+        } else {
+          data.calendar_status = null;
+          this._toastrService.success('Licitação removida do calendário');
+        }
+
+        this.calendarChanged.emit(data);
+      },
+      error: () => {
+        this._toastrService.error('Não foi possível atualizar o calendário');
       }
     });
   }
