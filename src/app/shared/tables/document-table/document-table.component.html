@@ -1,7 +1,25 @@
 <div class="container">
+  <div class="table-toolbar">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="downloadSelectedDocuments()"
+      [disabled]="!selectedDocuments.length || isDownloadingZip">
+      <i class="fa-solid fa-file-zipper"></i>
+      {{ isDownloadingZip ? 'Gerando zip...' : 'Baixar selecionados' }}
+      <span *ngIf="selectedDocuments.length">({{ selectedDocuments.length }})</span>
+    </button>
+  </div>
+
   <table class="table-scroll small-first-col">
     <thead>
     <tr>
+      <th class="select-col">
+        <input
+          type="checkbox"
+          [checked]="areAllVisibleSelected()"
+          (change)="toggleAllVisible($any($event.target).checked)">
+      </th>
       <th *ngFor="let col of columns" [class.hasorder]="col.order" [ngStyle]="{'text-align': col.align}"
           [class.active-order]="pageControl.orderField === col.slug">
         <div class="{{pageControl.orderField === col.slug ? 'th '+col.align : ''}}">
@@ -16,6 +34,9 @@
     <tbody class="body-half-screen">
       @if (loading) {
         <tr>
+          <td class="select-col">
+            <ngx-skeleton-loader appearance="line"/>
+          </td>
           <td *ngFor="let col of columns">
             <ngx-skeleton-loader appearance="line"/>
           </td>
@@ -26,6 +47,13 @@
         </td>
       } @else {
         <tr *ngFor="let document of documents">
+          <td class="select-col">
+            <input
+              type="checkbox"
+              [checked]="isSelected(document)"
+              [disabled]="!document.path"
+              (change)="toggleDocumentSelection(document, $any($event.target).checked)">
+          </td>
           <td [ngStyle]="{'text-align': 'center'}">
             <div class="div-td">
               {{ document.id }}

@@ -11,6 +11,21 @@
   justify-content: space-between;
 }
 
+.table-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(34, 148, 77, 0.12);
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+  }
+}
+
 .expired {
   color: red;
   font-weight: bold;
@@ -52,7 +67,25 @@
 
 .table-scroll.small-first-col td:first-child,
 .table-scroll.small-first-col th:first-child {
-  flex: 0 0 20%; /* Adjust as needed */
+  flex: 0 0 64px;
+}
+
+.table-scroll.small-first-col td:nth-child(2),
+.table-scroll.small-first-col th:nth-child(2) {
+  flex: 0 0 10%;
+}
+
+.select-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: $primary-color;
+  }
 }
 
 .table-scroll tbody tr:nth-child(2n) {
