@@ -230,7 +230,8 @@ export class RadarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private async initMap(): Promise<void> {
-    this.L = await import('leaflet');
+    const leafletModule: any = await import('leaflet');
+    this.L = leafletModule.default ?? leafletModule;
 
     this.map = this.L.map('radar-map', {
       zoomControl: true,
