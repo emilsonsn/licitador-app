@@ -31,13 +31,27 @@
 
     .card-header-left{
       display: flex;
+      align-items: center;
       justify-content: space-between;
       width: 100%;      
 
-      > div:last-child {
+      .card-header-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .card-header-actions {
         display: flex;
         align-items: center;
         gap: 0.6rem;
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          line-height: 1;
+        }
       }
     }
 

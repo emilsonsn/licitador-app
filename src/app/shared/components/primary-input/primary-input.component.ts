@@ -6,7 +6,8 @@ import {
   HostListener,
   Input,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
@@ -39,6 +40,7 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() returnArrayType: 'value' | 'label' | 'sigla' = 'label'; // Definido para retornar valores ou labels
   @Output() onClick = new EventEmitter();
   @Output() selectionChange = new EventEmitter<{ value: string, label: string }[]>();
+  @ViewChild('inputElement') inputElement?: ElementRef<HTMLInputElement>;
 
   isDropdownOpen: boolean = false;
   selectedOptions: Set<string> = new Set();
@@ -48,7 +50,25 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   control = new FormControl(this.displayText);
 
   click() {
+    if (this.type === 'date') {
+      this.openDatePicker();
+    }
+
     this.onClick.emit();
+  }
+
+  private openDatePicker(): void {
+    const input = this.inputElement?.nativeElement;
+
+    if (!input) {
+      return;
+    }
+
+    input.focus();
+
+    if (typeof input.showPicker === 'function') {
+      input.showPicker();
+    }
   }
 
   onChange: (value: any) => void = () => {

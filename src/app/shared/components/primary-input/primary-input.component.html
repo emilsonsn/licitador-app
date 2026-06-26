@@ -4,6 +4,7 @@
     <ng-container [ngSwitch]="type">
       <!-- Text Input -->
       <input
+        #inputElement
         *ngSwitchCase="'text'"
         [type]="type"
         [placeholder]="placeholder"
@@ -12,6 +13,7 @@
       />
       <!-- Number Input -->
       <input
+        #inputElement
         *ngSwitchCase="'number'"
         [type]="type"
         [placeholder]="placeholder"
@@ -20,6 +22,7 @@
       />
       <!-- Password Input -->
       <input
+        #inputElement
         *ngSwitchCase="'password'"
         [type]="type"
         [placeholder]="placeholder"
@@ -28,6 +31,7 @@
       />
       <!-- Email Input -->
       <input
+        #inputElement
         *ngSwitchCase="'email'"
         [type]="type"
         [placeholder]="placeholder"
@@ -36,6 +40,7 @@
       />
       <!-- Tel Input -->
       <input
+        #inputElement
         *ngSwitchCase="'tel'"
         [type]="type"
         [placeholder]="placeholder"
@@ -44,6 +49,7 @@
       />
       <!-- Date Input -->
       <input
+        #inputElement
         *ngSwitchCase="'date'"
         [type]="type"
         [placeholder]="placeholder"
