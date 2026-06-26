@@ -45,6 +45,13 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {
       type: 'link',
+      label: 'Plataforma Juridicando',
+      icon: 'fa-solid fa-scale-balanced',
+      link: 'https://smart-licita-foco-legal.base44.app',
+      external: true,
+    },
+    {
+      type: 'link',
       label: 'Dashboard',
       icon: 'fa-solid fa-chart-simple',
       link: 'painel/dashboard',
@@ -117,7 +124,8 @@ export class SidebarPrivateComponent implements OnInit {
       type: 'link',
       label: 'Ajuda',
       icon: 'fa-solid fa-circle-info',
-      link: 'painel/help',
+      link: 'https://gestorfacility.com.br/',
+      external: true,
     },
     {
       type: 'link',
@@ -159,7 +167,12 @@ export class SidebarPrivateComponent implements OnInit {
     }
   }
 
-  navigate(link: string): void {
+  navigate(link: string, external = false): void {
+    if (external) {
+      window.open(link, '_blank', 'noopener');
+      return;
+    }
+
     this._router.navigate([link]).then();
   }
 

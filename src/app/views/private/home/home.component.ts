@@ -24,19 +24,29 @@ export class HomeComponent {
       title: 'Cotar frete',
       description: 'Acesse os serviços de cotação de frete',
       icon: 'fa-solid fa-truck-fast',
-      link: '/painel/freight-quotes'
+      link: '/painel/freight-quotes',
+      section: 'useful'
+    },
+    {
+      title: 'Plataforma Juridicando',
+      description: 'Acesse a plataforma de apoio jurídico',
+      icon: 'fa-solid fa-scale-balanced',
+      link: 'https://smart-licita-foco-legal.base44.app',
+      section: 'main'
     },
     {
       title: 'Plataforma Sicx',
       description: 'Acesse os atalhos da plataforma Sicx',
       icon: 'fa-solid fa-store',
-      link: '/painel/sicx-platform'
+      link: '/painel/sicx-platform',
+      section: 'main'
     },
     {
       title: 'ERP + Emissor NFe',
       description: 'Emissão e gestão fiscal',
       icon: 'fa-solid fa-receipt',
-      link: 'https://meuatendimento.sebrae.com.br/sites/PortalSebrae/produtoseservicos/emissornfe'
+      link: 'https://meuatendimento.sebrae.com.br/sites/PortalSebrae/produtoseservicos/emissornfe',
+      section: 'useful'
     }
   ];
 
@@ -45,11 +55,11 @@ export class HomeComponent {
   ) { }
 
   get mainTools() {
-    return this.tools.filter(tool => !tool.link.startsWith('http'));
+    return this.tools.filter(tool => tool.section !== 'useful');
   }
 
   get externalTools() {
-    return this.tools.filter(tool => tool.link.startsWith('http'));
+    return this.tools.filter(tool => tool.section === 'useful');
   }
 
   navigate(link: string) {
