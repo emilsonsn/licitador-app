@@ -219,10 +219,6 @@
           {{ isSaving ? 'Salvando...' : 'Salvar proposta' }}
         </button>
 
-        <button type="button" class="secondary-action" (click)="printProposal()" [disabled]="!viewData">
-          <i class="fa-solid fa-print"></i>
-          Imprimir
-        </button>
       </footer>
     </form>
     </section>
@@ -233,10 +229,6 @@
       <button type="button" class="primary-action" (click)="printProposal()">
         <i class="fa-solid fa-download"></i>
         Baixar PDF
-      </button>
-      <button type="button" class="secondary-action" (click)="printProposal()">
-        <i class="fa-solid fa-print"></i>
-        Imprimir
       </button>
       <button type="button" class="secondary-action" (click)="backToForm()">
         <i class="fa-solid fa-pen-to-square"></i>

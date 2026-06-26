@@ -1,0 +1,99 @@
+<main class="declaration-page">
+  <ng-container *ngIf="!isDocumentMode">
+    <section class="declaration-header">
+      <div>
+        <p class="eyebrow">Gerador de declarações</p>
+        <h1>Documentos automáticos</h1>
+      </div>
+    </section>
+
+    <section class="declaration-panel">
+      <form class="declaration-form" [formGroup]="declarationForm">
+        <label>
+          Nome do órgão
+          <input type="text" formControlName="organName" placeholder="Ex: SECRETARIA DE ADMINISTRAÇÃO">
+        </label>
+
+        <label>
+          Número da compra
+          <input type="text" formControlName="purchaseNumber" placeholder="Ex: 2921">
+        </label>
+
+        <label>
+          Número do processo
+          <input type="text" formControlName="processNumber" placeholder="Ex: 2921.2024.0004.SAD">
+        </label>
+      </form>
+
+      <aside class="company-summary">
+        <span>Empresa</span>
+        <strong>{{ isLoadingCompany ? 'Carregando...' : getCompanyName() }}</strong>
+        <p>{{ getCompanyAddress() || 'Complete o cadastro da empresa para preencher os documentos.' }}</p>
+      </aside>
+    </section>
+
+    <section class="documents-grid">
+      <button type="button" class="document-option" *ngFor="let template of templates" (click)="openDocument(template)">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>
+          <strong>{{ template.title }}</strong>
+          <small>{{ template.description }}</small>
+        </span>
+      </button>
+    </section>
+  </ng-container>
+
+  <section class="document-view" *ngIf="isDocumentMode && selectedDocument">
+    <aside class="document-actions">
+      <button type="button" class="primary-action" (click)="printDocument()">
+        <i class="fa-solid fa-download"></i>
+        Baixar PDF
+      </button>
+      <button type="button" class="muted-action" (click)="backToGenerator()">
+        <i class="fa-solid fa-arrow-left"></i>
+        Voltar
+      </button>
+    </aside>
+
+    <article class="declaration-document" id="declaration-document">
+      <header class="company-header">
+        <div class="logo-box">
+          <span>{{ (selectedDocument.company.fantasy_name || selectedDocument.company.corporate_reason || 'EMP').slice(0, 2).toUpperCase() }}</span>
+        </div>
+        <div>
+          <p><strong>Razão Social:</strong> {{ selectedDocument.company.corporate_reason }}</p>
+          <p><strong>CNPJ:</strong> {{ selectedDocument.company.cnpj }}</p>
+          <p><strong>Endereço:</strong> {{ getCompanyAddress(selectedDocument.company) }}</p>
+          <p *ngIf="selectedDocument.company.phone"><strong>Telefone:</strong> {{ selectedDocument.company.phone }}</p>
+          <p *ngIf="selectedDocument.company.email"><strong>E-mail:</strong> {{ selectedDocument.company.email }}</p>
+        </div>
+      </header>
+
+      <section class="document-meta">
+        <p><strong>Nome do Órgão:</strong> {{ selectedDocument.form.organName }}</p>
+        <p><strong>Número da Compra:</strong> {{ selectedDocument.form.purchaseNumber }}</p>
+        <p><strong>Número do Processo:</strong> {{ selectedDocument.form.processNumber }}</p>
+      </section>
+
+      <h1>{{ selectedDocument.template.title }}</h1>
+
+      <p class="company-text">
+        {{ getCompanyName(selectedDocument.company) }}, CNPJ {{ selectedDocument.company.cnpj }},
+        sediada à {{ getCompanyAddress(selectedDocument.company) }}.
+      </p>
+
+      <p class="company-text">
+        Representada pelo(a) Sócio(a) {{ selectedDocument.company.legal_representative_name }},
+        CPF {{ selectedDocument.company.legal_representative_cpf }}.
+      </p>
+
+      <p class="body-paragraph" *ngFor="let paragraph of selectedDocument.template.paragraphs">{{ paragraph }}</p>
+
+      <footer class="signature">
+        <strong>{{ selectedDocument.company.legal_representative_name }}</strong>
+        <span>CPF: {{ selectedDocument.company.legal_representative_cpf }}</span>
+        <span>Data: {{ selectedDocument.date | date:'dd/MM/yyyy':'':'pt-BR' }}</span>
+      </footer>
+    </article>
+  </section>
+</main>

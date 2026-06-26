@@ -92,6 +92,13 @@ export class SidebarPrivateComponent implements OnInit {
       link: 'painel/proposal-generator',
       private: false
     },
+    {
+      type: 'link',
+      label: 'Gerador de Declarações',
+      icon: 'fa-solid fa-file-lines',
+      link: 'painel/declaration-generator',
+      private: false
+    },
     {      
       type: 'link',
       label: 'Automações de busca',
