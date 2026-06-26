@@ -1,0 +1,315 @@
+<main class="proposal-page">
+  <ng-container *ngIf="!isDocumentMode">
+    <section class="proposal-header">
+      <div>
+        <p class="eyebrow">Gerador de proposta</p>
+        <h1>Propostas comerciais</h1>
+      </div>
+
+      <button type="button" class="primary-action" (click)="newProposal()">
+        <i class="fa-solid fa-plus"></i>
+        Nova proposta
+      </button>
+    </section>
+
+    <section class="proposal-layout">
+    <aside class="proposal-list">
+      <form class="list-filters" [formGroup]="filterForm" (ngSubmit)="loadProposals()">
+        <label>
+          Buscar
+          <input type="text" formControlName="search" placeholder="Órgão, compra ou processo">
+        </label>
+
+        <label>
+          Status
+          <select formControlName="status">
+            <option value="">Todos</option>
+            <option *ngFor="let status of proposalStatuses" [value]="status.value">{{ status.label }}</option>
+          </select>
+        </label>
+
+        <button type="submit" class="filter-button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Filtrar
+        </button>
+      </form>
+
+      <div class="loading-state" *ngIf="isLoadingList">Carregando propostas...</div>
+
+      <article
+        class="proposal-list-item"
+        *ngFor="let proposal of proposals"
+        [class.active]="proposal.id === currentProposalId"
+        (click)="editProposal(proposal)">
+        <div>
+          <strong>{{ proposal.title || proposal.organ_name || 'Proposta sem título' }}</strong>
+          <span>{{ proposal.organ_name || 'Órgão não informado' }}</span>
+        </div>
+        <div class="list-item-meta">
+          <span class="status-pill">{{ getStatusLabel(proposal.status) }}</span>
+          <button type="button" title="Visualizar" (click)="openView(proposal); $event.stopPropagation()">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+          <button type="button" title="Remover" (click)="deleteProposal(proposal, $event)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </article>
+
+      <div class="empty-state" *ngIf="!isLoadingList && !proposals.length">
+        Nenhuma proposta encontrada.
+      </div>
+
+      <div class="pagination-actions">
+        <button type="button" (click)="previousPage()" [disabled]="(pageControl.page ?? 1) <= 1">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <span>Página {{ pageControl.page || 1 }}</span>
+        <button type="button" (click)="nextPage()" [disabled]="proposals.length < (pageControl.take || 8)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </aside>
+
+    <form class="proposal-form" [formGroup]="proposalForm" (ngSubmit)="saveProposal()">
+      <section class="fill-panel">
+        <label>
+          ID do edital/licitação
+          <input type="number" formControlName="tender_lookup_id" placeholder="Ex: 111080">
+        </label>
+
+        <button type="button" class="secondary-action" (click)="fillProposal()" [disabled]="isFilling">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          {{ isFilling ? 'Preenchendo...' : 'Preencher' }}
+        </button>
+      </section>
+
+      <div class="warning-box" *ngIf="warning">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        {{ warning }}
+      </div>
+
+      <section class="form-section">
+        <div class="section-title">
+          <h2>Dados da proposta</h2>
+          <span>{{ getStatusLabel(proposalForm.get('status')?.value) }}</span>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            Título
+            <input type="text" formControlName="title">
+          </label>
+          <label>
+            Status
+            <select formControlName="status">
+              <option *ngFor="let status of proposalStatuses" [value]="status.value">{{ status.label }}</option>
+            </select>
+          </label>
+          <label>
+            Órgão
+            <input type="text" formControlName="organ_name">
+          </label>
+          <label>
+            Estado
+            <input type="text" formControlName="organ_state" maxlength="2">
+          </label>
+          <label>
+            Número da compra
+            <input type="text" formControlName="purchase_number">
+          </label>
+          <label>
+            Número do processo
+            <input type="text" formControlName="process_number">
+          </label>
+          <label>
+            Data de recebimento
+            <input type="date" formControlName="receipt_date">
+          </label>
+          <label>
+            Data de abertura
+            <input type="date" formControlName="opening_date">
+          </label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-title">
+          <h2>Itens</h2>
+          <button type="button" class="text-action" (click)="addItem()">
+            <i class="fa-solid fa-plus"></i>
+            Adicionar item
+          </button>
+        </div>
+
+        <div class="items-table" formArrayName="items">
+          <div class="items-head">
+            <span>Item</span>
+            <span>Qtd.</span>
+            <span>Unidade</span>
+            <span>Especificação</span>
+            <span>Marca</span>
+            <span>Preço unit.</span>
+            <span>Total</span>
+            <span></span>
+          </div>
+
+          <div class="item-row" *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+            <input type="text" formControlName="item">
+            <input type="number" min="0" step="0.0001" formControlName="quantity">
+            <input type="text" formControlName="unit">
+            <textarea rows="2" formControlName="specification"></textarea>
+            <input type="text" formControlName="brand">
+            <input
+              type="text"
+              inputmode="decimal"
+              formControlName="unit_price"
+              placeholder="0,00"
+              (blur)="formatUnitPrice(i)">
+            <strong>{{ getLocalItemTotal(i) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+            <button type="button" title="Remover item" (click)="removeItem(i)" [disabled]="items.length === 1">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="total-line">
+          <span>Total da proposta</span>
+          <strong>{{ getLocalTotal() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-title">
+          <h2>Declarações e assinatura</h2>
+        </div>
+
+        <label class="full-field">
+          Declarações
+          <textarea rows="7" formControlName="declarations"></textarea>
+        </label>
+
+        <div class="form-grid">
+          <label>
+            Cidade
+            <input type="text" formControlName="city">
+          </label>
+          <label>
+            Data
+            <input type="date" formControlName="proposal_date">
+          </label>
+          <label>
+            Responsável
+            <input type="text" formControlName="responsible_name">
+          </label>
+          <label>
+            RG
+            <input type="text" formControlName="responsible_rg">
+          </label>
+          <label>
+            CPF
+            <input type="text" formControlName="responsible_cpf">
+          </label>
+        </div>
+      </section>
+
+      <footer class="form-actions">
+        <button type="submit" class="primary-action" [disabled]="isSaving">
+          <i class="fa-solid fa-floppy-disk"></i>
+          {{ isSaving ? 'Salvando...' : 'Salvar proposta' }}
+        </button>
+
+        <button type="button" class="secondary-action" (click)="printProposal()" [disabled]="!viewData">
+          <i class="fa-solid fa-print"></i>
+          Imprimir
+        </button>
+      </footer>
+    </form>
+    </section>
+  </ng-container>
+
+  <section class="document-view" *ngIf="isDocumentMode && viewData">
+    <aside class="document-actions">
+      <button type="button" class="primary-action" (click)="printProposal()">
+        <i class="fa-solid fa-download"></i>
+        Baixar PDF
+      </button>
+      <button type="button" class="secondary-action" (click)="printProposal()">
+        <i class="fa-solid fa-print"></i>
+        Imprimir
+      </button>
+      <button type="button" class="secondary-action" (click)="backToForm()">
+        <i class="fa-solid fa-pen-to-square"></i>
+        Voltar ao formulário
+      </button>
+      <button type="button" class="muted-action" (click)="closeDocumentView()">
+        <i class="fa-solid fa-xmark"></i>
+        Fechar
+      </button>
+    </aside>
+
+    <article class="proposal-document" id="proposal-document">
+      <header>
+        <h1>{{ viewData.company.corporate_reason || viewData.company.fantasy_name }}</h1>
+        <p>
+          {{ viewData.company.street }}, {{ viewData.company.number }}
+          <ng-container *ngIf="viewData.company.complement"> - {{ viewData.company.complement }}</ng-container>
+          <ng-container *ngIf="viewData.company.neighborhood"> - {{ viewData.company.neighborhood }}</ng-container>
+        </p>
+        <p>{{ viewData.company.city }} - {{ viewData.company.state }} <span *ngIf="viewData.company.zipcode">, {{ viewData.company.zipcode }}</span></p>
+        <p>CNPJ: {{ viewData.company.cnpj }} <span *ngIf="viewData.company.phone"> | Tel: {{ viewData.company.phone }}</span></p>
+        <p *ngIf="viewData.company.email">Email: {{ viewData.company.email }}</p>
+      </header>
+
+      <h2>PROPOSTA COMERCIAL</h2>
+
+      <div class="document-meta">
+        <p><strong>Órgão:</strong> {{ viewData.proposal.organ_name }}</p>
+        <p><strong>Estado:</strong> {{ viewData.proposal.organ_state }}</p>
+        <p><strong>Número da Compra:</strong> {{ viewData.proposal.purchase_number }}</p>
+        <p><strong>Número do Processo:</strong> {{ viewData.proposal.process_number }}</p>
+        <p><strong>Data de Recebimento:</strong> {{ viewData.proposal.receipt_date | date:'dd/MM/yyyy':'':'pt-BR' }}</p>
+        <p><strong>Data de Abertura:</strong> {{ viewData.proposal.opening_date | date:'dd/MM/yyyy':'':'pt-BR' }}</p>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantidade</th>
+            <th>Unidade</th>
+            <th>Especificação</th>
+            <th>Marca</th>
+            <th>Preço Unitário</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of viewData.items">
+            <td>{{ item.item }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.unit }}</td>
+            <td>{{ item.specification }}</td>
+            <td>{{ item.brand }}</td>
+            <td>{{ item.unit_price | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+            <td>{{ item.total_value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="document-total">
+        <strong>Valor total:</strong>
+        {{ viewData.proposal.total_value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+      </p>
+
+      <pre>{{ viewData.declarations }}</pre>
+
+      <footer>
+        <p>{{ viewData.signature?.city }}, {{ viewData.signature?.proposal_date | date:'dd/MM/yyyy':'':'pt-BR' }}</p>
+        <div class="signature-line"></div>
+        <strong>{{ viewData.signature?.responsible_name }}</strong>
+        <span>RG: {{ viewData.signature?.responsible_rg }} | CPF: {{ viewData.signature?.responsible_cpf }}</span>
+      </footer>
+    </article>
+  </section>
+</main>

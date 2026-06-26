@@ -19,6 +19,7 @@ import { SicxPlatformComponent } from './sicx-platform/sicx-platform.component';
 import { CompanyComponent } from './company/company.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { RadarComponent } from './radar/radar.component';
+import { ProposalGeneratorComponent } from './proposal-generator/proposal-generator.component';
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
       {
         path: 'radar',
         component: RadarComponent,
+      },
+      {
+        path: 'proposal-generator',
+        component: ProposalGeneratorComponent,
       },
       {
         path: 'help',

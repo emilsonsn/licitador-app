@@ -85,6 +85,13 @@ export class SidebarPrivateComponent implements OnInit {
       link: 'painel/radar',
       private: false
     },
+    {
+      type: 'link',
+      label: 'Gerador de Proposta',
+      icon: 'fa-solid fa-file-signature',
+      link: 'painel/proposal-generator',
+      private: false
+    },
     {      
       type: 'link',
       label: 'Automações de busca',
