@@ -45,7 +45,7 @@ export class HomeComponent {
       title: 'ERP + Emissor NFe',
       description: 'Emissão e gestão fiscal',
       icon: 'fa-solid fa-receipt',
-      link: 'https://meuatendimento.sebrae.com.br/sites/PortalSebrae/produtoseservicos/emissornfe',
+      link: 'https://erpgestorfacility.com.br/login',
       section: 'useful'
     }
   ];

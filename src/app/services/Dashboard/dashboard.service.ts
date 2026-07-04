@@ -15,6 +15,10 @@ export class DashboardService {
     return this.http.get<any>(`${environment.api}/dashboard/search`);
   }
 
+  getIndicators(): Observable<any> {
+    return this.http.get<any>(`${environment.api}/dashboard/indicators`);
+  }
+
   getUserGraph(params: any): Observable<any> {
     const httpParams = new HttpParams().set('period', params.period);
     return this.http.get<any>(`${environment.api}/dashboard/userGraph`, {params: httpParams});
