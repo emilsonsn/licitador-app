@@ -27,6 +27,17 @@
     </div>
   </div>
 
+  <div class="date-section">
+    <label for="calendar-date">Data no calendário</label>
+    <div class="date-control">
+      <input id="calendar-date" type="datetime-local" [(ngModel)]="calendarDate" [disabled]="isSaving">
+      <button type="button" [disabled]="isSaving" (click)="saveCalendarDate()">
+        <i class="fa-solid fa-check"></i>
+        Salvar data
+      </button>
+    </div>
+  </div>
+
   <div class="details-grid">
     <div class="detail full">
       <span>Órgão</span>

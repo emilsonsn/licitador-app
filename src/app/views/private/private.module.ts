@@ -37,6 +37,8 @@ import { CalendarTenderModalComponent } from './calendar/calendar-tender-modal.c
 import { RadarComponent } from './radar/radar.component';
 import { ProposalGeneratorComponent } from './proposal-generator/proposal-generator.component';
 import { DeclarationGeneratorComponent } from './declaration-generator/declaration-generator.component';
+import { KanbanComponent } from './kanban/kanban.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
 
@@ -59,6 +61,7 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     CompanyComponent,
     CalendarComponent,
     CalendarTenderModalComponent,
+    KanbanComponent,
     RadarComponent,
     ProposalGeneratorComponent,
     DeclarationGeneratorComponent
@@ -78,6 +81,7 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     QrCodeModule,
     MatDivider,
     MatPaginator,
+    DragDropModule,
   ],
   providers: [MatPaginatorIntl, {provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl()}],
 })

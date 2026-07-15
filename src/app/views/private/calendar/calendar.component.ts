@@ -135,6 +135,7 @@ export class CalendarComponent implements OnInit {
     const dialogRef = this.dialog.open(CalendarTenderModalComponent, {
       width: '720px',
       maxWidth: 'calc(100vw - 28px)',
+      maxHeight: 'calc(100vh - 28px)',
       data: {
         tender,
         statusOptions: this.statusOptions
@@ -159,6 +160,11 @@ export class CalendarComponent implements OnInit {
           this.tenders = this.tenders.filter((item) => item.id !== tender.id);
         }
 
+        this.mountCalendarDays();
+      }
+
+      if (result.calendarDate !== undefined) {
+        tender.calendar_date = result.calendarDate;
         this.mountCalendarDays();
       }
     });
@@ -207,7 +213,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private getTenderDate(tender: Tender): Dayjs | null {
-    const date = tender.proposal_closing_date || tender.bid_opening_date || tender.update_date;
+    const date = tender.calendar_date;
 
     return date ? dayjs(date) : null;
   }

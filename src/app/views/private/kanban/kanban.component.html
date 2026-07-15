@@ -1,0 +1,60 @@
+<main class="kanban-page">
+  <section class="kanban-hero">
+    <div>
+      <p class="eyebrow">Kanban</p>
+      <h1>Acompanhamento de licitações</h1>
+      <span>Organize as licitações marcadas por etapa e acompanhe suas datas.</span>
+    </div>
+  </section>
+
+  <div class="loading" *ngIf="isLoading">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+    Carregando Kanban...
+  </div>
+
+  <section class="kanban-board" *ngIf="!isLoading">
+    <article class="kanban-column" *ngFor="let status of statusOptions; trackBy: trackByStatus">
+      <header [ngClass]="status.className">
+        <h2>{{ status.label }}</h2>
+        <span>{{ tendersByStatus(status.value).length }}</span>
+      </header>
+
+      <div
+        class="kanban-list"
+        cdkDropList
+        [id]="columnId(status.value)"
+        [cdkDropListData]="tendersByStatus(status.value)"
+        [cdkDropListConnectedTo]="connectedColumns(status.value)"
+        (cdkDropListDropped)="drop($event, status.value)">
+        <article
+          class="kanban-card"
+          *ngFor="let tender of tendersByStatus(status.value); trackBy: trackByTender"
+          cdkDrag
+          [cdkDragData]="tender"
+          (click)="openTender(tender)">
+          <div class="card-heading">
+            <small>Licitação #{{ tender.id }}</small>
+            <i class="fa-solid fa-grip-vertical" aria-hidden="true"></i>
+          </div>
+          <h3>{{ tender.object }}</h3>
+          <p>{{ tender.organ_name }}</p>
+          <div class="card-place">
+            <i class="fa-solid fa-location-dot"></i>
+            {{ tender.city }} - {{ tender.uf }}
+          </div>
+          <div class="card-footer">
+            <span>
+              <i class="fa-regular fa-calendar"></i>
+              {{ (tender.calendar_date || tender.bid_opening_date) ? dayjs(tender.calendar_date || tender.bid_opening_date).format('DD/MM/YYYY HH:mm') : 'Sem data' }}
+            </span>
+            <strong>{{ tender.value && tender.value !== '0.00' ? (tender.value | currency:'BRL':'symbol':'1.2-2':'pt-BR') : 'Sigiloso' }}</strong>
+          </div>
+        </article>
+
+        <div class="empty-column" *ngIf="!tendersByStatus(status.value).length">
+          Arraste uma licitação para esta etapa
+        </div>
+      </div>
+    </article>
+  </section>
+</main>

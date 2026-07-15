@@ -21,6 +21,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { RadarComponent } from './radar/radar.component';
 import { ProposalGeneratorComponent } from './proposal-generator/proposal-generator.component';
 import { DeclarationGeneratorComponent } from './declaration-generator/declaration-generator.component';
+import { KanbanComponent } from './kanban/kanban.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,10 @@ const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarComponent,
+      },
+      {
+        path: 'kanban',
+        component: KanbanComponent,
       },
       {
         path: 'radar',

@@ -26,6 +26,7 @@ export interface Tender {
   items: TenderItem[];
   notes: Note[];
   calendar_status?: CalendarTenderStatus | null;
+  calendar_date?: string | null;
   calendarTenders?: CalendarTender[];
 }
 
@@ -65,6 +66,7 @@ export interface CalendarTender {
   tender_id: number;
   user_id: number;
   status: CalendarTenderStatus;
+  calendar_date?: string | null;
 }
 
 export interface CalendarStatusOption {
