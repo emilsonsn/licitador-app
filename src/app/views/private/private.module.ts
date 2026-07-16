@@ -39,6 +39,9 @@ import { ProposalGeneratorComponent } from './proposal-generator/proposal-genera
 import { DeclarationGeneratorComponent } from './declaration-generator/declaration-generator.component';
 import { KanbanComponent } from './kanban/kanban.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ProposalTrackingComponent } from './proposal-tracking/proposal-tracking.component';
+import { ProposalCatalogComponent } from './proposal-catalog/proposal-catalog.component';
+import { ProposalCatalogViewComponent } from './proposal-catalog-view/proposal-catalog-view.component';
 
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
 
@@ -64,6 +67,9 @@ registerLocaleData(localePt, 'pt-BR', localePtExtra);
     KanbanComponent,
     RadarComponent,
     ProposalGeneratorComponent,
+    ProposalTrackingComponent,
+    ProposalCatalogComponent,
+    ProposalCatalogViewComponent,
     DeclarationGeneratorComponent
   ],
   imports: [

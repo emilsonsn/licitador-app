@@ -1,0 +1,90 @@
+<main class="catalog-page">
+  <div class="loading" *ngIf="isLoading"><i class="fa-solid fa-spinner fa-spin"></i>Carregando catálogo...</div>
+
+  <ng-container *ngIf="!isLoading && catalog">
+    <aside class="page-actions">
+      <button type="button" class="close" (click)="close()"><i class="fa-solid fa-xmark"></i>Fechar</button>
+    </aside>
+
+    <article class="catalog-editor">
+      <header class="company-header">
+        <div class="logo-placeholder">
+          <img *ngIf="catalog.company_snapshot.logo" [src]="catalog.company_snapshot.logo" alt="Logotipo da empresa">
+          <i *ngIf="!catalog.company_snapshot.logo" class="fa-solid fa-building"></i>
+        </div>
+        <div>
+          <h1>{{ catalog.company_snapshot.corporate_reason || catalog.company_snapshot.fantasy_name || 'Empresa participante' }}</h1>
+          <p>{{ catalog.company_snapshot.street }}<ng-container *ngIf="catalog.company_snapshot.number">, {{ catalog.company_snapshot.number }}</ng-container></p>
+          <p>{{ catalog.company_snapshot.city }}<ng-container *ngIf="catalog.company_snapshot.state"> - {{ catalog.company_snapshot.state }}</ng-container></p>
+          <p><strong>CNPJ:</strong> {{ catalog.company_snapshot.cnpj || '-' }}</p>
+          <p><span *ngIf="catalog.company_snapshot.phone">{{ catalog.company_snapshot.phone }}</span><span *ngIf="catalog.company_snapshot.email"> · {{ catalog.company_snapshot.email }}</span></p>
+        </div>
+      </header>
+
+      <section class="form-section">
+        <h2>Personalização</h2>
+        <div class="form-grid">
+          <label>Título do catálogo<input type="text" maxlength="255" [(ngModel)]="catalog.title"><small>Exibido no topo do catálogo.</small></label>
+          <label>Subtítulo<input type="text" maxlength="255" [(ngModel)]="catalog.subtitle" placeholder="Opcional"></label>
+          <label class="full">Observações gerais<textarea rows="4" [(ngModel)]="catalog.general_notes"></textarea><small>Texto exibido após a lista de produtos. Opcional.</small></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Dados do Órgão</h2>
+        <div class="form-grid organ-grid">
+          <label>Órgão<input type="text" [(ngModel)]="catalog.organ_name"></label>
+          <label>Estado<input type="text" maxlength="255" [(ngModel)]="catalog.organ_state"></label>
+          <label>Número da Compra<input type="text" [(ngModel)]="catalog.purchase_number"></label>
+          <label>Número do Processo<input type="text" [(ngModel)]="catalog.process_number"></label>
+          <label>Data de Recebimento<input type="date" [(ngModel)]="catalog.receipt_date"></label>
+          <label>Data de Abertura<input type="date" [(ngModel)]="catalog.opening_date"></label>
+        </div>
+      </section>
+
+      <section class="items-section">
+        <div class="section-heading"><div><p>Produtos e serviços</p><h2>Itens do Catálogo</h2></div><button type="button" class="add" (click)="addItem()"><i class="fa-solid fa-plus"></i>Adicionar item</button></div>
+
+        <div class="empty" *ngIf="!catalog.items.length">Nenhum item no catálogo. Utilize “Adicionar item” para começar.</div>
+
+        <article class="catalog-item" *ngFor="let item of catalog.items; let index = index; trackBy: trackByItem" [class.removed]="item.removed">
+          <header>
+            <strong>Item {{ index + 1 }}</strong>
+            <div class="item-actions">
+              <button type="button" title="Mover para cima" (click)="moveItem(index, -1)" [disabled]="index === 0 || item.removed"><i class="fa-solid fa-arrow-up"></i></button>
+              <button type="button" title="Mover para baixo" (click)="moveItem(index, 1)" [disabled]="index === catalog.items.length - 1 || item.removed"><i class="fa-solid fa-arrow-down"></i></button>
+              <button type="button" class="remove" (click)="toggleRemoval(item)"><i [class]="item.removed ? 'fa-solid fa-rotate-left' : 'fa-solid fa-trash'"></i>{{ item.removed ? 'Desfazer remoção' : 'Remover item' }}</button>
+            </div>
+          </header>
+
+          <div class="removed-message" *ngIf="item.removed">Este item será removido ao salvar o catálogo.</div>
+
+          <div class="item-body">
+            <div class="image-column">
+              <div class="image-preview">
+                <img *ngIf="imageSource(item)" [src]="imageSource(item)" [alt]="item.title || 'Imagem do item'">
+                <span *ngIf="!imageSource(item)"><i class="fa-regular fa-image"></i>Sem imagem</span>
+              </div>
+              <label class="image-select" [class.disabled]="item.removed">Selecionar imagem<input type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" (change)="selectImage(item, $event)" [disabled]="!!item.removed"></label>
+              <button type="button" class="image-remove" *ngIf="imageSource(item)" (click)="removeImage(item)" [disabled]="item.removed || imageBusyItemId === item.id">Remover imagem</button>
+              <small>JPG, PNG ou WEBP · máximo 5 MB</small>
+            </div>
+
+            <div class="item-fields">
+              <label class="full">Título do produto<input type="text" maxlength="255" [(ngModel)]="item.title" [disabled]="!!item.removed"></label>
+              <label class="full">Especificações<textarea rows="4" [(ngModel)]="item.specification" [disabled]="!!item.removed"></textarea></label>
+              <label>Quantidade<input type="number" min="0" step="0.0001" [(ngModel)]="item.quantity" [disabled]="!!item.removed"></label>
+              <label>Unidade<input type="text" [(ngModel)]="item.unit" [disabled]="!!item.removed"></label>
+              <label>Marca<input type="text" [(ngModel)]="item.brand" [disabled]="!!item.removed"></label>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <footer class="editor-actions">
+        <button type="button" class="save" (click)="save()" [disabled]="isSaving || isGenerating"><i class="fa-solid fa-floppy-disk"></i>{{ isSaving ? 'Salvando...' : 'Salvar catálogo' }}</button>
+        <button type="button" class="generate" (click)="generate()" [disabled]="isSaving || isGenerating"><i class="fa-solid fa-wand-magic-sparkles"></i>{{ isGenerating ? 'Gerando...' : 'Gerar catálogo' }}</button>
+      </footer>
+    </article>
+  </ng-container>
+</main>

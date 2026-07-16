@@ -22,8 +22,23 @@ import { RadarComponent } from './radar/radar.component';
 import { ProposalGeneratorComponent } from './proposal-generator/proposal-generator.component';
 import { DeclarationGeneratorComponent } from './declaration-generator/declaration-generator.component';
 import { KanbanComponent } from './kanban/kanban.component';
+import { ProposalTrackingComponent } from './proposal-tracking/proposal-tracking.component';
+import { ProposalCatalogComponent } from './proposal-catalog/proposal-catalog.component';
+import { ProposalCatalogViewComponent } from './proposal-catalog-view/proposal-catalog-view.component';
 
 const routes: Routes = [
+  {
+    path: 'proposal-generator/:proposalId/tracking',
+    component: ProposalTrackingComponent,
+  },
+  {
+    path: 'proposal-generator/:proposalId/catalog',
+    component: ProposalCatalogComponent,
+  },
+  {
+    path: 'proposal-catalog/:catalogId/view',
+    component: ProposalCatalogViewComponent,
+  },
   {
     path: '',
     component: LayoutPrivateComponent,

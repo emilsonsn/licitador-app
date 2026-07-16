@@ -1,0 +1,120 @@
+<main class="tracking-page">
+  <div class="loading-state" *ngIf="isLoading">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+    Carregando acompanhamento...
+  </div>
+
+  <ng-container *ngIf="!isLoading && data">
+    <aside class="tracking-actions no-print">
+      <button class="save" type="button" (click)="save()" [disabled]="isFinished || isSaving">
+        <i class="fa-solid fa-floppy-disk"></i>{{ isSaving ? 'Salvando...' : 'Salvar' }}
+      </button>
+      <button class="print" type="button" (click)="print()"><i class="fa-solid fa-print"></i>Imprimir</button>
+      <button class="export" type="button" (click)="export()" [disabled]="isExporting">
+        <i class="fa-solid fa-file-excel"></i>{{ isExporting ? 'Exportando...' : 'Exportar Excel' }}
+      </button>
+      <button class="status" type="button" (click)="changeStatus()" [disabled]="isChangingStatus">
+        <i [class]="isFinished ? 'fa-solid fa-lock-open' : 'fa-solid fa-check'"></i>
+        {{ isFinished ? 'Reabrir' : 'Finalizar' }}
+      </button>
+      <button class="close" type="button" (click)="close()"><i class="fa-solid fa-xmark"></i>Fechar</button>
+    </aside>
+
+    <article class="tracking-document">
+      <header class="company-header">
+        <img *ngIf="data.company.logo" [src]="data.company.logo" alt="Logotipo da empresa">
+        <div>
+          <h1>{{ data.company.corporate_reason || data.company.fantasy_name || 'Empresa participante' }}</h1>
+          <p>{{ data.company.street }}<ng-container *ngIf="data.company.number">, {{ data.company.number }}</ng-container></p>
+          <p>{{ data.company.city }}<ng-container *ngIf="data.company.state"> - {{ data.company.state }}</ng-container></p>
+          <p><strong>CNPJ:</strong> {{ data.company.cnpj || '-' }}</p>
+          <p><span *ngIf="data.company.phone"><strong>Telefone:</strong> {{ data.company.phone }}</span>
+            <span *ngIf="data.company.email"> · <strong>E-mail:</strong> {{ data.company.email }}</span></p>
+        </div>
+      </header>
+
+      <div class="document-title">
+        <p>Acompanhamento de propostas</p>
+        <h2>Acompanhamento de Licitação</h2>
+        <span class="tracking-status" [class.finished]="isFinished">{{ isFinished ? 'Finalizado' : 'Em aberto' }}</span>
+      </div>
+
+      <section class="tender-summary">
+        <div><span>Órgão</span><strong>{{ data.tender.organ_name || data.proposal.organ_name || '-' }}</strong></div>
+        <div><span>UF</span><strong>{{ data.tender.uf || data.proposal.organ_state || '-' }}</strong></div>
+        <div><span>Número da compra</span><strong>{{ data.tender.number_purchase || data.proposal.purchase_number || '-' }}</strong></div>
+        <div><span>Processo</span><strong>{{ data.tender.process || data.proposal.process_number || '-' }}</strong></div>
+      </section>
+
+      <section class="tracking-tools no-print">
+        <div class="legend">
+          <span class="minimum">Preço mínimo</span><span class="calculated">Total mínimo</span>
+          <span class="won">Vencedor</span><span class="lost">Perdeu</span>
+        </div>
+        <div class="discount-control">
+          <label for="discount">Aplicar desconto</label>
+          <div><input id="discount" type="number" min="0" max="100" step="0.0001" [(ngModel)]="discountPercentage" [disabled]="isFinished"><span>%</span>
+            <button type="button" (click)="applyDiscount()" [disabled]="isFinished || isApplyingDiscount">{{ isApplyingDiscount ? 'Aplicando...' : 'Aplicar em todos' }}</button></div>
+          <small>Calculado sempre sobre o preço unitário original.</small>
+        </div>
+      </section>
+
+      <section class="items-wrapper">
+        <table class="tracking-table">
+          <thead><tr><th>Item</th><th>Resultado</th><th>Qtd</th><th>Unid.</th><th>Especificação</th><th>Marca</th><th>Preço Unit.</th><th>Preço Unit. Min.</th><th>Valor Total</th><th>Valor Total Min.</th></tr></thead>
+          <tbody>
+            <ng-container *ngFor="let item of data.items; trackBy: trackByItem">
+              <tr [class.row-won]="item.result === 'won'" [class.row-lost]="item.result === 'lost'">
+                <td>{{ item.item }}</td>
+                <td class="result-cell">
+                  <div class="result-buttons no-print">
+                    <button type="button" class="won-button" [class.active]="item.result === 'won'" [disabled]="isFinished" (click)="setResult(item, 'won')">Venceu</button>
+                    <button type="button" class="lost-button" [class.active]="item.result === 'lost'" [disabled]="isFinished" (click)="setResult(item, 'lost')">Perdeu</button>
+                  </div>
+                  <span class="print-only">{{ item.result === 'won' ? 'Venceu' : item.result === 'lost' ? 'Perdeu' : 'Pendente' }}</span>
+                </td>
+                <td>{{ item.quantity }}</td><td>{{ item.unit || '-' }}</td><td>{{ item.specification || '-' }}</td><td>{{ item.brand || '-' }}</td>
+                <td>{{ item.unit_price | currency:'BRL':'symbol':'1.2-4':'pt-BR' }}</td>
+                <td class="minimum-cell"><input class="no-print" type="number" min="0" step="0.0001" [(ngModel)]="item.minimum_unit_price" [disabled]="isFinished"><span class="print-only">{{ item.minimum_unit_price | currency:'BRL':'symbol':'1.2-4':'pt-BR' }}</span></td>
+                <td>{{ item.total_value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+                <td class="minimum-total">{{ minimumTotal(item) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              </tr>
+              <tr class="ranking-expanded" *ngIf="item.result !== 'pending'">
+                <td colspan="10">
+                  <div class="ranking-panel">
+                    <h4>Classificação do Item {{ item.item }}</h4>
+                    <div class="ranking-grid">
+                      <div class="ranking-card" *ngFor="let ranking of item.rankings" [ngClass]="'place-' + ranking.position">
+                        <strong>{{ ranking.position }}º lugar</strong>
+                        <label>Empresa <input class="no-print" type="text" [(ngModel)]="ranking.company" [disabled]="isFinished" placeholder="Razão social"><span class="print-only">{{ ranking.company || '-' }}</span></label>
+                        <label>Marca <input class="no-print" type="text" [(ngModel)]="ranking.brand" [disabled]="isFinished" placeholder="Marca"><span class="print-only">{{ ranking.brand || '-' }}</span></label>
+                        <label>Preço <input class="no-print" type="number" min="0" step="0.0001" [(ngModel)]="ranking.price" [disabled]="isFinished" placeholder="0,0000"><span class="print-only">{{ ranking.price ? (ranking.price | currency:'BRL':'symbol':'1.2-4':'pt-BR') : '-' }}</span></label>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+          <tfoot><tr><th colspan="8">Total geral</th><th>{{ data.totals.original | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</th><th>{{ minimumGrandTotal() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</th></tr></tfoot>
+        </table>
+      </section>
+
+      <section class="won-report">
+        <h3>Relatório de Itens Ganhos</h3>
+        <p *ngIf="!wonItems.length">Nenhum item marcado como vencedor ainda.</p>
+        <div class="won-report-table" *ngIf="wonItems.length">
+          <div class="won-report-row header"><span>Item</span><span>Descrição</span><span>Qtd.</span><span>Unidade</span><span>Marca</span><span>Preço final</span><span>Total final</span></div>
+          <div class="won-report-row" *ngFor="let item of wonItems"><span>{{ item.item }}</span><span>{{ item.specification }}</span><span>{{ item.quantity }}</span><span>{{ item.unit }}</span><span>{{ item.brand }}</span><span>{{ item.minimum_unit_price | currency:'BRL':'symbol':'1.2-4':'pt-BR' }}</span><span>{{ minimumTotal(item) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span></div>
+          <div class="won-total"><span>Total geral ganho</span><strong>{{ wonGrandTotal() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong></div>
+        </div>
+      </section>
+
+      <section class="document-footer">
+        <pre>{{ data.declarations || 'VALIDADE DA PROPOSTA: DE ACORDO COM O EDITAL' }}</pre>
+        <div class="bank-data" *ngIf="data.company.bank || data.company.agency || data.company.checking_account"><strong>Dados bancários</strong><span>Banco: {{ data.company.bank || '-' }}</span><span>Agência: {{ data.company.agency || '-' }}</span><span>Conta: {{ data.company.checking_account || '-' }}</span></div>
+        <div class="signature"><p>{{ data.signature?.city }}, {{ data.signature?.proposal_date | date:'dd/MM/yyyy':'':'pt-BR' }}</p><div></div><strong>{{ data.signature?.responsible_name || data.company.corporate_reason }}</strong><span *ngIf="data.signature?.responsible_rg || data.signature?.responsible_cpf">RG: {{ data.signature?.responsible_rg || '-' }} · CPF: {{ data.signature?.responsible_cpf || '-' }}</span></div>
+      </section>
+    </article>
+  </ng-container>
+</main>
