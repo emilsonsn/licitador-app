@@ -5,6 +5,7 @@ import {TenderService} from "@services/tender/tender.service";
 import { ToastrService } from 'ngx-toastr';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '@services/Auth/auth.service';
+import {getTenderOrigin, TenderOrigin} from '@shared/tender-origin';
 
 @Component({
   selector: 'app-tender-card',
@@ -70,6 +71,10 @@ export class TenderCardComponent {
       return url;
     }
     return '';
+  }
+
+  getOrigin(originUrl?: string | null): TenderOrigin | null {
+    return getTenderOrigin(originUrl);
   }
 
   getEdital(id: any){

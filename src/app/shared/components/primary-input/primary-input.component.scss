@@ -78,6 +78,26 @@
         flex-direction: column;
         gap: 0.5rem;
 
+        .multiselect-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          padding: 2px 4px;
+          color: $secondary-color;
+          font-size: 0.82rem;
+          font-weight: 700;
+
+          button {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 6px;
+            color: #ffffff;
+            background: $primary-color;
+            cursor: pointer;
+          }
+        }
+
         label {
           width: 100%;
           display: flex;
@@ -125,4 +145,3 @@
     }
   }
 }
-
