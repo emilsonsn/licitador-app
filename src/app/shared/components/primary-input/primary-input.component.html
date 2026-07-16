@@ -98,6 +98,10 @@
           [ngClass]="{'multiselect-input': true, 'input-content-error': errorInput}"
         />
         <div class="multiselect-dropdown" *ngIf="isDropdownOpen">
+          <div class="multiselect-toolbar">
+            <span>{{ selectedOptions.size }} selecionado(s)</span>
+            <button type="button" *ngIf="selectedOptions.size" (click)="clearMultiselect($event)">Limpar</button>
+          </div>
           <input
             type="text"
             placeholder="Buscar..."

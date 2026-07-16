@@ -14,6 +14,7 @@ interface CalendarTenderModalData {
 
 export interface CalendarTenderModalResult {
   status?: CalendarTenderStatus;
+  calendarDate?: string | null;
   removed?: boolean;
 }
 
@@ -25,6 +26,7 @@ export interface CalendarTenderModalResult {
 export class CalendarTenderModalComponent {
   protected readonly dayjs = dayjs;
   public isSaving = false;
+  public calendarDate = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CalendarTenderModalData,
@@ -33,6 +35,27 @@ export class CalendarTenderModalComponent {
     private readonly _toastrService: ToastrService,
     private readonly dialog: MatDialog
   ) {
+    this.calendarDate = this.toDateTimeLocal(this.data.tender.calendar_date);
+  }
+
+  saveCalendarDate(): void {
+    if (this.isSaving) {
+      return;
+    }
+
+    const calendarDate = this.calendarDate ? dayjs(this.calendarDate).format('YYYY-MM-DD HH:mm:ss') : null;
+    this.isSaving = true;
+
+    this.tenderService.calendarToggle(this.tender.id, undefined, calendarDate).subscribe({
+      next: (res) => {
+        const savedDate = res?.data?.calendar_date ?? calendarDate;
+        this.tender.calendar_date = savedDate;
+        this._toastrService.success('Data atualizada com sucesso.');
+        this.dialogRef.close({calendarDate: savedDate});
+      },
+      error: () => this._toastrService.error('Não foi possível atualizar a data.'),
+      complete: () => this.isSaving = false
+    });
   }
 
   get tender(): Tender {
@@ -102,5 +125,9 @@ export class CalendarTenderModalComponent {
 
   close(): void {
     this.dialogRef.close();
+  }
+
+  private toDateTimeLocal(date?: string | null): string {
+    return date && dayjs(date).isValid() ? dayjs(date).format('YYYY-MM-DDTHH:mm') : '';
   }
 }

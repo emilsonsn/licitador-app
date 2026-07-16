@@ -12,6 +12,7 @@ import {ToastrService} from 'ngx-toastr';
 import introJs from 'intro.js';
 import { AuthService } from '@services/Auth/auth.service';
 import { ViewChild, ElementRef } from '@angular/core';
+import {TENDER_PLATFORM_OPTIONS} from '@shared/tender-platforms';
 
 @Component({
   selector: 'app-tenders',
@@ -23,6 +24,7 @@ export class TendersComponent implements OnInit {
   public statesOptions: { value: string, label: string }[] = [];
   public citiesOptions: { value: string, label: string }[] = [];
   public iminenceOptions: { value: string, label: string }[] = [];
+  public readonly platformOptions = TENDER_PLATFORM_OPTIONS;
   private allCities: any[] = [];
   private selectedStates: Set<string> = new Set();
   public tenderForm!: FormGroup;
@@ -65,6 +67,7 @@ export class TendersComponent implements OnInit {
       observations: [''],
       favorite: [false],
       status: [[]],
+      origin_domains: [''],
     });
   }
 

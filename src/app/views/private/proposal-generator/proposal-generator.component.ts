@@ -14,6 +14,7 @@ import {
 } from '@model/proposal';
 import {ProposalService, ProposalFilters} from '@services/Proposal/proposal.service';
 import {DialogConfirmComponent} from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-proposal-generator',
@@ -41,6 +42,7 @@ export class ProposalGeneratorComponent implements OnInit {
     private readonly proposalService: ProposalService,
     private readonly toastr: ToastrService,
     private readonly dialog: MatDialog,
+    private readonly router: Router,
   ) {
     this.filterForm = this.fb.group({
       search: [''],
@@ -193,6 +195,29 @@ export class ProposalGeneratorComponent implements OnInit {
       error: () => this.toastr.error('Não foi possível carregar a visualização da proposta.'),
       complete: () => this.isLoadingView = false,
     });
+  }
+
+  public openTracking(proposal: Proposal, event?: Event): void {
+    event?.stopPropagation();
+    if (!proposal.id) {
+      return;
+    }
+
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/painel/proposal-generator', proposal.id, 'tracking'])
+    );
+    window.open(url, '_blank', 'noopener');
+  }
+
+  public openCatalog(proposal: Proposal, event?: Event): void {
+    event?.stopPropagation();
+    if (!proposal.id) {
+      return;
+    }
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/painel/proposal-generator', proposal.id, 'catalog'])
+    );
+    window.open(url, '_blank', 'noopener');
   }
 
   public deleteProposal(proposal: Proposal, event?: Event): void {

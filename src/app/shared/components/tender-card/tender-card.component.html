@@ -44,6 +44,15 @@
           </div>
         </div>
         <p><strong>Cidade: </strong>{{ data?.city }} - {{ data?.uf }}</p>
+        @if (getOrigin(data?.origin_url); as origin) {
+          <button
+            type="button"
+            class="origin-logo"
+            [attr.aria-label]="'Abrir site de origem: ' + origin.name"
+            (click)="openUrlOrigin(formatUrl(data?.origin_url))">
+            <img [src]="origin.image" [alt]="origin.name" [title]="origin.name">
+          </button>
+        }
         <p>
           <strong>Valor Estimado: </strong>
           <span

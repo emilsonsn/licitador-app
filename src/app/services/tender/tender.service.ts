@@ -38,8 +38,22 @@ export class TenderService {
     return this._http.get(`${environment.api}/tender/calendar?${filterParams}`);
   }
 
-  public calendarToggle(id: number, status?: CalendarTenderStatus): Observable<any> {
-    return this._http.post(`${environment.api}/tender/calendar/${id}`, status ? {status} : {});
+  public calendarToggle(
+    id: number,
+    status?: CalendarTenderStatus,
+    calendarDate?: string | null
+  ): Observable<any> {
+    const payload: {status?: CalendarTenderStatus; calendar_date?: string | null} = {};
+
+    if (status) {
+      payload.status = status;
+    }
+
+    if (calendarDate !== undefined) {
+      payload.calendar_date = calendarDate;
+    }
+
+    return this._http.post(`${environment.api}/tender/calendar/${id}`, payload);
   }
 
   public edital(id: number): Observable<any> {

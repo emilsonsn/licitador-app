@@ -41,16 +41,26 @@
         *ngFor="let proposal of proposals"
         [class.active]="proposal.id === currentProposalId"
         (click)="editProposal(proposal)">
-        <div>
-          <strong>{{ proposal.title || proposal.organ_name || 'Proposta sem título' }}</strong>
+        <div class="proposal-list-content">
+          <div class="proposal-list-heading">
+            <strong>{{ proposal.title || proposal.organ_name || 'Proposta sem título' }}</strong>
+            <span class="status-pill">{{ getStatusLabel(proposal.status) }}</span>
+          </div>
           <span>{{ proposal.organ_name || 'Órgão não informado' }}</span>
         </div>
         <div class="list-item-meta">
-          <span class="status-pill">{{ getStatusLabel(proposal.status) }}</span>
           <button type="button" title="Visualizar" (click)="openView(proposal); $event.stopPropagation()">
             <i class="fa-solid fa-eye"></i>
           </button>
-          <button type="button" title="Remover" (click)="deleteProposal(proposal, $event)">
+          <button type="button" class="tracking-action" title="Acompanhamento" (click)="openTracking(proposal, $event)">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Acompanhamento</span>
+          </button>
+          <button type="button" class="catalog-action" title="Criar catálogo (Beta)" (click)="openCatalog(proposal, $event)">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Catálogo</span>
+          </button>
+          <button type="button" class="delete-action" title="Remover" (click)="deleteProposal(proposal, $event)">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>

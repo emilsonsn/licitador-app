@@ -152,6 +152,7 @@ button:disabled {
 
 .proposal-list-item {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
@@ -160,6 +161,23 @@ button:disabled {
   padding: 12px;
   margin-bottom: 10px;
   cursor: pointer;
+}
+
+.proposal-list-content {
+  width: 100%;
+  min-width: 0;
+}
+
+.proposal-list-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.proposal-list-heading strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .proposal-list-item.active,
@@ -184,9 +202,13 @@ button:disabled {
 }
 
 .list-item-meta {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) minmax(0, .75fr) 34px;
   align-items: center;
   gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid #e3e8ef;
 }
 
 .list-item-meta button,
@@ -199,6 +221,42 @@ button:disabled {
   padding: 0;
   color: #475467;
   background: #edf1f6;
+}
+
+.list-item-meta .tracking-action {
+  width: auto;
+  flex: 1;
+  padding: 0 10px;
+  color: #ffffff;
+  background: #047857;
+}
+
+.list-item-meta .catalog-action {
+  width: auto;
+  min-width: 0;
+  padding: 0 8px;
+  color: #ffffff;
+  background: #7c3aed;
+}
+
+.list-item-meta .catalog-action span {
+  margin: 0;
+  color: inherit;
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.list-item-meta .delete-action {
+  flex: 0 0 34px;
+  color: #b42318;
+  background: #fee4e2;
+}
+
+.list-item-meta .tracking-action span {
+  margin: 0;
+  color: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
 .status-pill {
