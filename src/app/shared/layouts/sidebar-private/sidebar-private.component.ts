@@ -33,6 +33,13 @@ export class SidebarPrivateComponent implements OnInit {
     },
     {
       type: 'link',
+      label: 'Kanban',
+      icon: 'fa-solid fa-table-columns',
+      link: 'painel/kanban',
+      private: false
+    },
+    {
+      type: 'link',
       label: 'Cotar frete',
       icon: 'fa-solid fa-truck-fast',
       link: 'painel/freight-quotes',

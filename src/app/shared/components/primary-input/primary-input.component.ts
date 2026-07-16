@@ -38,6 +38,8 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() fill: boolean = false;
   @Input() options: { value: string, label: string, sigla?: string }[] = [];
   @Input() returnArrayType: 'value' | 'label' | 'sigla' = 'label'; // Definido para retornar valores ou labels
+  @Input() selectionSummary: boolean = false;
+  @Input() selectionNoun: string = 'item';
   @Output() onClick = new EventEmitter();
   @Output() selectionChange = new EventEmitter<{ value: string, label: string }[]>();
   @ViewChild('inputElement') inputElement?: ElementRef<HTMLInputElement>;
@@ -159,7 +161,20 @@ export class PrimaryInputComponent implements ControlValueAccessor {
       return this.options.find(option => option.value === value);
     }).filter(option => option !== undefined) as { value: string, label: string }[];
 
-    this.displayText = selectedOptionsArray.map(option => option.label).join(',');
+    if (this.selectionSummary && selectedOptionsArray.length) {
+      const noun = selectedOptionsArray.length === 1 ? this.selectionNoun : `${this.selectionNoun}s`;
+      this.displayText = `${selectedOptionsArray.length} ${noun} selecionada${selectedOptionsArray.length === 1 ? '' : 's'}`;
+      return;
+    }
+
+    this.displayText = selectedOptionsArray.map(option => option.label).join(', ');
+  }
+
+  clearMultiselect(event?: Event): void {
+    event?.stopPropagation();
+    this.selectedOptions.clear();
+    this.updateDisplayText();
+    this.updateValue();
   }
 
   updateValue() {
@@ -190,8 +205,11 @@ export class PrimaryInputComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     if (typeof value === 'string' && value !== '') {
-      const valuesArray = value.split(',');      
-      this.selectedOptions = new Set(valuesArray);
+      const valuesArray = value.split(',').map((item) => item.trim());
+      const selectedValues = this.options
+        .filter((option) => option.value.split(',').every((item) => valuesArray.includes(item)))
+        .map((option) => option.value);
+      this.selectedOptions = new Set(selectedValues.length ? selectedValues : valuesArray);
     } else {
       this.selectedOptions = new Set();
     }

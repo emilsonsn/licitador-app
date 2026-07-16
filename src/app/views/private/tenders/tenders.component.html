@@ -116,6 +116,21 @@
           <i class="fa-solid fa-chevron-down"></i>
         </app-primary-input>
 
+        <app-primary-input
+          [value]="this.tenderForm.get('origin_domains')?.value"
+          [fill]="fill"
+          formControlName="origin_domains"
+          [type]="'multiselect'"
+          [placeholder]="'Selecione uma ou mais plataformas'"
+          [inputName]="'origin-domains'"
+          [label]="'Plataformas de origem'"
+          [returnArrayType]="'value'"
+          [options]="platformOptions"
+          [selectionSummary]="true"
+          [selectionNoun]="'plataforma'">
+          <i class="fa-solid fa-globe"></i>
+        </app-primary-input>
+
         <mat-divider></mat-divider>
 
         <!-- <app-primary-input
